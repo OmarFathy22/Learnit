@@ -63,9 +63,7 @@ export default function TransitionsModal({ theme, ID, FEELING, setFEELING }) {
     await setDoc(doc(db, UID, id), {
       feeling: FEELING,
       id: ID,
-      uId: JSON.parse(localStorage.getItem("user")).sub,
-      picture: JSON.parse(localStorage.getItem("user")).picture,
-      name: JSON.parse(localStorage.getItem("user")).name,
+  
       color: "#30E3DF",
       date: moment().format("LLL"),
       mediaType: Media,
@@ -194,9 +192,9 @@ export default function TransitionsModal({ theme, ID, FEELING, setFEELING }) {
               <Stack direction="row" sx={{ alignItems: "center" }}>
                 <Avatar
                   alt= "logo"
-                  src={JSON.parse(localStorage.getItem("user")).picture}
+                  src={JSON.parse(localStorage.getItem("user"))?.picture}
                 >
-                  {JSON.parse(localStorage.getItem("user")).picture}
+                  {JSON.parse(localStorage.getItem("user"))?.picture}
                 </Avatar>
                 <Typography
                   sx={{ ml: "20px", fontWeight: "100" }}

@@ -78,7 +78,6 @@ function ResponsiveDrawer({
   const [openYouSureForLogout, setopenYouSureForLogout] = useState(false);
   const navigate = useNavigate();
   // const location = useLocation();
-  const { sub } = JSON.parse(localStorage.getItem("user"));
   const { Window } = props;
   const list = [
     { text: "/", icon: <HomeIcon /> },

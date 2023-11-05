@@ -4,7 +4,6 @@ import Profile from "./pages/Profile";
 import Home from './pages/Home'
 import DashBoard from './pages/DashBoard'
 import LeaderBoard from './pages/LeaderBoard'
-import {useEffect} from 'react'
 // import Home from "./pages/Home";
 // import Create from "./pages/Create";oa
 
@@ -28,13 +27,7 @@ const router = createBrowserRouter(
   )
 );
 function App() {
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if(!user){
-      localStorage.setItem("user", JSON.stringify({}));
-    }
-  } 
-  , [])
+  
   return (
       <RouterProvider router={router} />
   );

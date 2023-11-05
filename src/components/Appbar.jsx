@@ -8,7 +8,6 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Avatar, Divider } from "@mui/material";
 import { useNavigate } from "react-router";
-import Notifications from "./Notifications";
 import SearchBar from "./SearchBar";
 import LoginButton from "../Comp/Login/LoginButton";
 import LoginModal from "../Comp/Login/LoginModal";
@@ -22,14 +21,12 @@ export default function PrimarySearchAppBar({
 }) {
   const navigate = useNavigate();
 
-  const { picture } = JSON.parse(localStorage.getItem("user"));
-  const { name } = JSON.parse(localStorage.getItem("user"));
-  const { sub } = JSON.parse(localStorage.getItem("user"));
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = (params) => {
     setOpen(true);
   }
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user")) || {};
 
   return (
     <Box >
@@ -61,7 +58,7 @@ export default function PrimarySearchAppBar({
           >
             {/* <Notifications /> */}
             <div style={{width:"100% !important"}}>
-           {Object.keys(user).length?    <AvatarPage user={user}/>
+           {Object.keys(user)?.length?    <AvatarPage user={user}/>
               :
               <LoginModal/>}
             </div>
