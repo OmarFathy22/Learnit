@@ -15,6 +15,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import CoursesDetails from "./pages/CoursesDetails";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
       <Route exact path="/" element={<Root />}>
@@ -26,14 +27,14 @@ const router = createBrowserRouter(
       </Route>
   )
 );
-useEffect(() => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  if(!user){
-    localStorage.setItem("user", JSON.stringify({}));
-  }
-} 
-, [])
 function App() {
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if(!user){
+      localStorage.setItem("user", JSON.stringify({}));
+    }
+  } 
+  , [])
   return (
       <RouterProvider router={router} />
   );
