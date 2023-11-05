@@ -29,7 +29,6 @@ const Root = () => {
         hideProgressBar={true}
         newestOnTop={true}
         closeOnClick={true}
-
        />
         </Box>
     </ThemeProvider>
