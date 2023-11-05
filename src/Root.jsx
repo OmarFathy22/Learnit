@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Outlet } from "react-router";
 import getDesignTokens from "./styles/MyTheme";
 import ScrollToTop from "./components/ScrollToTop";
+import { ToastContainer } from "react-toastify";
 
 const Root = () => {
 
@@ -22,6 +23,14 @@ const Root = () => {
         <Box>
           <ScrollToTop />
           <Outlet />
+          <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        hideProgressBar={true}
+        newestOnTop={true}
+        closeOnClick={true}
+
+       />
         </Box>
     </ThemeProvider>
   );

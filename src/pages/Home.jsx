@@ -6,7 +6,6 @@ import {
   Stack,
   ThemeProvider,
 } from "@mui/material";
-import { ToastContainer } from "react-toastify";
 import Appbar from "../components/Appbar";
 import React, { useMemo, useState , useEffect } from "react";
 import getDesignTokens from "../styles/MyTheme";
@@ -58,14 +57,7 @@ const Root = (props) => {
           <MainContent theme={theme}  uid={"AllPosts"} />
           {/* <RightSection theme={theme} /> */}
           {/* <RightDrawer theme={theme} /> */}
-          <ToastContainer
-        position="top-center"
-        autoClose={1000}
-        hideProgressBar={true}
-        newestOnTop={true}
-        closeOnClick={true}
-
-       />
+        
         </Stack>
         {/* <Outlet /> */}
       </Box>
