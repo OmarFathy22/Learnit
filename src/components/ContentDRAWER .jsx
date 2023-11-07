@@ -70,8 +70,13 @@ function ResponsiveDrawer({
   setmyMode,
   handleDrawerToggle,
   mobileOpen,
+  setCurr,
+  curr,
 }) {
   const [openYouSureForLogout, setopenYouSureForLogout] = useState(false);
+  const handleCurr = (index) => {
+    setCurr(index)
+  }
   const navigate = useNavigate();
   // const location = useLocation();
   const { Window } = props;
@@ -103,10 +108,15 @@ function ResponsiveDrawer({
             return (
               <label htmlFor={"FabIconClick"} key={index}>
                 <ListItemButton
+                  onClick={() => {
+                    handleCurr(index)
+                  }}
+                    
+                  
                   key={index}
                   sx={{
                     // padding: "2px",
-                    backgroundColor: "rgb(98 94 94 / 30%)",
+                    backgroundColor: curr === index ?"rgb(99 95 95 / 10%)" :"rgb(98 94 94 / 30%)",
                     // margin: "20px 0",
                     width: "100%",
                   }}
