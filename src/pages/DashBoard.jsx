@@ -12,9 +12,6 @@ import { Outlet } from "react-router";
 import getDesignTokens from "../styles/MyTheme";
 import MainContent from "../components/MainContentForBookmarks";
 import DRAWER from "../components/DRAWER";
-import Categories from "../Comp/Courses/Categories";
-import Loading from "../Comp/Courses/Loading";
-import {data} from "../../Data"
 const Root = (props) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
@@ -57,7 +54,6 @@ const Root = (props) => {
           />
           <MainContent
             theme={theme}
-            uid={uId}
           />
       
             
