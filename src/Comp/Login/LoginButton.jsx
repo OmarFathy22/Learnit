@@ -10,7 +10,7 @@ const LoginButton = (props) => {
         variant="outlined"
         className="gap-1 !text-white !border-white  hover:!border-blue-50 hover:!bg-blue-300 !transition-all !duration-500"
       >
-        <LoginIcon /> Login
+        <LoginIcon /> {props.text || "Login"}
       </Button>
     </div>
   );

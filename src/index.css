@@ -16,6 +16,8 @@
   animation: animate_progress 2s linear forwards;
 
 }
+
+
 @keyframes animate_progress {
   0% {
     width: 0;

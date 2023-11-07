@@ -3,6 +3,7 @@ import Root from "./Root";
 import Home from './pages/Home'
 import DashBoard from './pages/DashBoard'
 import LeaderBoard from './pages/LeaderBoard'
+import SpecificCourse from './pages/SpecificCourse'
 // import Home from "./pages/Home";
 // import Create from "./pages/Create";oa
 
@@ -19,7 +20,9 @@ const router = createBrowserRouter(
       <Route exact path="/" element={<Root />}>
         <Route  path="/" element={<Home />} />
         <Route  path="courses/:courseId" element={<CoursesDetails />} />
+        <Route  path="courses/:courseId/chapters/:chapterId" element={<SpecificCourse />} />
         <Route  path="leaderboard" element={<LeaderBoard />} />
+        <Route  path="dashboard" element={<DashBoard />} />
         <Route  path="dashboard" element={<DashBoard />} />
       </Route>
   )

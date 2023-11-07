@@ -14,7 +14,9 @@ import { toast, ToastContainer } from "react-toastify";
 import UserProgress from "../Comp/Login/UserProgress";
 import { BsBook } from "react-icons/bs";
 import LoginModal from "../Comp/Login/LoginModal";
+import { useNavigate } from "react-router-dom";
 const Root = (props) => {
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -151,7 +153,11 @@ const Root = (props) => {
                 <h1>OR</h1>
                 <div className="h-[1px] w-[40%] bg-white" />
               </div>
-              <button className="bg-gray-100 p-1 hover:bg-gray-300 transition-all duration-300 text-black rounded-md">
+              <button
+               onClick={() => {
+                 navigate(`/courses/1/chapters/1`)
+               }}
+              className="bg-gray-100 p-1 hover:bg-gray-300 transition-all duration-300 text-black rounded-md">
                 Preview Course{" "}
               </button>
             </div>
