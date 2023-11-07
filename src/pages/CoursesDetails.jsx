@@ -15,8 +15,6 @@ import DRAWER from "../components/DRAWER";
 import UserProgress from "../Comp/Login/UserProgress";
 import { BsBook } from "react-icons/bs";
 const Root = (props) => {
-  const { sub } = JSON.parse(localStorage.getItem("CurrUser"))
-  const uId = sub;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

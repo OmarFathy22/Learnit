@@ -16,8 +16,6 @@ import Categories from "../Comp/Courses/Categories";
 import Loading from "../Comp/Courses/Loading";
 import {data} from "../../Data"
 const Root = (props) => {
-  const { sub } = JSON.parse(localStorage.getItem("CurrUser"))
-  const uId = sub;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

@@ -38,7 +38,6 @@ export default function CircularIntegration({
           disabled={LOADING}
           onClick={() => {
             setLOADING(true);
-            func(JSON.parse(localStorage.getItem("user"))?.sub , ID);
             func("AllPosts", ID);
           }}
         >
