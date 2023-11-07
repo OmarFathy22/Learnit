@@ -6,7 +6,7 @@ const Categories = ({curr , setCurr}) => {
         {categories.map((category , index) => (
            <li
             onClick={() => setCurr(index)}
-           key={index} className={`py-1   cursor-pointer border-[1px] whitespace-nowrap border-gray-300 rounded-md ${index === curr ? "border-blue-400 bg-blue-100":""}`}>{category}</li>
+           key={index} className={`py-1 px-4   cursor-pointer border-[1px] whitespace-nowrap border-gray-300 rounded-md ${index === curr ? "border-blue-400 bg-blue-100":""}`}>{category}</li>
         ))}
       </ul>
   );

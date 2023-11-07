@@ -12,14 +12,9 @@ import { Outlet } from "react-router";
 import getDesignTokens from "../styles/MyTheme";
 import MainContent from "../components/MainContent";
 import DRAWER from "../components/DRAWER";
-import { useParams } from "react-router";
-import { db } from "../../firebase/config";
-import { useDocument } from "react-firebase-hooks/firestore";
- import { doc } from "firebase/firestore";
  import ProfileLoading from '../components/loadingProfile'
 const Root = (props) => {
-  const { uId } = useParams();
-  const [value, loading] = useDocument(doc(db, "AllUsers", uId));
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
