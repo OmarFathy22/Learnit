@@ -63,8 +63,8 @@ const SearchBar = ({theme}) => {
     }, 200);
   };
   return (
-    <Box sx={{display:"flex" , justifyContent:"center" , flexDirection:"column" , position:"relative" }}>
-    <Search>
+    <Box sx={{display:"flex" , justifyContent:"center" , flexDirection:"column" , position:"relative" , width:{sm:"100%" , lg:"500px"} }}>
+    <Search className=''>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>

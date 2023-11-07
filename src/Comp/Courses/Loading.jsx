@@ -40,25 +40,27 @@ function Media({ value , curr }) {
           className="justify-center flex-wrap  mx-auto  self-center  grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4"
         >
           {(loading ? Array.from(new Array(10)) : value).map((item, index) => (
-            <Box
+            <div
               key={index}
-              sx={{
-                width: 210,
-                borderRadius: 2,
+              style={{
+                width: 350,
+                borderRadius: "16px",
                 cursor: "pointer",
-                border: `${!loading && "1px solid silver"}`,
-                p: 1,
+                border: !loading && "1px solid silver",
+                padding: "10px",
               }}
+              
             >
               <Link to={`/courses/${item?.title}`}>
                 {item ? (
                   <img
-                    style={{ width: 210, height: 118 }}
+                    
+
                     alt={item.title}
                     src={item.src}
-                    className={`image ${
+                    className={` image ${
                       loadingImage ? "loading" : ""
-                    } rounded-md `}
+                    } rounded-[16px] `}
                   />
                 ) : (
                   <Skeleton variant="rectangular" width={180} height={118} />
@@ -100,7 +102,7 @@ function Media({ value , curr }) {
                   </Box>
                 )}
               </Link>
-            </Box>
+            </div>
           ))}
         </Grid>
       </div>
