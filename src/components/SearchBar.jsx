@@ -70,9 +70,9 @@ const SearchBar = ({theme}) => {
       <StyledInputBase
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
-        onChange={handleSearch}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
+        // onChange={handleSearch}
+        // onFocus={handleFocus}
+        // onBlur={handleBlur}
       />
     {OpenSearchMenu && <SearchResults Search={filterAccounts.trim().toLocaleLowerCase()} theme={theme}/>}
     </Search>
