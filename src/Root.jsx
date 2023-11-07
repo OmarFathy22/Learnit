@@ -24,7 +24,7 @@ const Root = () => {
           <ScrollToTop />
           <Outlet />
           <ToastContainer
-        position="top-center"
+        position="top-right"
         autoClose={1000}
         hideProgressBar={true}
         newestOnTop={true}

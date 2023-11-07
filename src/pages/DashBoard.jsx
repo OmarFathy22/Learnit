@@ -12,6 +12,9 @@ import { Outlet } from "react-router";
 import getDesignTokens from "../styles/MyTheme";
 import MainContent from "../components/MainContentForBookmarks";
 import DRAWER from "../components/DRAWER";
+import Categories from "../Comp/Courses/Categories";
+import Loading from "../Comp/Courses/Loading";
+import {data} from "../../Data"
 const Root = (props) => {
   const { sub } = JSON.parse(localStorage.getItem("CurrUser"))
   const uId = sub;
@@ -36,6 +39,7 @@ const Root = (props) => {
           backgroundColor:
             theme.palette.mode === "light" ? " rgb(248, 248, 248)" : null,
           minHeight: "100vh !important",
+          
         }}
       >
         {/* Appbar is landing here */}
@@ -57,6 +61,9 @@ const Root = (props) => {
             theme={theme}
             uid={uId}
           />
+      
+            
+        
 
         </Stack>
         {/* Main content is landing here */}

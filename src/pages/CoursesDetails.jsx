@@ -55,8 +55,8 @@ const Root = (props) => {
             mode={mode}
             setmyMode={setmyMode}
           />
-          <div className="mt-[100px] w-full gap-5 borderr flex items-start ">
-      <div className='w-[60%] ml-5 border-2 border-gray-500 rounded-md p-8 flex flex-col gap-3'>
+          <div className="mt-[120px] sm:flex-col sm:items-center w-full gap-5 borderr flex items-start ">
+      <div className='w-[60%] sm:w-[95%] min-600:ml-5 border-2 border-gray-500 rounded-md p-8 flex flex-col gap-3'>
         <div className="flex items-center gap-2">
           <BsBook/>
           <h1>22 chapters</h1>
@@ -75,7 +75,7 @@ const Root = (props) => {
             <h1 className="text-[13px] mt-1 text-blue-900">0% Complete</h1>
           </div>
       </div>
-      <div style={{  backgroundImage: "linear-gradient(to right, #0f2027, #203a43, #2c5364)",}} className='text-white w-[40%] border-2 border-gray-500 rounded-md p-8 flex flex-col gap-2'>
+      <div style={{  backgroundImage: "linear-gradient(to right, #0f2027, #203a43, #2c5364)",}} className='text-white sm:w-[95%] w-[40%] border-2 border-gray-500 rounded-md p-8 flex flex-col gap-2'>
         <h1 className="font-bold text-[25px] ">Ready to start building?</h1>
          <h3>Track your progress, watch with subtitles, change quality & speed, and more.</h3>
          <button className="bg-gray-100 p-1 hover:bg-gray-300 transition-all duration-300 text-black rounded-md">Enroll for Free </button>

@@ -49,7 +49,9 @@ export default function PrimarySearchAppBar({
           >
             <MenuIcon />
           </IconButton>
-          <SearchBar theme={theme} />
+          <div className="sm:hidden">
+            <SearchBar theme={theme} />
+          </div>
           <Box sx={{flexGrow:{xs:"1"}}}/>
           <Box
             sx={{
@@ -68,6 +70,9 @@ export default function PrimarySearchAppBar({
           
         </Toolbar>
         <Divider />
+      <div className="min-600:hidden">
+            <SearchBar theme={theme} />
+          </div>
       </AppBar>
     </Box>
   );

@@ -138,4 +138,91 @@ export const data3 = [
     level: '1',
     points: '100',
   },
+  {
+    src: 'https://avatars.githubusercontent.com/u/145145040?v=4',
+    name: 'Omar Fathy',
+    level: '1',
+    points: '100',
+  },
+  {
+    src: 'https://avatars.githubusercontent.com/u/145145040?v=4',
+    name: 'Omar Fathy',
+    level: '1',
+    points: '100',
+  },
+  {
+    src: 'https://avatars.githubusercontent.com/u/145145040?v=4',
+    name: 'Omar Fathy',
+    level: '1',
+    points: '100',
+  },
+  {
+    src: 'https://avatars.githubusercontent.com/u/145145040?v=4',
+    name: 'Omar Fathy',
+    level: '1',
+    points: '100',
+  },
+  {
+    src: 'https://avatars.githubusercontent.com/u/145145040?v=4',
+    name: 'Omar Fathy',
+    level: '1',
+    points: '100',
+  },
+  {
+    src: 'https://avatars.githubusercontent.com/u/145145040?v=4',
+    name: 'Omar Fathy',
+    level: '1',
+    points: '100',
+  },
+  {
+    src: 'https://avatars.githubusercontent.com/u/145145040?v=4',
+    name: 'Omar Fathy',
+    level: '1',
+    points: '100',
+  },
+  {
+    src: 'https://avatars.githubusercontent.com/u/145145040?v=4',
+    name: 'Omar Fathy',
+    level: '1',
+    points: '100',
+  },
+  {
+    src: 'https://avatars.githubusercontent.com/u/145145040?v=4',
+    name: 'Omar Fathy',
+    level: '1',
+    points: '100',
+  },
+  {
+    src: 'https://avatars.githubusercontent.com/u/145145040?v=4',
+    name: 'Omar Fathy',
+    level: '1',
+    points: '100',
+  },
+  {
+    src: 'https://avatars.githubusercontent.com/u/145145040?v=4',
+    name: 'Omar Fathy',
+    level: '1',
+    points: '100',
+  },
+]
+
+
+// make array of categories of courses
+
+export const categories = [
+    "Web Development",
+    "Mobile Development",
+    "Game Development",
+    "Machine Learning",
+    "Data Science",
+    "Artificial Intelligence",
+    "Cyber Security",
+    "Cloud Computing",
+    "Software Engineering",
+    "Programming Languages",
+    "Databases",
+    "Cloud Computing",
+    "Software Engineering",
+    "Programming Languages",
+    "Databases"
 ]
