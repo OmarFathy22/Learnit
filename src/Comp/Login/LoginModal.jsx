@@ -4,17 +4,12 @@ import { Box, styled } from '@mui/system';
 import { Modal as BaseModal } from '@mui/base/Modal';
 import { Button } from '@mui/base/Button';
 import { useSpring, animated } from '@react-spring/web';
-import LoginButton from './LoginButton';
 import GoogleLogin from './GoogleLoginButton';
 
-export default function SpringModal() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+export default function SpringModal({ open,handleClose}) {
+  
   return (
     <div>
-      <LoginButton handleOpen={handleOpen} />
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"

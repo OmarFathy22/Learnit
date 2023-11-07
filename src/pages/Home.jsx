@@ -12,7 +12,6 @@ import getDesignTokens from "../styles/MyTheme";
 import MainContent from "../components/MainContent";
 import DRAWER from "../components/DRAWER";
 
-// import RightDrawer from "../components/RightDrawer";
 const Root = (props) => {
   useEffect(() => {
   
@@ -54,10 +53,7 @@ const Root = (props) => {
             mode={mode}
             setmyMode={setmyMode}
           />
-          <MainContent theme={theme}  uid={"AllPosts"} />
-          {/* <RightSection theme={theme} /> */}
-          {/* <RightDrawer theme={theme} /> */}
-        
+          <MainContent theme={theme}  />        
         </Stack>
         {/* <Outlet /> */}
       </Box>
