@@ -1,5 +1,7 @@
 import React from "react";
 import { categories } from "../../../Data";
+
+
 const Categories = ({ curr, setCurr }) => {
   return (
     <ul className="flex gap-2 my-5  items-center">

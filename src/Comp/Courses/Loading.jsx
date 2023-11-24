@@ -9,10 +9,19 @@ import { data } from "../../../Data";
 import { BsBook } from "react-icons/bs";
 import UserProgress from "../Login/UserProgress";
 import Categories from "./Categories";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { collection } from "firebase/firestore";
+import { db } from "../../../firebase/config";
+
 
 function Media({ value , curr }) {
   const [loading, setLoading] = React.useState(true);
   const [loadingImage, setLoadingImage] = React.useState(true);
+  const [Value, Loading, error] = useCollection(collection(db, "ourses"));
+  if(error) console.log('error')
+  if(loading) console.log('loading')
+  if(Value) console.log(Value?.docs)
+
   React.useEffect(() => {
     setLoading(true);
     setLoadingImage(true);

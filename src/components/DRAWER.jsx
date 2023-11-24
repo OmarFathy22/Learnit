@@ -84,6 +84,7 @@ function ResponsiveDrawer({
     { text: "DashBoard", icon: <PersonIcon /> },
     // { text: "Create", icon: <Create /> },
     { text: "LeaderBoard", icon: <BookmarksIcon /> },
+    { text: "Become an instructor", icon: <PersonIcon /> },
   ];
   const drawer = (
     <div>
@@ -111,6 +112,9 @@ function ResponsiveDrawer({
                   }
                    else if (item.text === "LeaderBoard") {
                     navigate('/leaderboard')
+                  }
+                   else if (item.text === "Become an instructor") {
+                    navigate('/instructor')
                   }
                 }}
                 key={index}

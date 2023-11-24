@@ -8,6 +8,9 @@ import { auth } from "../../../firebase/config";
 import GoogleButton from "react-google-button";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { doc, setDoc } from "firebase/firestore"; 
+import { db } from "../../../firebase/config";
+
 
 
 
@@ -18,6 +21,7 @@ const provider = new GoogleAuthProvider();
 const GoogleLogin = () => {
 
   const SignInWithGoogle = async (params) => {
+
     toast.promise(
       () => signInWithPopup(auth, provider),
       {
@@ -33,10 +37,25 @@ const GoogleLogin = () => {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        localStorage.setItem("user", JSON.stringify(user));
+        const SaveUserToDB = async(params) => {
+          
+          await setDoc(doc(db, "Users", user?.uid), {
+            username: user?.displayName,
+            photoUrl: user?.photoURL,
+            email: user?.email,
+            coursesInProgress: [],
+            coursesCompleted: [],
+            level: 0,
+            points:0,
+            rank:0
+          });  
+          
+        }
+        SaveUserToDB();
         setTimeout(() => {
           location.reload();
         }, 2000);
+        localStorage.setItem("user", JSON.stringify(user));
         // IdP data available using getAdditionalUserInfo(result)
         // ...
       })
