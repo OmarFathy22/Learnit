@@ -2,45 +2,20 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Box, styled } from '@mui/system';
 import { Modal as BaseModal } from '@mui/base/Modal';
-import { Button } from '@mui/base/Button';
 import { useSpring, animated } from '@react-spring/web';
 import TextField from '@mui/material/TextField';
 
-
-// export default function BasicTextFields() {
-//   return (
-//     <Box
-//       component="form"
-//       sx={{
-//         '& > :not(style)': { m: 1, width: '25ch' },
-//       }}
-//       noValidate
-//       autoComplete="off"
-//     >
-//       <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-//       <TextField id="filled-basic" label="Filled" variant="filled" />
-//       <TextField id="standard-basic" label="Standard" variant="standard" />
-//     </Box>
-//   );
-// }
-
-export default function SpringModal({ open,handleClose}) {
-  
+export default function InstructorModal({ open,handleClose}) {
   return (
     <div>
       <Modal
-        aria-labelledby="spring-modal-title"
-        aria-describedby="spring-modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        slots={{ backdrop: StyledBackdrop }}
+        aria-labelledby="spring-modal-title"  aria-describedby="spring-modal-description"
+        open={open}  onClose={handleClose}  closeAfterTransition  slots={{ backdrop: StyledBackdrop }}
       >
         <Fade in={open}>
           <ModalContent sx={style}>
             <h1 className=' font-bold mb-2 text-center'>Enter Your Code</h1>
             <TextField id="outlined-basic" label="Code" variant="outlined" />
-          
           </ModalContent>
         </Fade>
       </Modal>

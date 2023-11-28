@@ -2,7 +2,6 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Box, styled } from '@mui/system';
 import { Modal as BaseModal } from '@mui/base/Modal';
-import { Button } from '@mui/base/Button';
 import { useSpring, animated } from '@react-spring/web';
 import GoogleLogin from './GoogleLoginButton';
 
