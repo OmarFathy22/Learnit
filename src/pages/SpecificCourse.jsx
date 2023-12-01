@@ -19,6 +19,7 @@ import LoadingSpinner from "../components/Loading";
 import "video-react/dist/video-react.css"; // import css
 import ReactPlayer from "react-player";
 import {BsCheck2Circle} from 'react-icons/bs'
+import { content1 } from "../../Data";
 
 // Render a YouTube video player
 
@@ -41,7 +42,7 @@ const Root = (props) => {
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   const handleUpdate = (params) => {
-     setCurr((prev) => prev + 1);
+     setCurr((prev) => (prev + 1)% content1.length);
      const performSignIn = async () => {
       try {
         // Show a loading toast while the promise is pending
@@ -64,11 +65,9 @@ const Root = (props) => {
       performSignIn();
   }
   React.useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, [curr]);
+   setLoading(false)
+  }, [loading]);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -96,25 +95,31 @@ const Root = (props) => {
             setCurr={setCurr}
             curr={curr}
           />
-          <div className="w-full h-full flex flex-col justify-center items-center mt-[100px] mx-3 sm:mt-[120px] rounded-md mb-[40px]">
+          <div className="w-full h-[85vh] pb-10 mb-10  flex flex-col justify-center items-center mt-[100px] mx-3 sm:mt-[120px] rounded-md mb-[40px]">
             {loading ? (
               <LoadingSpinner />
             ) : (
               // <Player autoPlay={true}>
               //   <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" />
               // </Player>
-              <div >
+              <div className="w-full h-[100%]" >
                 <ReactPlayer
                   controls={true}
                   playing={true}
                   width="100%"
                   height="100%"
-                  url="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+                  url={content1[curr ]}
                   style={{ borderRadius: "10px" , overflow:"hidden" }}
+                  onReady={() =>{
+                    setLoading(false);
+                  }}
+                
                 />
-          <div className="flex justify-between border-[1px] border-gray-300 mt-3 p-5 rounded-[10px]">
-              <h1 className="font-bold text-[20px]">Episode {curr + 1}</h1>
-               <button onClick={handleUpdate} className="bg-green-600 rounded-md p-1 px-2 text-white flex items-center gap-1">Mark as complete <BsCheck2Circle/></button>
+          <div className=" pb-10">
+            <div className="flex  justify-between border-[1px] border-gray-300 mt-3 p-5 rounded-[10px]">
+                <h1 className="font-bold text-[20px]">Episode {curr + 1}</h1>
+                 <button onClick={handleUpdate} className="bg-green-600 rounded-md p-1 px-2 text-white flex items-center gap-1">Mark as complete <BsCheck2Circle/></button>
+            </div>
           </div>
               </div>
             )}

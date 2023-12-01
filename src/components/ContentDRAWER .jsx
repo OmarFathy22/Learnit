@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-import { useState } from "react";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,7 +10,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { Divider, styled, Switch } from "@mui/material";
-import { useNavigate } from "react-router";
+import { content1 } from "../../Data";
 
 import UserProgress from "../Comp/Login/UserProgress";
 
@@ -73,12 +71,9 @@ function ResponsiveDrawer({
   setCurr,
   curr,
 }) {
-  const [openYouSureForLogout, setopenYouSureForLogout] = useState(false);
   const handleCurr = (index) => {
     setCurr(index)
   }
-  const navigate = useNavigate();
-  // const location = useLocation();
   const { Window } = props;
   const drawer = (
     <div>
@@ -102,7 +97,7 @@ function ResponsiveDrawer({
       </Toolbar>
       <Divider />
       <List sx={{paddingTop:0}}>
-        {Array(20)
+        {Array(content1?.length)
           .fill()
           .map((item, index) => {
             return (
@@ -125,7 +120,7 @@ function ResponsiveDrawer({
                     <ListItemIcon>
                       <PlayCircleOutlineIcon />
                     </ListItemIcon>
-                    <ListItemText primary={"Episode" + ` ${index + 1}`} />
+                    <ListItemText primary={"Lesson" + ` ${index + 1}`} />
                   </ListItem>
                 </ListItemButton>
               </label>

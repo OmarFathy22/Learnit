@@ -68,7 +68,8 @@ export default function PrimarySearchAppBar({
               ) : (
                 <div>
                   {pathname.includes("courses") && (
-                    <LoginButton text={"Exit"} handleOpen={handleOpen} />
+                    // <LoginButton text={"Exit"} handleOpen={handleOpen} />
+                    <></>
                   )}
                   <LoginButton handleOpen={handleOpen} />
                   <LoginModal open={open} handleClose={handleClose} />
