@@ -123,10 +123,14 @@ const Root = (props) => {
                   Next js
                 </div>
               </div>
-              <div>
-                <UserProgress value={0} />
-                <h1 className="text-[13px] mt-1 text-blue-900">0% Complete</h1>
-              </div>
+              {user ? (
+                    <div>
+                    <UserProgress value={0} />
+                    <h1 className="text-[13px] mt-1 text-blue-900">0% Complete</h1>
+                  </div>
+                  ) : (
+                    <h1 className="mt-3 text-[#4dbbe0]">Free</h1>
+                  )}
             </div>
             <div
               style={{

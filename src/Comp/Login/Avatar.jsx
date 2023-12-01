@@ -96,7 +96,7 @@ export default function AccountMenu({user}) {
 
         <Divider />
         <MenuItem onClick={() => {
-          localStorage.setItem('user', JSON.stringify({}));
+          localStorage.removeItem('user');
           handleClose();
         location.reload();
         }}>

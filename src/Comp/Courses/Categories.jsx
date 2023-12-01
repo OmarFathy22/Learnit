@@ -116,7 +116,7 @@ const Categories = ({ curr, setCurr }) => {
         <li
           key={index}
           className={` mr-2 !w-[220px]  flex justify-center items-center  text-center cursor-pointer border-[2px] whitespace-nowrap border-gray-300 rounded-md ${
-            index === curr ? "border-blue-400 bg-blue-100" : ""
+            index === curr ? "border-blue-400 bg-blue-300" : ""
           }`}
           onClick={() => setCurr(index)}
         >

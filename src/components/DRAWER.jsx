@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import {useState} from 'react'
+import { useState } from "react";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,15 +10,16 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
-import Logo from '../assets/logo.png'
+import Logo from "../assets/logo.png";
 import HomeIcon from "@mui/icons-material/Home";
 // import Create from "@mui/icons-material/Create";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Divider, styled, Switch } from "@mui/material";
-import {  useNavigate } from "react-router";
-import BookmarksIcon from '@mui/icons-material/Bookmarks';
-import YouSure from './YouSure'
+import { useNavigate } from "react-router";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
+import YouSure from "./YouSure";
+import Modal from "../Comp/Instructor/Modal";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -76,6 +77,9 @@ function ResponsiveDrawer({
   mobileOpen,
 }) {
   const [openYouSureForLogout, setopenYouSureForLogout] = useState(false);
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
   const navigate = useNavigate();
   // const location = useLocation();
   const { Window } = props;
@@ -88,18 +92,46 @@ function ResponsiveDrawer({
   ];
   const drawer = (
     <div>
-      <Toolbar >
-          <Box sx={{display:"flex", justifyContent:"center" , height:"64px" ,  alignItems:"center"}}>
-            <img onClick={() => {
-              navigate('/')
-            }} src={Logo} alt="O" width={"200px"} height={"130px"} style={{borderRadius:"50%" , cursor:"pointer"}} />
-          </Box>
-          </Toolbar>
-          <Divider/>
+      <Toolbar>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            height: "64px",
+            alignItems: "center",
+            cursor: "pointer"
+          }}
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          <img
+          
+            src={
+              "https://www.codewithantonio.com/_next/image?url=%2Flogo2.png&w=64&q=75"
+            }
+            alt="O"
+            width={"50px"}
+            height={"100px"}
+            style={{ borderRadius: "50%" }}
+          />
+          <h1
+            className="text-sky-700 font-bold ml-2 text-[25px]"
+            style={{ wordSpacing: -7 }}
+          >
+            Flex & Anwar
+          </h1>
+        </Box>
+      </Toolbar>
+      <Divider />
       <List>
+        <Modal open={open} handleClose={handleClose} />
         {list.map((item, index) => {
           return (
-          <label htmlFor ={item.text === 'Create' ? "FabIconClick": ""} key={index}>
+            <label
+              htmlFor={item.text === "Create" ? "FabIconClick" : ""}
+              key={index}
+            >
               <ListItemButton
                 onClick={() => {
                   handleDrawerToggle();
@@ -108,13 +140,11 @@ function ResponsiveDrawer({
                   } else if (item.text === "/") {
                     navigate("/");
                   } else if (item.text === "Logout") {
-                    setopenYouSureForLogout(true)
-                  }
-                   else if (item.text === "LeaderBoard") {
-                    navigate('/leaderboard')
-                  }
-                   else if (item.text === "Become an instructor") {
-                    navigate('/instructor')
+                    setopenYouSureForLogout(true);
+                  } else if (item.text === "LeaderBoard") {
+                    navigate("/leaderboard");
+                  } else if (item.text === "Become an instructor") {
+                    handleOpen();
                   }
                 }}
                 key={index}
@@ -126,7 +156,7 @@ function ResponsiveDrawer({
                       `/${item.text.toLocaleLowerCase()}`
                     )
                       ? "rgb(98 94 94 / 30%)"
-                      : "null",
+                      : "",
                   margin: "20px 0",
                   width: "100%",
                 }}
@@ -138,7 +168,7 @@ function ResponsiveDrawer({
                   />
                 </ListItem>
               </ListItemButton>
-          </label>
+            </label>
           );
         })}
         <MaterialUISwitch
@@ -154,16 +184,21 @@ function ResponsiveDrawer({
         />
         {theme.palette.mode === "dark" ? "Dark" : "Light"}
       </List>
-      <YouSure dofunction={() => {
-                    localStorage.setItem("CurrUser", JSON.stringify({}));
-                    localStorage.setItem("SignedIn" ,"false")
-                    window.location.reload();
-                }} open={openYouSureForLogout} setOpen={setopenYouSureForLogout} text={"Are You sure you want to logout?"}/>
+      <YouSure
+        dofunction={() => {
+          localStorage.setItem("CurrUser", JSON.stringify({}));
+          localStorage.setItem("SignedIn", "false");
+          window.location.reload();
+        }}
+        open={openYouSureForLogout}
+        setOpen={setopenYouSureForLogout}
+        text={"Are You sure you want to logout?"}
+      />
     </div>
   );
 
   const container =
-  Window !== undefined ? () => window().document.body : undefined;
+    Window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -183,13 +218,14 @@ function ResponsiveDrawer({
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
           }}
+          // className={theme.palette.mode === "light" ? " rgb(247, 247, 247)" : "bg-blue-300"}
           sx={{
             display: { sm: "block", md: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              backgroundColor:
-                theme.palette.mode === "light" ? " rgb(247, 247, 247)" : null,
+            //   backgroundColor:
+                
             },
           }}
         >
@@ -198,7 +234,7 @@ function ResponsiveDrawer({
         <Drawer
           variant="permanent"
           sx={{
-            display: {xs:"none" ,  md: "block" },
+            display: { xs: "none", md: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,

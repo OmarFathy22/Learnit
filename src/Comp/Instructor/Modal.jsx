@@ -14,7 +14,7 @@ export default function InstructorModal({ open,handleClose}) {
       >
         <Fade in={open}>
           <ModalContent sx={style}>
-            <h1 className=' font-bold mb-2 text-center'>Enter Your Code</h1>
+            <h1 className=' font-bold mb-2 text-center'>Please enter your instructor code</h1>
             <TextField id="outlined-basic" label="Code" variant="outlined" />
           </ModalContent>
         </Fade>

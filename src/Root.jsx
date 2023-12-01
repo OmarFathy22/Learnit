@@ -5,6 +5,8 @@ import { Outlet } from "react-router";
 import getDesignTokens from "./styles/MyTheme";
 import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer } from "react-toastify";
+import CoursesProvider from "./store/Context/courses";
+
 
 const Root = () => {
 
@@ -18,20 +20,22 @@ const Root = () => {
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-        <Box>
-          <ScrollToTop />
-          <Outlet />
-          <ToastContainer
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={true}
-        newestOnTop={true}
-        closeOnClick={true}
-       />
-        </Box>
-    </ThemeProvider>
+    <CoursesProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+          <Box>
+            <ScrollToTop />
+            <Outlet />
+            <ToastContainer
+          position="top-right"
+          autoClose={1000}
+          hideProgressBar={true}
+          newestOnTop={true}
+          closeOnClick={true}
+         />
+          </Box>
+      </ThemeProvider>
+    </CoursesProvider>
   );
 };
 

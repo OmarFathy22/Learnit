@@ -10,42 +10,30 @@ import { BsBook } from "react-icons/bs";
 import UserProgress from "../Login/UserProgress";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
+import { CoursesContext } from "../../store/Context/courses";
 
 function Media({ value, curr }) {
+  const currCourse = React.useContext(CoursesContext);
+  console.log(currCourse.currCourse)
   const [loading, setLoading] = React.useState(true);
   const [loadingImage, setLoadingImage] = React.useState(true);
   const [courses, setCourses] = React.useState([]);
+  const user = JSON.parse(localStorage.getItem("user"));
   React.useEffect(() => {
     const GetCourses = async (params) => {
       const docRef = doc(db, "Courses", "data");
       const docSnap = await getDoc(docRef);
-
       if (docSnap.exists()) {
         setCourses(docSnap.data().data);
       } else {
         console.log("No such document!");
       }
+      setLoading(false);
+      setTimeout(() => {
+        setLoadingImage(false);
+      }, 1000);
     };
     GetCourses();
-  }, []);
-
-  React.useEffect(() => {
-    setLoading(true);
-    setLoadingImage(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-    setTimeout(() => {
-      setLoadingImage(false);
-    }, 3000);
-  }, [curr]);
-  React.useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-    setTimeout(() => {
-      setLoadingImage(false);
-    }, 3000);
   }, []);
 
   return (
@@ -97,17 +85,18 @@ function Media({ value, curr }) {
                       <h1>{item.chapters} chapters</h1>
                     </div>
                   </Typography>
-                  {/* <Typography variant="caption" color="text.secondary">
-                    <div className="mt-1">
-                      <UserProgress value={0} />
-                      <h1 className="text-[13px] mt-1 text-blue-900">
-                        {0}% Complete
-                      </h1>
-                    </div>
-                  </Typography> */}
-                  <h1 className="mt-3 text-[#4dbbe0]">
-                    Free
-                  </h1>
+                  {user ? (
+                    <Typography variant="caption" color="text.secondary">
+                      <div className="mt-1">
+                        <UserProgress value={0} />
+                        <h1 className="text-[13px] mt-1 text-blue-900">
+                          {0}% Complete
+                        </h1>
+                      </div>
+                    </Typography>
+                  ) : (
+                    <h1 className="mt-3 text-[#4dbbe0]">Free</h1>
+                  )}
                 </Box>
               ) : (
                 <Box sx={{ pt: 0.5 }}>

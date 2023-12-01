@@ -7,7 +7,6 @@ import SpecificCourse from './pages/SpecificCourse'
 import Instructor from "./pages/Instructor";
 // import Home from "./pages/Home";
 // import Create from "./pages/Create";oa
-
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -15,6 +14,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import CoursesDetails from "./pages/CoursesDetails";
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,6 +33,7 @@ const router = createBrowserRouter(
 function App() {
   
   return (
+       
       <RouterProvider router={router} />
   );
 }
