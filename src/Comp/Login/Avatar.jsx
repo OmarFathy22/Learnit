@@ -23,7 +23,7 @@ export default function AccountMenu({user}) {
     setAnchorEl(null);
   };
 
-  const {photoURL , displayName , email } = user
+  const {photoUrl , username , email } = user
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -36,7 +36,7 @@ export default function AccountMenu({user}) {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }} src={photoURL}>{photoURL}</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }} src={photoUrl}>{photoUrl}</Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -77,7 +77,7 @@ export default function AccountMenu({user}) {
       >
         <MenuItem onClick={handleClose}>
           <Box>
-            <h1>{displayName}</h1>
+            <h1>{username}</h1>
             <h1>{email}</h1>
           </Box>
         </MenuItem>

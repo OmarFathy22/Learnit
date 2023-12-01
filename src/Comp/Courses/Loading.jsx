@@ -14,7 +14,10 @@ import { CoursesContext } from "../../store/Context/courses";
 
 function Media({ value, curr }) {
   const currCourse = React.useContext(CoursesContext);
-  console.log(currCourse.currCourse)
+  const handleCurrCourse = (item) => {
+    currCourse.setCurrCourse(item);
+    localStorage.setItem("currCourse", JSON.stringify(item));
+  }
   const [loading, setLoading] = React.useState(true);
   const [loadingImage, setLoadingImage] = React.useState(true);
   const [courses, setCourses] = React.useState([]);
@@ -54,7 +57,9 @@ function Media({ value, curr }) {
               padding: "10px",
             }}
           >
-            <Link to={`/courses/${item?.title}`}>
+            <Link onClick={() => {
+              handleCurrCourse(item)
+            }} to={`/courses/${item?.title}`}>
               {item ? (
                 <img
                   alt={item.title}

@@ -19,32 +19,34 @@ const GoogleLogin = () => {
       .then((result) => {
         // The signed-in user info.
         const user = result.user;
+        const userData = {
+          uid: user?.uid,
+          username: user?.displayName,
+          photoUrl: user?.photoURL,
+          email: user?.email,
+          coursesInProgress: [],
+          coursesCompleted: [],
+          level: 0,
+          points: 0,
+          rank: 0,
+        }
         const SaveUserToDB = async () => {
-          await setDoc(doc(db, "Users", user?.uid), {
-            username: user?.displayName,
-            photoUrl: user?.photoURL,
-            email: user?.email,
-            coursesInProgress: [],
-            coursesCompleted: [],
-            level: 0,
-            points: 0,
-            rank: 0,
-          });
+          await setDoc(doc(db, "Users", user?.uid), userData);
         };
         SaveUserToDB();
+        
+        localStorage.setItem("user", JSON.stringify(userData));
         setTimeout(() => {
           location.reload();
         }, 2000);
-        localStorage.setItem("user", JSON.stringify(user));
-        
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
       });
   };
 
   return (
-    <div>
+    <div className=" self-center">
       <GoogleButton onClick={SignInWithGoogle} />
     </div>
   );

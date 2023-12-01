@@ -21,10 +21,12 @@ import ReactPlayer from "react-player";
 import {BsCheck2Circle} from 'react-icons/bs'
 import { content1 } from "../../Data";
 
+
 // Render a YouTube video player
 
 const Root = (props) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };

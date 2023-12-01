@@ -24,7 +24,7 @@ export default function PrimarySearchAppBar({
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const user = JSON.parse(localStorage.getItem("user")) || {};
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <Box>
@@ -65,14 +65,10 @@ export default function PrimarySearchAppBar({
           >
             {/* <Notifications /> */}
             <div style={{ width: "100% !important" }}>
-              {Object.keys(user)?.length ? (
+              {user? (
                 <AvatarPage user={user} />
               ) : (
                 <div>
-                  {pathname.includes("courses") && (
-                    // <LoginButton text={"Exit"} handleOpen={handleOpen} />
-                    <></>
-                  )}
                   <LoginButton handleOpen={handleOpen} />
                   <LoginModal open={open} handleClose={handleClose} />
                 </div>

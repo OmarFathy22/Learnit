@@ -75,6 +75,7 @@ function ResponsiveDrawer({
     setCurr(index)
   }
   const { Window } = props;
+  const darkMode = localStorage.getItem("currentMode") === "dark" ? true : false;
   const drawer = (
     <div>
       <Toolbar>
@@ -111,7 +112,7 @@ function ResponsiveDrawer({
                   key={index}
                   sx={{
                     // padding: "2px",
-                    backgroundColor: curr === index ?"rgb(99 95 95 / 10%)" :"rgb(98 94 94 / 30%)",
+                    backgroundColor: curr === index ?"rgb(99 95 95 / 10%)" :darkMode ? "black":"white",
                     // margin: "20px 0",
                     width: "100%",
                   }}

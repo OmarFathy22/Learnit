@@ -2,7 +2,7 @@ import { createContext } from "react";
 import React from "react";
 
 export const CoursesContext = createContext({
-  currCourse: {name:"omar"},
+  currCourse: {},
   setCurrCourse: (course) => {},
 });
 
@@ -11,7 +11,7 @@ function CoursesProvider({ children }) {
   function setCurrCourseHandler(course) {
     setCurrCourse(course);
   }
-  const value = { currCourse, setCurrCourse };
+  const value = { currCourse: currCourse, setCurrCourse: setCurrCourseHandler };
 
   return (
     <CoursesContext.Provider value={value}>{children}</CoursesContext.Provider>
