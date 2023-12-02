@@ -25,7 +25,7 @@ const Root = () => {
         <CssBaseline />
           <Box>
             <ScrollToTop />
-            <Outlet />
+            <Outlet theme = {theme} />
             <ToastContainer
           position="top-right"
           autoClose={1000}

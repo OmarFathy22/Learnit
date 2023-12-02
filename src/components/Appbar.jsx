@@ -12,6 +12,11 @@ import SearchBar from "./SearchBar";
 import LoginButton from "../Comp/Login/LoginButton";
 import LoginModal from "../Comp/Login/LoginModal";
 import AvatarPage from "../Comp/Login/Avatar";
+// import {ToggleModeComponent} from './ContentDRAWER ';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useMemo, useState } from "react";
+import getDesignTokens from "../styles/MyTheme";
+import ToggleButton from './ContentDRAWER '
 
 export default function PrimarySearchAppBar({
   showList,
@@ -19,7 +24,17 @@ export default function PrimarySearchAppBar({
   handleDrawerToggle,
   theme,
 }) {
-  const navigate = useNavigate();
+  // const [mode, setmyMode] = useState(
+  //   localStorage.getItem("currentMode") === null
+  //     ? "dark"
+  //     : localStorage.getItem("currentMode") === "light"
+  //     ? "light"
+  //     : "dark"
+  // );
+  // const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
+  // const navigate = useNavigate();
+  //   console.log("setmyMode", setmyMode);
+
   const { pathname } = useLocation();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -30,7 +45,7 @@ export default function PrimarySearchAppBar({
     <Box>
       <AppBar
         position="fixed"
-        className="bg-[#4dbbe0]"
+        className="bg-[#4dbbe0] ! max-600:pb-2"
         sx={{
           width: { md: `calc(100% - 300px)` },
           // ml: { sm: `240px` },
@@ -51,10 +66,14 @@ export default function PrimarySearchAppBar({
             <MenuIcon />
           </IconButton>
           <div
-            className={`sm:hidden ${pathname.includes("courses") && "hidden"}`}
+            className={`max-600:hidden  ${pathname.includes("courses") && "hidden"} !`}
           >
             <SearchBar theme={theme} />
           </div>
+          <div>
+            {/* <ToggleModeComponent theme={theme} setmyMode={setmyMode}/> */}
+          </div>
+          
           <Box sx={{ flexGrow: { xs: "1" } }} />
           <Box
             sx={{
@@ -76,8 +95,8 @@ export default function PrimarySearchAppBar({
             </div>
           </Box>
         </Toolbar>
-        <Divider />
-        <div className="min-600:hidden">
+        <Divider className="max-600:hidden" />
+        <div className="min-600:hidden mx-3 rounded-md overflow-hidden">
           <SearchBar theme={theme} />
         </div>
       </AppBar>

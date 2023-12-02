@@ -62,6 +62,25 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 const drawerWidth = 300;
 
+const ToggleModeComponent = ({ mode, setmyMode , theme }) => {
+  return (
+    <div className=" absolute ">
+      <MaterialUISwitch
+        onClick={() => {
+          localStorage.setItem(
+            "currentMode",
+            theme.palette.mode === "dark" ? "light" : "dark"
+          );
+          setmyMode(theme.palette.mode === "light" ? "dark" : "light");
+        }}
+        sx={{ m: 1 }}
+        checked={theme.palette.mode === "dark" ? true : false}
+      />
+      {theme.palette.mode === "dark" ? "Dark" : "Light"}
+    </div>
+  );
+};
+
 function ResponsiveDrawer({
   props,
   theme,
@@ -72,12 +91,13 @@ function ResponsiveDrawer({
   curr,
 }) {
   const handleCurr = (index) => {
-    setCurr(index)
-  }
+    setCurr(index);
+  };
   const { Window } = props;
-  const darkMode = localStorage.getItem("currentMode") === "dark" ? true : false;
+  const darkMode =
+    localStorage.getItem("currentMode") === "dark" ? true : false;
   const drawer = (
-    <div>
+    <div >
       <Toolbar>
         <Box
           sx={{
@@ -85,8 +105,8 @@ function ResponsiveDrawer({
             // justifyContent: "center",
             // alignItems: "center",
             flexDirection: "column",
-            gap:1,
-            padding:3
+            gap: 1,
+            padding: 3,
           }}
         >
           <h1 className="font-bold">Fullstack Notion Clone</h1>
@@ -97,7 +117,7 @@ function ResponsiveDrawer({
         </Box>
       </Toolbar>
       <Divider />
-      <List sx={{paddingTop:0}}>
+      <List sx={{ paddingTop: 0 }}>
         {Array(content1?.length)
           .fill()
           .map((item, index) => {
@@ -105,14 +125,17 @@ function ResponsiveDrawer({
               <label htmlFor={"FabIconClick"} key={index}>
                 <ListItemButton
                   onClick={() => {
-                    handleCurr(index)
+                    handleCurr(index);
                   }}
-                    
-                  
                   key={index}
                   sx={{
                     // padding: "2px",
-                    backgroundColor: curr === index ?"rgb(99 95 95 / 10%)" :darkMode ? "black":"white",
+                    backgroundColor:
+                      curr === index
+                        ? "rgb(99 95 95 / 40%)"
+                        : darkMode
+                        ? "#121212"
+                        : "rgb(247, 247, 247)",
                     // margin: "20px 0",
                     width: "100%",
                   }}
@@ -127,20 +150,8 @@ function ResponsiveDrawer({
               </label>
             );
           })}
-        <MaterialUISwitch
-          onClick={() => {
-            localStorage.setItem(
-              "currentMode",
-              theme.palette.mode === "dark" ? "light" : "dark"
-            );
-            setmyMode(theme.palette.mode === "light" ? "dark" : "light");
-          }}
-          sx={{ m: 1 }}
-          checked={theme.palette.mode === "dark" ? true : false}
-        />
-        {theme.palette.mode === "dark" ? "Dark" : "Light"}
+          {/* <ToggleModeComponent theme={theme}  setmyMode={setmyMode} />   */}
       </List>
-    
     </div>
   );
 

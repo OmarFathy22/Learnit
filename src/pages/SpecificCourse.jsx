@@ -18,9 +18,10 @@ import { Player } from "video-react";
 import LoadingSpinner from "../components/Loading";
 import "video-react/dist/video-react.css"; // import css
 import ReactPlayer from "react-player";
-import {BsCheck2Circle} from 'react-icons/bs'
+import { BsCheck2Circle } from "react-icons/bs";
 import { content1 } from "../../Data";
-
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase/config";
 
 // Render a YouTube video player
 
@@ -43,9 +44,25 @@ const Root = (props) => {
   );
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
-  const handleUpdate = (params) => {
-     setCurr((prev) => (prev + 1)% content1.length);
-     const performSignIn = async () => {
+  const handleUpdate = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const updatePoints = async () => {
+      const docRef = doc(db, "Users", user?.uid);
+      await updateDoc(docRef, {
+        points: user.points === 80 ? 0 : user.points + 20,
+        level: user.points === 80 ? user.level + 1 : user.level,
+      });
+      // update the user object in local storage
+      const updatedUser = {
+        ...user,
+        points: user.points === 100 ? 20 : user.points + 20,
+        level: user.points === 100 ? user.level + 1 : user.level,
+      };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+    };
+    updatePoints();
+    setCurr((prev) => (prev + 1) % content1.length);
+    const performSignIn = async () => {
       try {
         // Show a loading toast while the promise is pending
         const promise = new Promise((resolve) => {
@@ -53,21 +70,21 @@ const Root = (props) => {
             resolve(console.log("done")); // Replace with your actual promise-based operation
           }, 1500); // Simulate a one-second delay
         });
-    
+
         toast.promise(promise, {
-          pending: 'Updating Progress...',
-        success: 'Progress Updated ',
-          error: 'Could not update. Try again later ',
+          pending: "Updating Progress...",
+          success: "Progress Updated ",
+          error: "Could not update. Try again later ",
         });
       } catch (error) {
         // Handle any errors here
-        console.error('Error during updating:', error);
+        console.error("Error during updating:", error);
       }
     };
-      performSignIn();
-  }
+    performSignIn();
+  };
   React.useEffect(() => {
-   setLoading(false)
+    setLoading(false);
   }, [loading]);
 
   return (
@@ -97,32 +114,38 @@ const Root = (props) => {
             setCurr={setCurr}
             curr={curr}
           />
-          <div className="w-full h-[85vh] pb-10 mb-10  flex flex-col justify-center items-center mt-[100px] mx-3 sm:mt-[120px] rounded-md mb-[40px]">
+          <div className="w-full h-full max-600:mt-[120px]  pb-10   flex flex-col justify-center items-center mt-[100px] mx-3 sm:mt-[120px] rounded-md mb-[40px]">
             {loading ? (
               <LoadingSpinner />
             ) : (
               // <Player autoPlay={true}>
               //   <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" />
               // </Player>
-              <div className="w-full h-[100%]" >
+              <div className="w-full h-[100%] ">
                 <ReactPlayer
                   controls={true}
                   playing={true}
                   width="100%"
                   height="100%"
-                  url={content1[curr ]}
-                  style={{ borderRadius: "10px" , overflow:"hidden" }}
-                  onReady={() =>{
+                  url={content1[curr]}
+                  style={{ borderRadius: "10px", overflow: "hidden" }}
+                  onReady={() => {
                     setLoading(false);
                   }}
-                
                 />
-          <div className=" pb-10">
-            <div className="flex  justify-between border-[1px] border-gray-300 mt-3 p-5 rounded-[10px]">
-                <h1 className="font-bold text-[20px]">Episode {curr + 1}</h1>
-                 <button onClick={handleUpdate} className="bg-green-600 rounded-md p-1 px-2 text-white flex items-center gap-1">Mark as complete <BsCheck2Circle/></button>
-            </div>
-          </div>
+                <div className=" pb-10">
+                  <div className="flex items-center  justify-between border-[1px] border-gray-300 mt-3 p-5 rounded-[10px]">
+                    <h1 className="font-bold text-[20px] max-600:text-[13px]">
+                      Episode {curr + 1}
+                    </h1>
+                    <button
+                      onClick={handleUpdate}
+                      className="bg-green-600 rounded-md p-1 px-2 text-white flex items-center gap-1 max-600:text-[13px]"
+                    >
+                      Mark as complete <BsCheck2Circle />
+                    </button>
+                  </div>
+                </div>
               </div>
             )}
           </div>

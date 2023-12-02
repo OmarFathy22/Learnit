@@ -156,7 +156,14 @@ const Root = (props) => {
                   : "Watch from the last completed chapter."}
               </h3>
               <button
-                onClick={handleEnroll}
+                onClick={() => {
+                  if(!isEnrolled){
+                    handleEnroll()    
+                  }
+                  else{
+                    navigate(`/courses/${currCourse.id}/chapters`)
+                  }
+                }}
                 className="bg-gray-100 p-1 mt-3 hover:bg-gray-300 transition-all duration-300 text-black rounded-md"
               >
                 {!isEnrolled ? "Enroll for Free" : "Continue Learning"}

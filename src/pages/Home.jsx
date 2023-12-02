@@ -42,6 +42,8 @@ const Root = (props) => {
           showList={showList}
           setshowList={setshowList}
           handleDrawerToggle={handleDrawerToggle}
+          theme={theme}
+          
         />
         <Stack direction="row">
           <DRAWER
