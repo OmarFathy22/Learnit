@@ -20,7 +20,7 @@ import "video-react/dist/video-react.css"; // import css
 import ReactPlayer from "react-player";
 import { BsCheck2Circle } from "react-icons/bs";
 import { content1 } from "../../Data";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc , getDoc ,FieldValue } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
 // Render a YouTube video player
@@ -34,6 +34,7 @@ const Root = (props) => {
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = useState(true);
   const [curr, setCurr] = useState(0);
+  const [userPoints , setuserPoints] = useState(0)
   const [showList, setshowList] = useState("none");
   const [mode, setmyMode] = useState(
     localStorage.getItem("currentMode") === null
@@ -44,21 +45,22 @@ const Root = (props) => {
   );
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
-  const handleUpdate = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
+  const handleUpdate = async() => {
+    const docRef = doc(db, "Users", user?.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      setuserPoints(docSnap.data().points + 20)
+    } else {
+      console.log("No such document!");
+    }
     const updatePoints = async () => {
       const docRef = doc(db, "Users", user?.uid);
       await updateDoc(docRef, {
-        points: user.points === 80 ? 0 : user.points + 20,
-        level: user.points === 80 ? user.level + 1 : user.level,
+        // increase points by 20 nd level by 1
+        points:(userPoints + 20)  ,
+        level: Math.floor((userPoints + 20) / 100) ,
       });
-      // update the user object in local storage
-      const updatedUser = {
-        ...user,
-        points: user.points === 100 ? 20 : user.points + 20,
-        level: user.points === 100 ? user.level + 1 : user.level,
-      };
-      localStorage.setItem("user", JSON.stringify(updatedUser));
     };
     updatePoints();
     setCurr((prev) => (prev + 1) % content1.length);

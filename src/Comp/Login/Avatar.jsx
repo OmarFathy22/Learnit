@@ -29,7 +29,6 @@ export default function AccountMenu({ user }) {
     const getUserPoints = async () => {
       const docRef = doc(db, "Users", user?.uid);
       const docSnap = await getDoc(docRef);
-
       if (docSnap.exists()) {
         setUserData({
           points: docSnap.data().points,
@@ -40,7 +39,7 @@ export default function AccountMenu({ user }) {
       }
     };
     getUserPoints();
-  }, [userData.points, userData.level]);
+  }, []);
    console.log(userData.points , userData.level)
   const { photoUrl, username, email } = user;
   return (
