@@ -10,7 +10,7 @@ console.log("data3" , data3)
 const MainContent = () => {
   return(
   <div className='w-full mx-5 sm:mt-[20px]'>
-      <div className='w-full mt-[100px] gap-5  flex justify-between '>
+      <div className='w-full mt-[100px] max-600:mt-[120px] gap-5  flex justify-between '>
           <div className='p-2 w-1/2 flex items-center border-[1px] border-gray-300 rounded-md gap-3'>
             <h1 className='text-[40px]  text-[#8b8bf1] bg-[#d8edf0a5] rounded-full p-1'><BiTimeFive/></h1>
             <div>

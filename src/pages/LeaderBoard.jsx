@@ -51,7 +51,7 @@ const Root = (props) => {
             mode={mode}
             setmyMode={setmyMode}
           />
-          <div className="border-[1px] sm:mt-[120px] border-gray-200 my-[100px] pb-2 w-full mx-7 rounded-md ">
+          <div className="border-[1px] max-600:mt-[120px] border-gray-200 my-[100px] pb-2 w-full mx-7 rounded-md ">
             <div>
             <div  className={`m-2 px-2 py-1 rounded-md flex justify-between items-center sm:pr-[50px] pr-[100px] bg-[#dcd9d9]`} >
                     <div className="flex gap-2">
