@@ -136,7 +136,7 @@ const Root = (props) => {
                 <div className=" pb-10">
                   <div className="flex items-center  justify-between border-[1px] border-gray-300 mt-3 p-5 rounded-[10px]">
                     <h1 className="font-bold text-[20px] max-600:text-[13px]">
-                      Episode {curr + 1}
+                      Lesson {curr + 1}
                     </h1>
                     <button
                       onClick={handleUpdate}
@@ -146,6 +146,7 @@ const Root = (props) => {
                     </button>
                   </div>
                 </div>
+                <h1 className="text-center font-bold  border-b-1 border-b-black underline">Quick Quiz</h1>
               </div>
             )}
           </div>
