@@ -1,8 +1,11 @@
 import React from 'react';
-import Loading from '../Comp/Courses/Loading'
+import Loading from '../Comp/Courses/LoadingInProgress'
 import {BsCheck2Circle} from 'react-icons/bs'
 import {BiTimeFive} from 'react-icons/bi'
 import {data2} from "../../Data"
+const user = JSON.parse(localStorage.getItem("user"));
+const data3 = user?.coursesInProgress
+console.log("data3" , data3)
 
 const MainContent = () => {
   return(
@@ -28,7 +31,7 @@ const MainContent = () => {
           
       </div>
           <div className='mt-10  justify-start'>
-            <Loading data={data2}/>
+            <Loading data={data3}/>
           </div>
   </div>
   )

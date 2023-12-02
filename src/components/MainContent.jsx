@@ -21,7 +21,7 @@ const MainContent = () => {
   return (
     <div className="mt-[85px] sm:mt-[95px] flex  mx-auto  overflow-hidden ">
       <div className="flex flex-col overflow-hidden px-2">
-        <div className=" mx-10 ">
+        <div className=" mx-10 max-600:mt-7 ">
           <Categories curr={curr} setCurr={setCurr} />
         </div>
         <div className="my-[20px]">

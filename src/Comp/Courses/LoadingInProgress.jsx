@@ -23,21 +23,11 @@ function Media({ value, curr }) {
   const [courses, setCourses] = React.useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
   React.useEffect(() => {
-    const GetCourses = async (params) => {
-      const docRef = doc(db, "Courses", "data");
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setCourses(docSnap.data().data);
-      } else {
-        console.log("No such document!");
-      }
-      setLoading(false);
-      setTimeout(() => {
-        setLoadingImage(false);
-      }, 700);
-    };
-    GetCourses();
-  }, []);
+    const coursesInProgress = user?.coursesInProgress;
+    setCourses(coursesInProgress);
+    setLoading(false);
+    setLoadingImage(false);
+  }, [user]);
 
   return (
     <div className="">

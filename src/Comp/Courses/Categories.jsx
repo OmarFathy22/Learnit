@@ -106,6 +106,27 @@ const settings = {
         slidesToScroll: 1,
       },
     },
+    {
+      breakpoint: 899,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 880,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 660,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
   ],
 };
 
