@@ -15,7 +15,7 @@ const MainContent = () => {
             <h1 className='text-[40px]  text-[#8b8bf1] bg-[#d8edf0a5] rounded-full p-1'><BiTimeFive/></h1>
             <div>
               <h1 className='font-bold'>In Progress</h1>
-              <h1>2 Courses</h1>
+              <h1>{data3.length} Courses</h1>
             </div>
           </div>
           <div className='p-2 w-1/2 flex items-center border-[1px] border-gray-300 rounded-md gap-3'> 

@@ -34,7 +34,7 @@ function Media({ value, curr }) {
       setLoading(false);
       setTimeout(() => {
         setLoadingImage(false);
-      }, 700);
+      }, 100);
     };
     GetCourses();
   }, []);

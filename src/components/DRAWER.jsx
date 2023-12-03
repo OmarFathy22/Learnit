@@ -134,7 +134,7 @@ function ResponsiveDrawer({
             >
               <ListItemButton
                 onClick={() => {
-                  handleDrawerToggle();
+                  // handleDrawerToggle();
                   if (item.text === "DashBoard") {
                     navigate(`/dashboard`);
                   } else if (item.text === "/") {

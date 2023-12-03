@@ -228,7 +228,10 @@ export const categories = [
 ]
 
 export const content1 = [
-  "https://firebasestorage.googleapis.com/v0/b/e-learning-981e1.appspot.com/o/react%20course%2Freact%20course%2F%2302%20React%20full%20course%20with%20projects%202023%20%F0%9F%94%A5%F0%9F%94%A5.mp4?alt=media&token=a136251a-2bac-4b8b-bd9b-c7e0488b7cf9",
+  {
+    name:"Introduction",
+    url:"https://firebasestorage.googleapis.com/v0/b/e-learning-981e1.appspot.com/o/react%20course%2Freact%20course%2F%2302%20React%20full%20course%20with%20projects%202023%20%F0%9F%94%A5%F0%9F%94%A5.mp4?alt=media&token=a136251a-2bac-4b8b-bd9b-c7e0488b7cf9",
+  },
   "https://firebasestorage.googleapis.com/v0/b/e-learning-981e1.appspot.com/o/react%20course%2Freact%20course%2FReact%20Full%20course%20with%20projects%20%2310.2%20%20%20%20Firebase%20Hosting%20_%20Custom%20domain.mp4?alt=media&token=2cd0ae68-5057-4aee-a8de-8f063731724a",
   "https://firebasestorage.googleapis.com/v0/b/e-learning-981e1.appspot.com/o/react%20course%2Freact%20course%2FReact%20Full%20course%20with%20projects%20%2315%20%20%20%20pug-gulp%20VS%20React.mp4?alt=media&token=75a769e2-a84d-4d32-b408-40f530ba8217",
   "https://firebasestorage.googleapis.com/v0/b/e-learning-981e1.appspot.com/o/react%20course%2Freact%20course%2FReact%20Level2.mp4?alt=media&token=a5183188-5d05-41d9-bf2f-64a65142bf2f",

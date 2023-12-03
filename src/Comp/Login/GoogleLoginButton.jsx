@@ -43,7 +43,6 @@ const GoogleLogin = () => {
           }
         };
         checkuser();
-
         localStorage.setItem("user", JSON.stringify(userData));
         setTimeout(() => {
           location.reload();

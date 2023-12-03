@@ -1,4 +1,3 @@
-
 import {
   Box,
   createTheme,
@@ -11,9 +10,7 @@ import React, { useMemo, useState } from "react";
 import { Outlet } from "react-router";
 import getDesignTokens from "../styles/MyTheme";
 import DRAWER from "../components/DRAWER";
-import Button from '@mui/material/Button';
-import Modal from '../Comp/Instructor/Modal'
-import { data3 } from "../../Data";
+
 const Root = (props) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
@@ -23,7 +20,6 @@ const Root = (props) => {
   const [open, setOpen] = useState("none");
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
-
 
   const [mode, setmyMode] = useState(
     localStorage.getItem("currentMode") === null
@@ -59,15 +55,12 @@ const Root = (props) => {
             setmyMode={setmyMode}
           />
           <div className=" sm:mt-[120px] flex justify-center items-center  h-[90vh] border-gray-200 my-[100px] pb-2 w-full mx-7 rounded-md ">
-          <Button variant="contained" onClick={() => {
-            handleOpen();
-          }}>Become an Instructor</Button>
-          <Modal open={open} handleClose={handleClose}/>
-
+            <div className="App h-[600px] w-[400px]">
+              
+            </div>
           </div>
         </Stack>
         {/* Main content is landing here */}
-
         <Outlet />
       </Box>
     </ThemeProvider>

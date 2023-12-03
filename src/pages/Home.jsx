@@ -11,6 +11,7 @@ import getDesignTokens from "../styles/MyTheme";
 import MainContent from "../components/MainContent";
 import DRAWER from "../components/DRAWER";
 
+
 const Root = (props) => {
   useEffect(() => {}, []);
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -55,6 +56,7 @@ const Root = (props) => {
             setmyMode={setmyMode}
           />
           <MainContent theme={theme} />
+
         </Stack>
         {/* <Outlet /> */}
     

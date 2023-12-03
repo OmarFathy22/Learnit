@@ -6,6 +6,7 @@ import getDesignTokens from "./styles/MyTheme";
 import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer } from "react-toastify";
 import CoursesProvider from "./store/Context/courses";
+import ChatbotButton from "./Chatbot/ChatbotButton"
 
 
 const Root = () => {
@@ -26,6 +27,8 @@ const Root = () => {
           <Box>
             <ScrollToTop />
             <Outlet theme = {theme} />
+            <ChatbotButton />
+
             <ToastContainer
           position="top-right"
           autoClose={1000}
