@@ -112,7 +112,7 @@ const Root = (props) => {
             mode={mode}
             setmyMode={setmyMode}
           />
-          <div className=" w-full  min-600:mx-5">
+          <div className=" w-full max-600:mt-7 mx-5">
             <div className="mt-[100px] mb-[50px] max-1300:flex-col   max-600:items-center w-full gap-5 borderr flex items-start ">
               <div className="w-full flex-wrap h-full rounded-md min-1300:mb-[40px]">
                 <div className="flex flex-col gap-3  ">
@@ -121,7 +121,7 @@ const Root = (props) => {
                       controls={true}
                       playing={false}
                       width="100%"
-                      // height="100%"
+                      height="100%"
                       url={
                         "https://firebasestorage.googleapis.com/v0/b/e-learning-981e1.appspot.com/o/react%20course%2Freact%20course%2F%2302%20React%20full%20course%20with%20projects%202023%20%F0%9F%94%A5%F0%9F%94%A5.mp4?alt=media&token=a136251a-2bac-4b8b-bd9b-c7e0488b7cf9"
                       }
@@ -148,7 +148,7 @@ const Root = (props) => {
                       Quick Quiz
                     </h1> */}
                   </div>
-                  <div className=" max-600:w-[95%]  border-2 border-gray-500 rounded-md p-8 flex flex-col gap-3">
+                  <div className="  border-2 border-gray-500 rounded-md p-8 flex flex-col gap-3">
                     <div className="flex items-center gap-2">
                       <BsBook />
                       <h1>{currCourse.chapters} chapters</h1>
