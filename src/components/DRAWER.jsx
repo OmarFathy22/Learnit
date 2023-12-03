@@ -119,7 +119,7 @@ function ResponsiveDrawer({
             className="text-sky-700 font-bold ml-2 text-[25px]"
             style={{ wordSpacing: -7 }}
           >
-            Flex & Anwar
+            LEARNIT
           </h1>
         </Box>
       </Toolbar>

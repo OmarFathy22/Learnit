@@ -1,10 +1,8 @@
 import React from "react";
 import Loading from "../Comp/Courses/Loading";
 import { data } from "../../Data";
-import Categories from "../Comp/Courses/Categories";
-import { doc, setDoc } from "firebase/firestore";
-import { courses } from "../../Data";
-import { db } from "../../firebase/config";
+import CategoriesMobile from "../Comp/Courses/Categoriesmobile";
+import CategoriesWeb from "../Comp/Courses/Categories";
 
 const MainContent = () => {
   const [curr, setCurr] = React.useState(0);
@@ -21,8 +19,11 @@ const MainContent = () => {
   return (
     <div className="mt-[85px] sm:mt-[95px] flex  mx-auto  overflow-hidden ">
       <div className="flex flex-col overflow-hidden px-2">
-        <div className=" mx-10 max-600:mt-7 ">
-          <Categories curr={curr} setCurr={setCurr} />
+        <div className=" mx-10 max-600:mt-7  max-900:hidden ">
+          <CategoriesWeb curr={curr} setCurr={setCurr} />
+        </div>
+        <div className=" mx-10 mt-10 overflow-auto min-900:hidden ">
+          <CategoriesMobile curr={curr} setCurr={setCurr} />
         </div>
         <div className="my-[20px]">
           <Loading data={data} curr={curr} />
