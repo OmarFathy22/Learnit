@@ -19,7 +19,8 @@ import { Divider, styled, Switch } from "@mui/material";
 import { useNavigate } from "react-router";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import YouSure from "./YouSure";
-import Modal from "../Comp/Instructor/Modal";
+import Modal from "../Comp/Instructor/Modal"
+import LoginModal from "../Comp/Login/LoginModal";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -78,11 +79,14 @@ function ResponsiveDrawer({
 }) {
   const [openYouSureForLogout, setopenYouSureForLogout] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const handleCloseLoginModal = () => setOpenModal(false);
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const navigate = useNavigate();
   // const location = useLocation();
   const { Window } = props;
+  const user = JSON.parse(localStorage.getItem("user"));
   const list = [
     { text: "/", icon: <HomeIcon /> },
     { text: "DashBoard", icon: <PersonIcon /> },
@@ -126,6 +130,7 @@ function ResponsiveDrawer({
       <Divider />
       <List > 
         <Modal open={open} handleClose={handleClose} />
+        <LoginModal open={openModal} handleClose={handleCloseLoginModal} />
         {list.map((item, index) => {
           return (
             <label
@@ -137,7 +142,12 @@ function ResponsiveDrawer({
                 onClick={() => {
                   // handleDrawerToggle();
                   if (item.text === "DashBoard") {
-                    navigate(`/dashboard`);
+                     if(user){
+                      navigate("/dashboard");
+                     }
+                     else{
+                      setOpenModal(true);
+                     }
                   } else if (item.text === "/") {
                     navigate("/");
                   } else if (item.text === "Logout") {

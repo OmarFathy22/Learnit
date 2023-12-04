@@ -19,8 +19,8 @@ export default function SpringModal({ open,handleClose}) {
       >
         <Fade in={open}>
           <ModalContent sx={style}>
-            <h1 className=' font-bold'>Sign in</h1>
-            <h4 className='text-gray-400 mb-1 -translate-y-2'>to continue to the platform</h4>
+            <h6 className=' font-bold'>Sign in</h6>
+            <h6 className='text-gray-400 mb-1 -translate-y-2'>to continue to the platform</h6>
             <GoogleLogin />
           </ModalContent>
         </Fade>

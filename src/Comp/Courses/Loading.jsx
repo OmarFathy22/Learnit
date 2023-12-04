@@ -74,9 +74,9 @@ function Media({ value, curr }) {
 
               {item ? (
                 <Box sx={{ pr: 2, mt: 2 }}>
-                  <Typography gutterBottom variant="body2 ">
+                  <h5>
                     {item.title}
-                  </Typography>
+                  </h5>
                   <Typography
                     display="block"
                     variant="caption"
@@ -100,7 +100,7 @@ function Media({ value, curr }) {
                       </div>
                     </Typography>
                   ) : (
-                    <h1 className="mt-3 text-[#4dbbe0]">Free</h1>
+                    <h6 className="mt-3 text-[#4dbbe0]">Free</h6>
                   )}
                 </Box>
               ) : (

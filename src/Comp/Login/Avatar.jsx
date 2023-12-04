@@ -10,14 +10,16 @@ import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
+import PointsLoader from "../loader/LoadPoints";
 import Logout from "@mui/icons-material/Logout";
 import UserProgress from "./UserProgress";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc , onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 
 export default function AccountMenu({ user }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [userData, setUserData] = React.useState({ points: 0, level: 0 });
+  const [loading, setLoading] = React.useState(true);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -26,21 +28,25 @@ export default function AccountMenu({ user }) {
     setAnchorEl(null);
   };
   React.useEffect(() => {
-    const getUserPoints = async () => {
-      const docRef = doc(db, "Users", user?.uid);
-      const docSnap = await getDoc(docRef);
+    const docRef = doc(db, "Users", user?.uid);
+    const unsubscribe = onSnapshot(docRef, (docSnap) => {
       if (docSnap.exists()) {
         setUserData({
           points: docSnap.data().points,
           level: docSnap.data().level,
         });
+        setLoading(false);
       } else {
         console.log("No such document!");
       }
+    });
+  
+    return () => {
+      unsubscribe(); // Cleanup the listener when the component unmounts
     };
-    getUserPoints();
   }, []);
-   console.log(userData.points , userData.level)
+  
+  console.log(userData.points, userData.level);
   const { photoUrl, username, email } = user;
   return (
     <React.Fragment>
@@ -105,13 +111,17 @@ export default function AccountMenu({ user }) {
            My account
         </MenuItem> */}
         <MenuItem onClick={handleClose}>
-          <div>
-            <div className="flex justify-between min-w-[350px] text-[13px] mb-1 text-gray-500 ">
-              <h6>level {Math.floor(userData.points / 100)}</h6>
-              <h6>{userData.points % 100}/100 points</h6>
+          {loading ? (
+            <PointsLoader />
+          ) : (
+            <div>
+              <div className="flex justify-between min-w-[350px] text-[13px] mb-1 text-gray-500 ">
+                <h6>level {Math.floor(userData.points / 100)}</h6>
+                <h6>{userData.points % 100}/100 points</h6>
+              </div>
+              <UserProgress value={userData.points % 100} />
             </div>
-            <UserProgress value={20} />
-          </div>
+          )}
         </MenuItem>
 
         <Divider />

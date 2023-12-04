@@ -10,7 +10,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { Divider, styled, Switch } from "@mui/material";
-import { content1 } from "../../Data";
+import { MdOutlineOndemandVideo } from "react-icons/md";
 
 import UserProgress from "../Comp/Login/UserProgress";
 
@@ -62,7 +62,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 const drawerWidth = 300;
 
-const ToggleModeComponent = ({ mode, setmyMode , theme }) => {
+const ToggleModeComponent = ({ mode, setmyMode, theme }) => {
   return (
     <div className=" absolute ">
       <MaterialUISwitch
@@ -96,8 +96,11 @@ function ResponsiveDrawer({
   const { Window } = props;
   const darkMode =
     localStorage.getItem("currentMode") === "dark" ? true : false;
+  const currCourse = JSON.parse(localStorage.getItem("currCourse"));
+  console.log(currCourse);
+
   const drawer = (
-    <div >
+    <div>
       <Toolbar>
         <Box
           sx={{
@@ -118,39 +121,42 @@ function ResponsiveDrawer({
       </Toolbar>
       <Divider />
       <List sx={{ paddingTop: 0 }}>
-        {Array(content1?.length)
-          .fill()
-          .map((item, index) => {
-            return (
-              <label htmlFor={"FabIconClick"} key={index} className="w-full">
-                <ListItemButton
-                  onClick={() => {
-                    handleCurr(index);
-                  }}
-                  key={index}
-                  sx={{
-                    // padding: "2px",
-                    backgroundColor:
-                      curr === index
-                        ? "rgb(99 95 95 / 40%)"
-                        : darkMode
-                        ? "#121212"
-                        : "rgb(247, 247, 247)",
-                    // margin: "20px 0",
-                    width: "100%",
-                  }}
-                >
-                  <ListItem>
-                    <ListItemIcon>
-                      <PlayCircleOutlineIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={"Lesson" + ` ${index + 1}`} />
-                  </ListItem>
-                </ListItemButton>
-              </label>
-            );
-          })}
-          {/* <ToggleModeComponent theme={theme}  setmyMode={setmyMode} />   */}
+        {currCourse?.content.map((item, index) => {
+          return (
+            <label htmlFor={"FabIconClick"} key={index} className="w-full">
+              <ListItemButton
+                onClick={() => {
+                  handleCurr(index);
+                }}
+                key={index}
+                sx={{
+                  // padding: "2px",
+                  gap: 1,
+                  backgroundColor:
+                    curr === index
+                      ? "rgb(99 95 95 / 40%)"
+                      : darkMode
+                      ? "#121212"
+                      : "rgb(247, 247, 247)",
+                  // margin: "20px 0",
+                  width: "100%",
+                }}
+              >
+                <ListItem>
+                  <ListItemIcon sx={{minWidth:"30px"}}>
+                    <MdOutlineOndemandVideo />
+                  </ListItemIcon>
+                  <ListItemText >
+                      <span className="mr-2">{item.title}</span>
+                      <span className="text-gray-500 text-[12px]">[{item.duration}min]</span>
+                  </ListItemText>
+                  {/* <h6>{item?.duration}</h6> */}
+                </ListItem>
+              </ListItemButton>
+            </label>
+          );
+        })}
+        {/* <ToggleModeComponent theme={theme}  setmyMode={setmyMode} />   */}
       </List>
     </div>
   );

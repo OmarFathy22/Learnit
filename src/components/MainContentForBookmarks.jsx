@@ -5,7 +5,6 @@ import {BiTimeFive} from 'react-icons/bi'
 import {data2} from "../../Data"
 const user = JSON.parse(localStorage.getItem("user"));
 const data3 = user?.coursesInProgress
-console.log("data3" , data3)
 
 const MainContent = () => {
   return(
@@ -15,7 +14,7 @@ const MainContent = () => {
             <h1 className='text-[40px]  text-[#8b8bf1] bg-[#d8edf0a5] rounded-full p-1'><BiTimeFive/></h1>
             <div>
               <h6 className='font-bold'>In Progress</h6>
-              <h6>{data3.length} Courses</h6>
+              <h6>{data3?.length} Courses</h6>
             </div>
           </div>
           <div className='p-2 w-1/2 flex items-center border-[1px] border-gray-300 rounded-md gap-3'> 

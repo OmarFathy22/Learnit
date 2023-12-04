@@ -36,7 +36,7 @@ function Media({ value, curr }) {
         wrap="wrap"
         className="justify-center flex-wrap  mx-auto  self-center  grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4"
       >
-        {(loading ? Array.from(new Array(10)) : courses).map((item, index) => (
+        {(loading ? Array.from(new Array(10)) : courses)?.map((item, index) => (
           <div
             key={index}
             style={{

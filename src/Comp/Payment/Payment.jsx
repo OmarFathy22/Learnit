@@ -8,7 +8,7 @@ import {
   MDBInput,
   MDBRow,
 } from "mdb-react-ui-kit";
-// import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import { FaCheckCircle } from "react-icons/fa";
 import Loading from "../loader/Loading";
 
@@ -81,7 +81,7 @@ export default function App() {
                   </div>
 
                   <MDBRow className="my-4">
-                    <MDBCol size="7">
+                    <MDBCol size="6">
                       <MDBInput
                         label="Cardholder's Name"
                         id="form3"
@@ -99,7 +99,7 @@ export default function App() {
                         placeholder="MM/YYYY"
                       />
                     </MDBCol>
-                    <MDBCol size="2">
+                    <MDBCol size="3">
                       <MDBInput
                         label="CVV"
                         id="form6"

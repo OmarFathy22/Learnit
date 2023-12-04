@@ -10,18 +10,13 @@ import React, { useMemo, useState } from "react";
 import { Outlet } from "react-router";
 import getDesignTokens from "../styles/MyTheme";
 import DRAWER from "../components/ContentDRAWER ";
-import { toast, ToastContainer } from "react-toastify";
-import UserProgress from "../Comp/Login/UserProgress";
-import { BsBook } from "react-icons/bs";
-import LoginModal from "../Comp/Login/LoginModal";
-import { Player } from "video-react";
+import { toast } from "react-toastify";
 import LoadingSpinner from "../components/Loading";
-import "video-react/dist/video-react.css"; // import css
-import ReactPlayer from "react-player";
+  import ReactPlayer from "react-player";
 import { BsCheck2Circle } from "react-icons/bs";
-import { content1 } from "../../Data";
 import { doc, runTransaction } from "firebase/firestore";
 import { db } from "../../firebase/config";
+
 
 // Render a YouTube video player
 
@@ -34,7 +29,6 @@ const Root = (props) => {
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = useState(true);
   const [curr, setCurr] = useState(0);
-  const [userPoints, setuserPoints] = useState(0);
   const [showList, setshowList] = useState("none");
   const [mode, setmyMode] = useState(
     localStorage.getItem("currentMode") === null
@@ -46,6 +40,7 @@ const Root = (props) => {
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   const user = JSON.parse(localStorage.getItem("user"));
+  const currCourse = JSON.parse(localStorage.getItem("currCourse"));
   const handleUpdate = async () => {
     const handleUpdatePoints = async (params) => {
       const docRef = doc(db, "Users", user?.uid);
@@ -58,14 +53,14 @@ const Root = (props) => {
       });
     };
     handleUpdatePoints();
-    setCurr((prev) => (prev + 1) % content1.length);
+    setCurr((prev) => (prev + 1) % currCourse?.content.length);
     const performSignIn = async () => {
       try {
         // Show a loading toast while the promise is pending
         const promise = new Promise((resolve) => {
           setTimeout(() => {
             resolve(console.log("done")); // Replace with your actual promise-based operation
-          }, 1500); // Simulate a one-second delay
+          }, 1000); // Simulate a one-second delay
         });
 
         toast.promise(promise, {
@@ -125,7 +120,7 @@ const Root = (props) => {
                   muted={true}
                   width="100%"
                   height="100%"
-                  url={content1[curr]}
+                  url={currCourse?.content[curr].url}
                   style={{ borderRadius: "10px", overflow: "hidden" }}
                   onReady={() => {
                     setLoading(false);
