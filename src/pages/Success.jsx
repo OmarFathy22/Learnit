@@ -22,7 +22,16 @@ const Root = (props) => {
   };
   const [showList, setshowList] = useState("none");
   const [open, setOpen] = useState("none");
-
+  const [loading, setLoading] = useState(false);
+  const [success , setSuccess] = useState(true)
+  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
+   const handleLoading = (params) => {
+     setLoading(true)
+     setTimeout(() => {
+        setLoading(false)
+     }, 3000);
+   }
   const [mode, setmyMode] = useState(
     localStorage.getItem("currentMode") === null
       ? "dark"
@@ -56,7 +65,7 @@ const Root = (props) => {
             mode={mode}
             setmyMode={setmyMode}
           />
-             <Payment />
+             <Payment success = {success}/>
         </Stack>
         {/* Main content is landing here */}
         <Outlet />

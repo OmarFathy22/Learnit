@@ -1,0 +1,5 @@
+
+The chatbot implementation provided here uses a rule-based approach rather than a machine learning-based or AI-based approach. In a rule-based chatbot, the behavior is predefined using if-else conditions and rules, as seen in the MessageParser and ActionProvider classes. It checks for specific keywords or patterns in the user's input and responds accordingly.
+If you want to incorporate AI into your chatbot to make it more adaptive and capable of understanding natural language, you might consider using natural language processing (NLP) or a machine learning model.
+Here's a brief overview of how you could integrate an AI-powered chatbot using a library like Rasa:
+

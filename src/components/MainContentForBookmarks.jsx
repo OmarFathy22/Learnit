@@ -14,15 +14,15 @@ const MainContent = () => {
           <div className='p-2 w-1/2 flex items-center border-[1px] border-gray-300 rounded-md gap-3'>
             <h1 className='text-[40px]  text-[#8b8bf1] bg-[#d8edf0a5] rounded-full p-1'><BiTimeFive/></h1>
             <div>
-              <h1 className='font-bold'>In Progress</h1>
-              <h1>{data3.length} Courses</h1>
+              <h6 className='font-bold'>In Progress</h6>
+              <h6>{data3.length} Courses</h6>
             </div>
           </div>
           <div className='p-2 w-1/2 flex items-center border-[1px] border-gray-300 rounded-md gap-3'> 
             <h1 className='text-[40px] text-[#297c29] bg-[#acdfac4d] rounded-full p-1'><BsCheck2Circle/></h1>
             <div>
-              <h1 className='font-bold'>Completed </h1>
-              <h1>0 Courses</h1>
+              <h6 className='font-bold'>Completed </h6>
+              <h6>0 Courses</h6>
             </div>
           </div>
     

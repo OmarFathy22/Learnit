@@ -136,7 +136,7 @@ const Root = (props) => {
                   }}
                 />
                 <div className=" pb-10">
-                  <div className="flex items-center  justify-between border-[1px] border-gray-300 mt-3 p-5 rounded-[10px]">
+                  <div className="flex items-baseline justify-between border-[1px] border-gray-300 mt-3 p-3 rounded-[10px]">
                     <h1 className="font-bold text-[20px] max-600:text-[13px]">
                       Lesson {curr + 1}
                     </h1>

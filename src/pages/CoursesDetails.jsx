@@ -23,6 +23,7 @@ import ReactPlayer from "react-player";
 import LoadingSpinner from "../components/Loading";
 import "video-react/dist/video-react.css"; // import css
 import { Player } from "video-react";
+import { Typography } from "@mui/material";
 
 const Root = (props) => {
   const navigate = useNavigate();
@@ -133,9 +134,9 @@ const Root = (props) => {
 
                     {/* <div className=" pb-10">
                       <div className="flex items-center  justify-between border-[1px] border-gray-300 mt-3 p-5 rounded-[10px]">
-                        <h1 className="font-bold text-[20px] max-600:text-[13px]">
+                        <Typography className="font-bold text-[20px] max-600:text-[13px]">
                           Lesson {curr + 1}
-                        </h1>
+                        </Typography>
                         <button
                           onClick={handleUpdate}
                           className="bg-green-600 rounded-md p-1 px-2 text-white flex items-center gap-1 max-600:text-[13px]"
@@ -144,19 +145,19 @@ const Root = (props) => {
                         </button>
                       </div>
                     </div>
-                    <h1 className="text-center font-bold  border-b-1 border-b-black underline">
+                    <Typography className="text-center font-bold  border-b-1 border-b-black underline">
                       Quick Quiz
-                    </h1> */}
+                    </Typography> */}
                   </div>
-                  <div className="  border-2 border-gray-500 rounded-md p-8 flex flex-col gap-3">
+                  <div className="  border-2 border-gray-500 rounded-md p-8 flex flex-col gap-1">
                     <div className="flex items-center gap-2">
                       <BsBook />
-                      <h1>{currCourse.chapters} chapters</h1>
+                      <Typography>{currCourse.chapters} chapters</Typography>
                     </div>
                     <div>
-                      <h1 className="font-bold text-[22px] ">
+                      <Typography sx={{fontSize:"22px"}}>
                         {currCourse.title}
-                      </h1>
+                      </Typography>
                       <p className="text-[#5f6368]">{currCourse.desc}</p>
                     </div>
                     {/* <div className="flex items-center gap-2">
@@ -173,12 +174,12 @@ const Root = (props) => {
                     {user ? (
                       <div>
                         <UserProgress value={0} />
-                        <h1 className="text-[13px] mt-1 text-blue-900">
+                        <Typography className="text-[13px] mt-1 text-blue-900">
                           0% Complete
-                        </h1>
+                        </Typography>
                       </div>
                     ) : (
-                      <h1 className="mt-3 text-[#4dbbe0]">Free</h1>
+                      <Typography className="mt-3 text-[#4dbbe0]">Free</Typography>
                     )}
                   </div>
                 </div>
@@ -191,16 +192,16 @@ const Root = (props) => {
                 }}
                 className="text-white max-600:w-[95%] w-[50%] max-1300:w-full  border-2 border-gray-500 rounded-md p-8 flex flex-col gap-2"
               >
-                <h1 className="font-bold text-[25px] ">
+                <Typography sx={{fontSize:"23px"}}>
                   {!isEnrolled
                     ? "Ready to start building?"
                     : "Continue where you left off."}
-                </h1>
-                <h3>
+                </Typography>
+                <Typography>
                   {!isEnrolled
                     ? "Track your progress, watch with subtitles, change quality & speed, and more."
                     : "Watch from the last completed chapter."}
-                </h3>
+                </Typography>
                 <button
                   onClick={() => {
                     if (!isEnrolled) {

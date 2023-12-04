@@ -124,13 +124,14 @@ function ResponsiveDrawer({
         </Box>
       </Toolbar>
       <Divider />
-      <List>
+      <List > 
         <Modal open={open} handleClose={handleClose} />
         {list.map((item, index) => {
           return (
             <label
               htmlFor={item.text === "Create" ? "FabIconClick" : ""}
               key={index}
+              className="w-full"
             >
               <ListItemButton
                 onClick={() => {
@@ -148,6 +149,7 @@ function ResponsiveDrawer({
                   }
                 }}
                 key={index}
+          
                 sx={{
                   padding: "2px",
                   backgroundColor:
@@ -157,7 +159,7 @@ function ResponsiveDrawer({
                     )
                       ? "rgb(98 94 94 / 30%)"
                       : "",
-                  margin: "20px 0",
+                  margin: "10px 0",
                   width: "100%",
                 }}
               >

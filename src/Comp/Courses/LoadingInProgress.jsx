@@ -64,7 +64,7 @@ function Media({ value, curr }) {
 
               {item ? (
                 <Box sx={{ pr: 2, mt: 2 }}>
-                  <Typography gutterBottom variant="body2">
+                  <Typography gutterBottom variant="body2 ">
                     {item.title}
                   </Typography>
                   <Typography
@@ -75,9 +75,9 @@ function Media({ value, curr }) {
                     {item.instructor}
                   </Typography>
                   <Typography variant="caption" color="text.secondary">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-baseline gap-2">
                       <BsBook />
-                      <h1>{item.chapters} chapters</h1>
+                      <h6 >{item.chapters} chapters</h6>
                     </div>
                   </Typography>
                   {user ? (

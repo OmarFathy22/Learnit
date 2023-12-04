@@ -109,10 +109,10 @@ function ResponsiveDrawer({
             padding: 3,
           }}
         >
-          <h1 className="font-bold">Fullstack Notion Clone</h1>
+          <h6 className="font-bold">Fullstack Notion Clone</h6>
           <div className="flex flex-col gap-[2px]">
             <UserProgress value={5} />
-            <h1 className="text-green-700">5% Complete</h1>
+            <h6 className="text-green-700">5% Complete</h6>
           </div>
         </Box>
       </Toolbar>
@@ -122,7 +122,7 @@ function ResponsiveDrawer({
           .fill()
           .map((item, index) => {
             return (
-              <label htmlFor={"FabIconClick"} key={index}>
+              <label htmlFor={"FabIconClick"} key={index} className="w-full">
                 <ListItemButton
                   onClick={() => {
                     handleCurr(index);
