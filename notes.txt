@@ -3,3 +3,7 @@ The chatbot implementation provided here uses a rule-based approach rather than 
 If you want to incorporate AI into your chatbot to make it more adaptive and capable of understanding natural language, you might consider using natural language processing (NLP) or a machine learning model.
 Here's a brief overview of how you could integrate an AI-powered chatbot using a library like Rasa:
 
+Transaction:
+Transactions are used when you need to perform multiple read and write operations atomically.
+Transactions ensure that the data remains consistent during the entire operation, and they automatically retry the transaction if the data changes during the transaction.
+They are useful in scenarios where multiple clients might be updating the same data simultaneously, and you want to avoid conflicts.

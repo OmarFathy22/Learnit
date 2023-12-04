@@ -20,7 +20,7 @@ import "video-react/dist/video-react.css"; // import css
 import ReactPlayer from "react-player";
 import { BsCheck2Circle } from "react-icons/bs";
 import { content1 } from "../../Data";
-import { doc, updateDoc , getDoc ,FieldValue } from "firebase/firestore";
+import { doc, runTransaction } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
 // Render a YouTube video player
@@ -34,7 +34,7 @@ const Root = (props) => {
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = useState(true);
   const [curr, setCurr] = useState(0);
-  const [userPoints , setuserPoints] = useState(0)
+  const [userPoints, setuserPoints] = useState(0);
   const [showList, setshowList] = useState("none");
   const [mode, setmyMode] = useState(
     localStorage.getItem("currentMode") === null
@@ -46,23 +46,18 @@ const Root = (props) => {
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   const user = JSON.parse(localStorage.getItem("user"));
-  const handleUpdate = async() => {
-    const docRef = doc(db, "Users", user?.uid);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      setuserPoints(docSnap.data().points + 20)
-    } else {
-      console.log("No such document!");
-    }
-    const updatePoints = async () => {
+  const handleUpdate = async () => {
+    const handleUpdatePoints = async (params) => {
       const docRef = doc(db, "Users", user?.uid);
-      await updateDoc(docRef, {
-        // increase points by 20 nd level by 1
-        points:(userPoints + 20)  ,
-        level: Math.floor((userPoints + 20) / 100) ,
+      await runTransaction(db, async (transaction) => {
+        const doc = await transaction.get(docRef);
+        const currentPoints = doc.data().points;
+
+        // Update points with the new value
+        transaction.update(docRef, { points: currentPoints + 20 });
       });
     };
-    updatePoints();
+    handleUpdatePoints();
     setCurr((prev) => (prev + 1) % content1.length);
     const performSignIn = async () => {
       try {
@@ -127,6 +122,7 @@ const Root = (props) => {
                 <ReactPlayer
                   controls={true}
                   playing={true}
+                  muted={true}
                   width="100%"
                   height="100%"
                   url={content1[curr]}
@@ -148,7 +144,9 @@ const Root = (props) => {
                     </button>
                   </div>
                 </div>
-                <h1 className="text-center font-bold  border-b-1 border-b-black underline">Quick Quiz</h1>
+                <h1 className="text-center font-bold  border-b-1 border-b-black underline">
+                  Quick Quiz
+                </h1>
               </div>
             )}
           </div>

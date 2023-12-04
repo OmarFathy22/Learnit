@@ -97,8 +97,8 @@ export default function AccountMenu({ user }) {
       >
         <MenuItem onClick={handleClose}>
           <Box>
-            <h1>{username}</h1>
-            <h1>{email}</h1>
+            <h6 className="font-bold">{username}</h6>
+            <h6 className="font-bold">{email}</h6>
           </Box>
         </MenuItem>
         {/* <MenuItem onClick={handleClose}>
@@ -107,10 +107,10 @@ export default function AccountMenu({ user }) {
         <MenuItem onClick={handleClose}>
           <div>
             <div className="flex justify-between min-w-[350px] text-[13px] mb-1 text-gray-500 ">
-              <h1>level {userData.level}</h1>
-              <h1>{userData.points}/100 points</h1>
+              <h6>level {Math.floor(userData.points / 100)}</h6>
+              <h6>{userData.points % 100}/100 points</h6>
             </div>
-            <UserProgress value={userData.points} />
+            <UserProgress value={20} />
           </div>
         </MenuItem>
 
