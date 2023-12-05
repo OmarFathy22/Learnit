@@ -23,7 +23,7 @@ const MainContent = () => {
         <div className=" mx-10 max-600:mt-7 mb-2  max-900:hidden ">
           <CategoriesWeb curr={curr} setCurr={setCurr} />
         </div>
-        <div className=" mx-10 mt-[100px]  mb-2 overflow-auto min-900:hidden ">
+        <div className=" mx-10 mt-[101px] mb-2 overflow-auto min-900:hidden ">
           <CategoriesMobile curr={curr} setCurr={setCurr} />
         </div>
         <div className="my-[20px]">
