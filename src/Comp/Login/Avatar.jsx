@@ -15,11 +15,14 @@ import Logout from "@mui/icons-material/Logout";
 import UserProgress from "./UserProgress";
 import { doc, getDoc , onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase/config";
+import { useNavigate } from "react-router-dom";
+import { reload } from "firebase/auth";
 
 export default function AccountMenu({ user }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [userData, setUserData] = React.useState({ points: 0, level: 0 });
   const [loading, setLoading] = React.useState(true);
+  const navigate = useNavigate();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -129,8 +132,8 @@ export default function AccountMenu({ user }) {
           onClick={() => {
             localStorage.removeItem("user");
             handleClose();
-            location.replace("/");
-            location.reload();
+            navigate("/");
+
           }}
         >
           <ListItemIcon>

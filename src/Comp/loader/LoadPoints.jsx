@@ -3,11 +3,11 @@ import { Bars } from "react-loader-spinner";
 
 const Loading = () => {
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center h-[80vh]">
     <Bars
-        height="20"
-        width="30"
-        color="white"
+        height="100"
+        width="100"
+        color="#333"
         ariaLabel="bars-loading"
         wrapperStyle={{}}
         wrapperClass=""

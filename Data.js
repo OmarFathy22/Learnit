@@ -323,7 +323,7 @@ export const courses = [
     id: 4,
     banner:
       "https://www.codewithantonio.com/_next/image?url=https%3A%2F%2Futfs.io%2Ff%2Fb737448e-ffb5-4bee-bb92-9024975023c3-9y3shz.jpg&w=1200&q=75",
-    title: "UI/UX Design",
+    title: "UI-UX Design",
     desc:
       "Learn how to Design a fullstack Notion clone with React, Firebase & Tailwind CSS",
     chapters: content1.length,

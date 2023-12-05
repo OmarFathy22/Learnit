@@ -51,12 +51,12 @@ const Root = (props) => {
   const updateUserCourses = async (user, currCourse) => {
     const docRef = doc(db, "Users", user?.uid);
     await updateDoc(docRef, {
-      coursesInProgress: [...user.coursesInProgress, currCourse],
+      coursesInProgress: [...user.coursesInProgress,{...currCourse ,completedLessons:[]}],
     });
     // update the user object in local storage
     const updatedUser = {
       ...user,
-      coursesInProgress: [...user.coursesInProgress, currCourse],
+      coursesInProgress: [...user.coursesInProgress, {...currCourse ,completedLessons:[]}],
     };
     localStorage.setItem("user", JSON.stringify(updatedUser));
   };

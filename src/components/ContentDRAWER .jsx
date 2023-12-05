@@ -11,6 +11,9 @@ import Toolbar from "@mui/material/Toolbar";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { Divider, styled, Switch } from "@mui/material";
 import { MdOutlineOndemandVideo } from "react-icons/md";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import Loading from "../Comp/loader/LoadPoints";
+import { useState } from "react";
 
 import UserProgress from "../Comp/Login/UserProgress";
 
@@ -89,15 +92,19 @@ function ResponsiveDrawer({
   mobileOpen,
   setCurr,
   curr,
+  CheckCompletedLesson,
+  loadingLessons,
+  compeletedLessons,
 }) {
   const handleCurr = (index) => {
     setCurr(index);
   };
+  console.log("loadingLessons", loadingLessons)
   const { Window } = props;
   const darkMode =
     localStorage.getItem("currentMode") === "dark" ? true : false;
+  const user = JSON.parse(localStorage.getItem("user"));
   const currCourse = JSON.parse(localStorage.getItem("currCourse"));
-  console.log(currCourse);
 
   const drawer = (
     <div>
@@ -114,50 +121,75 @@ function ResponsiveDrawer({
         >
           <h6 className="font-bold">Fullstack Notion Clone</h6>
           <div className="flex flex-col gap-[2px]">
-            <UserProgress value={5} />
-            <h6 className="text-green-700">5% Complete</h6>
+            <UserProgress value={(compeletedLessons / currCourse?.content?.length)*100 } />
+            <h6 className="text-green-700">{Math.floor((compeletedLessons / currCourse?.content?.length)*100)}% Complete</h6>
           </div>
         </Box>
       </Toolbar>
       <Divider />
-      <List sx={{ paddingTop: 0 }}>
-        {currCourse?.content.map((item, index) => {
-          return (
-            <label htmlFor={"FabIconClick"} key={index} className="w-full">
-              <ListItemButton
-                onClick={() => {
-                  handleCurr(index);
-                }}
-                key={index}
-                sx={{
-                  // padding: "2px",
-                  gap: 1,
-                  backgroundColor:
-                    curr === index
-                      ? "rgb(99 95 95 / 40%)"
-                      : darkMode
-                      ? "#121212"
-                      : "rgb(247, 247, 247)",
-                  // margin: "20px 0",
-                  width: "100%",
-                }}
-              >
-                <ListItem>
-                  <ListItemIcon sx={{minWidth:"30px"}}>
-                    <MdOutlineOndemandVideo />
-                  </ListItemIcon>
-                  <ListItemText >
-                      <span className="mr-2">{item.title}</span>
-                      <span className="text-gray-500 text-[12px]">[{item.duration}min]</span>
-                  </ListItemText>
-                  {/* <h6>{item?.duration}</h6> */}
-                </ListItem>
-              </ListItemButton>
-            </label>
-          );
-        })}
-        {/* <ToggleModeComponent theme={theme}  setmyMode={setmyMode} />   */}
-      </List>
+      {loadingLessons ? (
+        <Loading />
+      ) : (
+        <List sx={{ paddingTop: 0 }}>
+          {currCourse?.content.map((item, index) => {
+            return (
+              <label htmlFor={"FabIconClick"} key={index} className="w-full">
+                <ListItemButton
+                  onClick={() => {
+                    handleCurr(index);
+                  }}
+                  key={index}
+                  sx={{
+                    // padding: "2px",
+                    gap: 1,
+                    backgroundColor:
+                      curr === index
+                        ? "rgb(99 95 95 / 40%)"
+                        : darkMode
+                        ? "#121212"
+                        : "rgb(247, 247, 247)",
+                    // margin: "20px 0",
+                    width: "100%",
+                  }}
+                >
+                  <ListItem>
+                    <ListItemIcon sx={{ minWidth: "30px" }}>
+                      {CheckCompletedLesson(item.id) ? (
+                        <IoMdCheckmarkCircleOutline
+                          className={`${
+                            CheckCompletedLesson(item.id) && "text-green-500"
+                          }`}
+                        />
+                      ) : (
+                        <MdOutlineOndemandVideo />
+                      )}
+                    </ListItemIcon>
+                    <ListItemText>
+                      <span
+                        className={`mr-2 ${
+                          CheckCompletedLesson(item.id) && "text-green-600"
+                        }`}
+                      >
+                        {item.title}
+                      </span>
+                      <span
+                        className={`text-[12px]  inline-block -translate-y-[2px] ${
+                          CheckCompletedLesson(item.id)
+                            ? "text-green-500"
+                            : "text-gray-500"
+                        }`}
+                      >
+                        [{item.duration}min]
+                      </span>
+                    </ListItemText>
+                  </ListItem>
+                </ListItemButton>
+              </label>
+            );
+          })}
+        </List>
+        
+      )}
     </div>
   );
 

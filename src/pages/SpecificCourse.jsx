@@ -6,17 +6,18 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import Appbar from "../components/Appbar";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Outlet } from "react-router";
 import getDesignTokens from "../styles/MyTheme";
 import DRAWER from "../components/ContentDRAWER ";
 import { toast } from "react-toastify";
 import LoadingSpinner from "../components/Loading";
-  import ReactPlayer from "react-player";
+import ReactPlayer from "react-player";
 import { BsCheck2Circle } from "react-icons/bs";
-import { doc, runTransaction } from "firebase/firestore";
+import { doc, getDoc, runTransaction } from "firebase/firestore";
 import { db } from "../../firebase/config";
-
+import { Check } from "@mui/icons-material";
+import Celebration from "../Comp/loader/Celebrations";
 
 // Render a YouTube video player
 
@@ -37,10 +38,51 @@ const Root = (props) => {
       ? "light"
       : "dark"
   );
-
-  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   const user = JSON.parse(localStorage.getItem("user"));
   const currCourse = JSON.parse(localStorage.getItem("currCourse"));
+  const [completedLessons, setCompletedLessons] = useState([]);
+  const [loadingLessons , setLoadingLessons] = useState(true)
+  const GetCompletedLessons = async(params) => {
+    const docRef = doc(db, "Users", user?.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      setCompletedLessons(docSnap.data().coursesInProgress.find((course) => course.id === currCourse?.id)?.completedLessons)
+    } else {
+      console.log("No such document!");
+    }
+  }
+  const CheckCompletedLesson = (id) => {
+    const check =  completedLessons?.includes(id);
+    return check;
+  };
+  useEffect(() => {
+    GetCompletedLessons()
+    setTimeout(() => {
+    setLoadingLessons(false)
+    }, 1000);
+  }, [])
+  
+  const updateProgress = (params) => {
+    const UpdateCompletedinDB = async (params) => {
+      const docRef = doc(db, "Users", user?.uid);
+      runTransaction(db, async (transaction) => {
+        const doc = await transaction.get(docRef);
+        const currentProgress = doc.data().coursesInProgress;
+        const index = currentProgress.findIndex(
+          (course) => course.id === currCourse?.id
+        );
+        if(!currentProgress[index].completedLessons.includes(curr+1)){
+          currentProgress[index].completedLessons.push(curr+1)
+        }
+        transaction.update(docRef, { coursesInProgress: currentProgress });
+      });
+    };
+    UpdateCompletedinDB();
+    setCompletedLessons((prev) => [...prev, curr + 1]);
+  };
+
+
+  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   const handleUpdate = async () => {
     const handleUpdatePoints = async (params) => {
       const docRef = doc(db, "Users", user?.uid);
@@ -54,6 +96,7 @@ const Root = (props) => {
     };
     handleUpdatePoints();
     setCurr((prev) => (prev + 1) % currCourse?.content.length);
+    updateProgress();
     const performSignIn = async () => {
       try {
         // Show a loading toast while the promise is pending
@@ -85,7 +128,7 @@ const Root = (props) => {
       <Box
         sx={{
           backgroundColor:
-            theme.palette.mode === "light" ? " rgb(248, 248, 248)" : null,
+          theme.palette.mode === "light" ? " rgb(248, 248, 248)" : null,
           minHeight: "100vh !important",
         }}
       >
@@ -105,6 +148,9 @@ const Root = (props) => {
             setmyMode={setmyMode}
             setCurr={setCurr}
             curr={curr}
+            CheckCompletedLesson={CheckCompletedLesson}
+            loadingLessons={loadingLessons}
+            compeletedLessons={completedLessons?.length}
           />
           <div className="w-full h-full max-600:mt-[120px]  pb-10   flex flex-col justify-center items-center mt-[100px] mx-3 sm:mt-[120px] rounded-md mb-[40px]">
             {loading ? (
