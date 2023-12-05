@@ -66,7 +66,7 @@ const Root = (props) => {
   useEffect(() => {
     GetCompletedLessons();
     console.log("completedLessons" , completedLessons?.length)
-    console.log("currCourse",currCourse?.content.length)
+    console.log("currCourse",currCourse?.content?.length)
     setTimeout(() => {
       setLoadingLessons(false);
     }, 1000);
@@ -104,7 +104,7 @@ const Root = (props) => {
       });
     };
     handleUpdatePoints();
-    setCurr((prev) => (prev + 1) % currCourse?.content.length);
+    setCurr((prev) => (prev + 1) % currCourse?.content?.length);
     updateProgress();
     const performSignIn = async () => {
       try {
@@ -137,7 +137,7 @@ const Root = (props) => {
     }, 3000);
   };
   useEffect(() => {
-    if (completedLessons.length === currCourse?.content?.length) {
+    if (completedLessons?.length === currCourse?.content?.length) {
       handleCeleb();
     }
   }, [completedLessons]);

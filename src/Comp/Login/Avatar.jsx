@@ -13,16 +13,18 @@ import Settings from "@mui/icons-material/Settings";
 import PointsLoader from "../loader/LoadPoints";
 import Logout from "@mui/icons-material/Logout";
 import UserProgress from "./UserProgress";
-import { doc, getDoc , onSnapshot } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 import { useNavigate } from "react-router-dom";
 import { reload } from "firebase/auth";
+import { useLocation } from "react-router-dom";
 
 export default function AccountMenu({ user }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [userData, setUserData] = React.useState({ points: 0, level: 0 });
   const [loading, setLoading] = React.useState(true);
   const navigate = useNavigate();
+  const {pathname} = useLocation();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -43,12 +45,12 @@ export default function AccountMenu({ user }) {
         console.log("No such document!");
       }
     });
-  
+
     return () => {
       unsubscribe(); // Cleanup the listener when the component unmounts
     };
   }, []);
-  
+
   console.log(userData.points, userData.level);
   const { photoUrl, username, email } = user;
   return (
@@ -132,8 +134,12 @@ export default function AccountMenu({ user }) {
           onClick={() => {
             localStorage.removeItem("user");
             handleClose();
-            navigate("/");
-
+            if(pathname !== "/"){
+              navigate("/");
+            }
+            setTimeout(() => {
+              window.location.reload();
+            }, 200);
           }}
         >
           <ListItemIcon>

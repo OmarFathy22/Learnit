@@ -50,7 +50,6 @@ In summary, UI-UX design combines the visual and interactive elements (UI) with 
         `
         )
       );
-    
     } else if (lowerCaseMessage.includes("web")) {
       // Provide the response about business development
       this.actionProvider.addMessageToBotState(
@@ -69,7 +68,7 @@ In summary, UI-UX design combines the visual and interactive elements (UI) with 
         `
         )
       );
-    }  else if (lowerCaseMessage.includes("video")) {
+    } else if (lowerCaseMessage.includes("video")) {
       // Provide the response about business development
       this.actionProvider.addMessageToBotState(
         this.actionProvider.createChatBotMessage(
@@ -96,7 +95,7 @@ In summary, UI-UX design combines the visual and interactive elements (UI) with 
         `
         )
       );
-    }  else if (lowerCaseMessage.includes("mobile")) {
+    } else if (lowerCaseMessage.includes("mobile")) {
       // Provide the response about business development
       this.actionProvider.addMessageToBotState(
         this.actionProvider.createChatBotMessage(

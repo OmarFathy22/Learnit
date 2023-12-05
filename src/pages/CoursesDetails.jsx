@@ -47,12 +47,13 @@ const Root = (props) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const currCourse = JSON.parse(localStorage.getItem("currCourse"));
   const [isEnrolled, setisEnrolled] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   console.log(loading);
   // const isEnrolled = user?.coursesInProgress?.find(
   //   (course) => course.id === currCourse.id
   // );
   const handleEnrolled = async () => {
+    setLoading(true)
     const docRef = doc(db, "Users", user?.uid);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
@@ -67,7 +68,8 @@ const Root = (props) => {
     }
     console.log(isEnrolled);
   };
-  console.log(loading);
+
+  // I should fix this using transactions
   const updateUserCourses = async (user, currCourse) => {
     const docRef = doc(db, "Users", user?.uid);
     await updateDoc(docRef, {
@@ -115,7 +117,9 @@ const Root = (props) => {
     }
   };
   React.useEffect(() => {
-    handleEnrolled();
+    if(user){
+      handleEnrolled();
+    }
   }, []);
   return (
     <ThemeProvider theme={theme}>
