@@ -17,27 +17,60 @@ function Media({ value, curr }) {
   const handleCurrCourse = (item) => {
     currCourse.setCurrCourse(item);
     localStorage.setItem("currCourse", JSON.stringify(item));
-  }
+  };
   const [loading, setLoading] = React.useState(true);
   const [loadingImage, setLoadingImage] = React.useState(true);
+  const [completedLessons, setCompletedLessons] = React.useState(0);
   const [courses, setCourses] = React.useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
   React.useEffect(() => {
-    const GetCourses = async (params) => {
-      const docRef = doc(db, "Courses", "data");
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setCourses(docSnap.data().data);
-      } else {
-        console.log("No such document!");
+    let isMounted = true;
+  
+    const getCourses = async () => {
+      try {
+        const docRef = doc(db, "Courses", "data");
+        const docSnap = await getDoc(docRef);
+  
+        if (docSnap.exists() && user) {
+          const coursesData = docSnap.data().data;
+  
+          const docUser = doc(db, "Users", user?.uid);
+          const docSnapUser = await getDoc(docUser);
+  
+          if (docSnapUser.exists() && isMounted) {
+            const updatedCourses = coursesData.map(course => {
+              const courseProgress = docSnapUser.data().coursesInProgress.find(userCourse => userCourse.id === course.id);
+              
+              return {
+                ...course,
+                courseProgress: courseProgress ? Math.floor((courseProgress.completedLessons.length / course.content.length) * 100) : 0
+              };
+            });
+  
+            setCourses(updatedCourses);
+          } else {
+            console.log("No such document!");
+          }
+        } else {
+          setCourses(docSnap.data().data);
+          console.log("No such document!");
+        }
+  
+        setLoading(false);
+        setTimeout(() => {
+          setLoadingImage(false);
+        }, 100);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
       }
-      setLoading(false);
-      setTimeout(() => {
-        setLoadingImage(false);
-      }, 100);
     };
-    GetCourses();
+  
+    getCourses();
+  
+    // Cleanup function to set isMounted to false when the component unmounts
+    
   }, []);
+  
 
   return (
     <div className="">
@@ -57,9 +90,12 @@ function Media({ value, curr }) {
               padding: "10px",
             }}
           >
-            <Link onClick={() => {
-              handleCurrCourse(item)
-            }} to={`/courses/${item?.title}`}>
+            <Link
+              onClick={() => {
+                handleCurrCourse(item);
+              }}
+              to={`/courses/${item?.title}`}
+            >
               {item ? (
                 <img
                   alt={item.title}
@@ -74,9 +110,7 @@ function Media({ value, curr }) {
 
               {item ? (
                 <Box sx={{ pr: 2, mt: 2 }}>
-                  <h5>
-                    {item.title}
-                  </h5>
+                  <h5>{item.title}</h5>
                   <Typography
                     display="block"
                     variant="caption"
@@ -93,9 +127,9 @@ function Media({ value, curr }) {
                   {user ? (
                     <Typography variant="caption" color="text.secondary">
                       <div className="mt-1">
-                        <UserProgress value={0} />
+                        <UserProgress value={item?.courseProgress} />
                         <h1 className="text-[13px] mt-1 text-blue-900">
-                          {0}% Complete
+                          {item?.courseProgress}% Complete
                         </h1>
                       </div>
                     </Typography>

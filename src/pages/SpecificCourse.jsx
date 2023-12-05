@@ -38,30 +38,40 @@ const Root = (props) => {
       ? "light"
       : "dark"
   );
+
   const user = JSON.parse(localStorage.getItem("user"));
   const currCourse = JSON.parse(localStorage.getItem("currCourse"));
   const [completedLessons, setCompletedLessons] = useState([]);
-  const [loadingLessons , setLoadingLessons] = useState(true)
-  const GetCompletedLessons = async(params) => {
+  const [loadingLessons, setLoadingLessons] = useState(true);
+  const [celeb, setCeleb] = useState(false);
+
+  const GetCompletedLessons = async (params) => {
     const docRef = doc(db, "Users", user?.uid);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      setCompletedLessons(docSnap.data().coursesInProgress.find((course) => course.id === currCourse?.id)?.completedLessons)
+      setCompletedLessons(
+        docSnap
+          .data()
+          .coursesInProgress.find((course) => course.id === currCourse?.id)
+          ?.completedLessons
+      );
     } else {
       console.log("No such document!");
     }
-  }
+  };
   const CheckCompletedLesson = (id) => {
-    const check =  completedLessons?.includes(id);
+    const check = completedLessons?.includes(id);
     return check;
   };
   useEffect(() => {
-    GetCompletedLessons()
+    GetCompletedLessons();
+    console.log("completedLessons" , completedLessons?.length)
+    console.log("currCourse",currCourse?.content.length)
     setTimeout(() => {
-    setLoadingLessons(false)
+      setLoadingLessons(false);
     }, 1000);
-  }, [])
-  
+  }, []);
+
   const updateProgress = (params) => {
     const UpdateCompletedinDB = async (params) => {
       const docRef = doc(db, "Users", user?.uid);
@@ -71,8 +81,8 @@ const Root = (props) => {
         const index = currentProgress.findIndex(
           (course) => course.id === currCourse?.id
         );
-        if(!currentProgress[index].completedLessons.includes(curr+1)){
-          currentProgress[index].completedLessons.push(curr+1)
+        if (!currentProgress[index].completedLessons.includes(curr + 1)) {
+          currentProgress[index].completedLessons.push(curr + 1);
         }
         transaction.update(docRef, { coursesInProgress: currentProgress });
       });
@@ -80,7 +90,6 @@ const Root = (props) => {
     UpdateCompletedinDB();
     setCompletedLessons((prev) => [...prev, curr + 1]);
   };
-
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   const handleUpdate = async () => {
@@ -121,14 +130,24 @@ const Root = (props) => {
   React.useEffect(() => {
     setLoading(false);
   }, [loading]);
-
+  const handleCeleb = () => {
+    setCeleb(true);
+    setTimeout(() => {
+      setCeleb(false);
+    }, 3000);
+  };
+  useEffect(() => {
+    if (completedLessons.length === currCourse?.content?.length) {
+      handleCeleb();
+    }
+  }, [completedLessons]);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box
         sx={{
           backgroundColor:
-          theme.palette.mode === "light" ? " rgb(248, 248, 248)" : null,
+            theme.palette.mode === "light" ? " rgb(248, 248, 248)" : null,
           minHeight: "100vh !important",
         }}
       >
@@ -139,6 +158,8 @@ const Root = (props) => {
           handleDrawerToggle={handleDrawerToggle}
         />
         <Stack direction="row">
+          {celeb && <Celebration />}
+
           <DRAWER
             mobileOpen={mobileOpen}
             handleDrawerToggle={handleDrawerToggle}

@@ -15,7 +15,7 @@ import UserProgress from "../Comp/Login/UserProgress";
 import { BsBook } from "react-icons/bs";
 import LoginModal from "../Comp/Login/LoginModal";
 import { useNavigate } from "react-router-dom";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { BsCheck2Circle } from "react-icons/bs";
 import { content1 } from "../../Data";
@@ -24,6 +24,7 @@ import LoadingSpinner from "../components/Loading";
 import "video-react/dist/video-react.css"; // import css
 import { Player } from "video-react";
 import { Typography } from "@mui/material";
+import Loading from "../Comp/loader/LoadEnroll";
 
 const Root = (props) => {
   const navigate = useNavigate();
@@ -45,18 +46,43 @@ const Root = (props) => {
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   const user = JSON.parse(localStorage.getItem("user"));
   const currCourse = JSON.parse(localStorage.getItem("currCourse"));
-  const isEnrolled = user?.coursesInProgress?.some(
-    (course) => course.id === currCourse.id
-  );
+  const [isEnrolled, setisEnrolled] = useState(false);
+  const [loading, setLoading] = useState(true);
+  console.log(loading);
+  // const isEnrolled = user?.coursesInProgress?.find(
+  //   (course) => course.id === currCourse.id
+  // );
+  const handleEnrolled = async () => {
+    const docRef = doc(db, "Users", user?.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      setisEnrolled(
+        docSnap
+          .data()
+          .coursesInProgress.find((course) => course.id === currCourse.id)
+      );
+      setLoading(false);
+    } else {
+      console.log("No such document!");
+    }
+    console.log(isEnrolled);
+  };
+  console.log(loading);
   const updateUserCourses = async (user, currCourse) => {
     const docRef = doc(db, "Users", user?.uid);
     await updateDoc(docRef, {
-      coursesInProgress: [...user.coursesInProgress,{...currCourse ,completedLessons:[]}],
+      coursesInProgress: [
+        ...user.coursesInProgress,
+        { ...currCourse, completedLessons: [] },
+      ],
     });
     // update the user object in local storage
     const updatedUser = {
       ...user,
-      coursesInProgress: [...user.coursesInProgress, {...currCourse ,completedLessons:[]}],
+      coursesInProgress: [
+        ...user.coursesInProgress,
+        { ...currCourse, completedLessons: [] },
+      ],
     };
     localStorage.setItem("user", JSON.stringify(updatedUser));
   };
@@ -88,6 +114,9 @@ const Root = (props) => {
       }
     }
   };
+  React.useEffect(() => {
+    handleEnrolled();
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -155,7 +184,7 @@ const Root = (props) => {
                       <Typography>{currCourse.chapters} chapters</Typography>
                     </div>
                     <div>
-                      <Typography sx={{fontSize:"22px"}}>
+                      <Typography sx={{ fontSize: "22px" }}>
                         {currCourse.title}
                       </Typography>
                       <p className="text-[#5f6368]">{currCourse.desc}</p>
@@ -173,13 +202,15 @@ const Root = (props) => {
               </div> */}
                     {user ? (
                       <div>
-                        <UserProgress value={0} />
+                        {/* <UserProgress value={0} />
                         <Typography className="text-[13px] mt-1 text-blue-900">
                           0% Complete
-                        </Typography>
+                        </Typography> */}
                       </div>
                     ) : (
-                      <Typography className="mt-3 text-[#4dbbe0]">Free</Typography>
+                      <Typography className="mt-3 text-[#4dbbe0]">
+                        Free
+                      </Typography>
                     )}
                   </div>
                 </div>
@@ -192,28 +223,34 @@ const Root = (props) => {
                 }}
                 className="text-white max-600:w-[95%] w-[50%] max-1300:w-full  border-2 border-gray-500 rounded-md p-8 flex flex-col gap-2"
               >
-                <Typography sx={{fontSize:"23px"}}>
-                  {!isEnrolled
-                    ? "Ready to start building?"
-                    : "Continue where you left off."}
-                </Typography>
-                <Typography>
-                  {!isEnrolled
-                    ? "Track your progress, watch with subtitles, change quality & speed, and more."
-                    : "Watch from the last completed chapter."}
-                </Typography>
-                <button
-                  onClick={() => {
-                    if (!isEnrolled) {
-                      handleEnroll();
-                    } else {
-                      navigate(`/courses/${currCourse.id}/chapters`);
-                    }
-                  }}
-                  className="bg-gray-100 p-1 mt-3 hover:bg-gray-300 transition-all duration-300 text-black rounded-md"
-                >
-                  {!isEnrolled ? "Enroll for Free" : "Continue Learning"}
-                </button>
+                {loading ? (
+                  <Loading />
+                ) : (
+                  <>
+                    <Typography sx={{ fontSize: "23px" }}>
+                      {!isEnrolled
+                        ? "Ready to start building?"
+                        : "Continue where you left off."}
+                    </Typography>
+                    <Typography>
+                      {!isEnrolled
+                        ? "Track your progress, watch with subtitles, change quality & speed, and more."
+                        : "Watch from the last completed chapter."}
+                    </Typography>
+                    <button
+                      onClick={() => {
+                        if (!isEnrolled) {
+                          handleEnroll();
+                        } else {
+                          navigate(`/courses/${currCourse.id}/chapters`);
+                        }
+                      }}
+                      className="bg-gray-100 p-1 mt-3 hover:bg-gray-300 transition-all duration-300 text-black rounded-md"
+                    >
+                      {!isEnrolled ? "Enroll for Free" : "Continue Learning"}
+                    </button>
+                  </>
+                )}
               </div>
             </div>
             <LoginModal open={open} handleClose={handleClose} />

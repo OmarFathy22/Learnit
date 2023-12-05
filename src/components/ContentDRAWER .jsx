@@ -13,7 +13,8 @@ import { Divider, styled, Switch } from "@mui/material";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import Loading from "../Comp/loader/LoadPoints";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Celebration from "../Comp/loader/Celebrations";
 
 import UserProgress from "../Comp/Login/UserProgress";
 
@@ -99,7 +100,6 @@ function ResponsiveDrawer({
   const handleCurr = (index) => {
     setCurr(index);
   };
-  console.log("loadingLessons", loadingLessons)
   const { Window } = props;
   const darkMode =
     localStorage.getItem("currentMode") === "dark" ? true : false;
