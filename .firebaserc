@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "connectiveaa"
-  }
+    "default": "e-learning-981e1",
+    "learnit": "e-learning-981e1"
+  },
+  "targets": {},
+  "etags": {}
 }
