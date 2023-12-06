@@ -156,7 +156,7 @@ const Root = (props) => {
             setmyMode={setmyMode}
           />
           <div className=" w-full max-600:mt-7 mx-5">
-            <div className="mt-[100px] mb-[50px] max-1300:flex-col   max-600:items-center w-full gap-5 borderr flex items-start ">
+            <div className="mt-[100px] mb-[50px] max-1300:flex-col   max-600:items-center w-full gap-5  flex items-start ">
               <div className="w-full flex-wrap h-full rounded-md min-1300:mb-[40px]">
                 <div className="flex flex-col gap-3  ">
                   <div className="w-full border-[1px] rounded-lg">

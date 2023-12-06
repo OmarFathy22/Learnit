@@ -51,7 +51,6 @@ export default function AccountMenu({ user }) {
     };
   }, []);
 
-  console.log(userData.points, userData.level);
   const { photoUrl, username, email } = user;
   return (
     <React.Fragment>
@@ -121,7 +120,7 @@ export default function AccountMenu({ user }) {
           ) : (
             <div>
               <div className="flex justify-between min-w-[350px] text-[13px] mb-1 text-gray-500 ">
-                <h6>level {Math.floor(userData.points / 100)}</h6>
+                <h6>level {Math.floor(userData.points / 100) + 1} </h6>
                 <h6>{userData.points % 100}/100 points</h6>
               </div>
               <UserProgress value={userData.points % 100} />

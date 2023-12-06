@@ -22,13 +22,15 @@ function Media({ value, curr }) {
   const [loading, setLoading] = React.useState(true);
   const [loadingImage, setLoadingImage] = React.useState(true);
   const [courses, setCourses] = React.useState([]);
-  const [active, setActive] = React.useState(0);
+  const [completedCourses, setCompletedCourses] = React.useState(0);
   const user = JSON.parse(localStorage.getItem("user"));
+  console.log(completedCourses)
   React.useEffect(() => {
     const getCoursesInProgress = (params) => {
       const docRef = doc(db, "Users", user?.uid);
       const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
-        setCourses(docSnapshot.data().coursesInProgress);
+        setCourses(docSnapshot?.data()?.coursesInProgress);
+        setCompletedCourses(docSnapshot?.data()?.completedCourses);
       });
       setLoading(false);
       setLoadingImage(false);
@@ -39,29 +41,27 @@ function Media({ value, curr }) {
     getCoursesInProgress();
     console.log("courses", courses);
   }, []);
-  const toggleCourses = (params) => {
-     setActive(!active)
-  }
+  
   return (
-    <div className="">
+    <div className="w-full">
       <Grid
         container
         wrap="wrap"
         className="justify-center flex-wrap  mx-auto  self-center  grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4"
       >
-            <div className='w-full mt-[100px] max-w-[90%] max-600:mt-[120px] gap-5  flex justify-between '>
-          <div onClick={toggleCourses} className={`p-2 w-1/2 flex items-center border-[1px] border-gray-300 rounded-md gap-3 cursor-pointer ${ !active && "bg-blue-400"} `} >
+            <div className=' mt-[100px] w-[90%] max-600:mt-[120px] gap-5 flex   '>
+          <div  className={`p-2 w-1/2 flex items-center border-[1px] border-gray-300 rounded-md gap-3 cursor-pointer  `} >
             <h1 className='text-[40px] max-600:text-[25px]  text-[white] bg-[#1a5b65a5] rounded-full p-1'><BiTimeFive/></h1>
             <div>
               <h6 className='font-bold max-600:text-[13px]'>In Progress</h6>
               <h6 className="max-600:text-[13px]">{courses?.length} Courses</h6>
             </div>
           </div>
-          <div onClick={toggleCourses} className={`p-2 w-1/2 flex items-center border-[1px] border-gray-300 rounded-md gap-3 cursor-pointer ${ active && "bg-green-400"}`}> 
+          <div  className={`p-2 w-1/2 flex items-center border-[1px] border-gray-300 rounded-md gap-3 cursor-pointer `}> 
             <h1 className='text-[40px] max-600:text-[25px] text-[white] bg-[#2ea72e4d] rounded-full p-1'><BsCheck2Circle/></h1>
             <div>
               <h6 className='font-bold max-600:text-[13px]'>Completed </h6>
-              <h6 className="max-600:text-[13px]">0 Courses</h6>
+              <h6 className="max-600:text-[13px]">{completedCourses} Courses</h6>
             </div>
           </div>
     
@@ -151,7 +151,7 @@ Media.propTypes = {
 
 export default function YouTube({ data, curr }) {
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap w-full">
       {/* <Media loading /> */}
       <Media value={data} curr={curr} />
     </div>

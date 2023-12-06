@@ -25,7 +25,7 @@ const GoogleLogin = () => {
           photoUrl: user?.photoURL,
           email: user?.email,
           coursesInProgress: [],
-          coursesCompleted: [],
+          completedCourses: 0,
           level: 0,
           points: 0,
           rank: 0,

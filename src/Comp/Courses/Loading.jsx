@@ -15,7 +15,7 @@ import { CoursesContext } from "../../store/Context/courses";
 function Media({ value, curr }) {
   const currCourse = React.useContext(CoursesContext);
   const handleCurrCourse = (item) => {
-    currCourse.setCurrCourse(item);
+    currCourse?.setCurrCourse(item);
     localStorage.setItem("currCourse", JSON.stringify(item));
   };
   const [loading, setLoading] = React.useState(true);
@@ -31,7 +31,7 @@ function Media({ value, curr }) {
         const docRef = doc(db, "Courses", "data");
         const docSnap = await getDoc(docRef);
   
-        if (docSnap.exists() && user) {
+        if (docSnap?.exists() && user) {
           const coursesData = docSnap.data().data;
   
           const docUser = doc(db, "Users", user?.uid);
@@ -39,11 +39,11 @@ function Media({ value, curr }) {
   
           if (docSnapUser.exists() && isMounted) {
             const updatedCourses = coursesData.map(course => {
-              const courseProgress = docSnapUser.data().coursesInProgress.find(userCourse => userCourse.id === course.id);
+              const courseProgress = docSnapUser?.data()?.coursesInProgress?.find(userCourse => userCourse?.id === course?.id);
               
               return {
                 ...course,
-                courseProgress: courseProgress ? Math.floor((courseProgress.completedLessons.length / course.content.length) * 100) : 0
+                courseProgress: courseProgress ? Math.floor((courseProgress?.completedLessons?.length / course?.content?.length) * 100) : 0
               };
             });
   
@@ -52,7 +52,7 @@ function Media({ value, curr }) {
             console.log("No such document!");
           }
         } else {
-          setCourses(docSnap.data().data);
+          setCourses(docSnap?.data()?.data);
           console.log("No such document!");
         }
   
@@ -116,12 +116,12 @@ function Media({ value, curr }) {
                     variant="caption"
                     color="text.secondary"
                   >
-                    {item.instructor}
+                    {item?.instructor}
                   </Typography>
                   <Typography variant="caption" color="text.secondary">
                     <div className="flex items-baseline gap-2">
                       <BsBook />
-                      <h6>{item.chapters} chapters</h6>
+                      <h6>{item?.chapters} chapters</h6>
                     </div>
                   </Typography>
                   {user ? (

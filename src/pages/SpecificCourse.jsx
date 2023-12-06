@@ -65,8 +65,8 @@ const Root = (props) => {
   };
   useEffect(() => {
     GetCompletedLessons();
-    console.log("completedLessons" , completedLessons?.length)
-    console.log("currCourse",currCourse?.content?.length)
+    console.log("completedLessons", completedLessons?.length);
+    console.log("currCourse", currCourse?.content?.length);
     setTimeout(() => {
       setLoadingLessons(false);
     }, 1000);
@@ -93,40 +93,39 @@ const Root = (props) => {
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   const handleUpdate = async () => {
-    const handleUpdatePoints = async (params) => {
-      const docRef = doc(db, "Users", user?.uid);
+    const docRef = doc(db, "Users", user?.uid);
+    try {
+      // Update points transactionally
       await runTransaction(db, async (transaction) => {
         const doc = await transaction.get(docRef);
+
+        if (!doc.exists) {
+          console.error("Document does not exist!");
+          throw new Error("Document does not exist!");
+        }
+
         const currentPoints = doc.data().points;
 
         // Update points with the new value
         transaction.update(docRef, { points: currentPoints + 20 });
       });
-    };
-    handleUpdatePoints();
-    setCurr((prev) => (prev + 1) % currCourse?.content?.length);
-    updateProgress();
-    const performSignIn = async () => {
-      try {
-        // Show a loading toast while the promise is pending
-        const promise = new Promise((resolve) => {
-          setTimeout(() => {
-            resolve(console.log("done")); // Replace with your actual promise-based operation
-          }, 1000); // Simulate a one-second delay
-        });
 
-        toast.promise(promise, {
-          pending: "Updating Progress...",
-          success: "Progress Updated ",
-          error: "Could not update. Try again later ",
-        });
-      } catch (error) {
-        // Handle any errors here
-        console.error("Error during updating:", error);
-      }
-    };
-    performSignIn();
+      // Update other state or perform additional operations
+      setCurr((prev) => (prev + 1) % currCourse?.content?.length);
+      updateProgress();
+
+      // Simulate a promise-based operation
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Display a toast with the update status
+      toast.success("Progress Updated");
+    } catch (error) {
+      // Handle any errors here
+      console.error("Error during updating:", error);
+      toast.error("Could not update. Try again later");
+    }
   };
+
   React.useEffect(() => {
     setLoading(false);
   }, [loading]);
@@ -136,9 +135,42 @@ const Root = (props) => {
       setCeleb(false);
     }, 3000);
   };
+  const updateUserCourses = async () => {
+    const docRef = doc(db, "Users", user?.uid);
+
+    try {
+      await runTransaction(db, async (transaction) => {
+        const doc = await transaction.get(docRef);
+
+        if (!doc.exists) {
+          // You might want to handle this case more specifically
+          throw new Error("Document does not exist!");
+        }
+
+        const userData = doc.data();
+        const { coursesInProgress, completedCourses } = userData;
+
+        const updatedCoursesInProgress = coursesInProgress
+          .filter((course) => course.id !== currCourse.id)
+          .concat({ ...currCourse });
+
+        // Update the document in the transaction
+        transaction.update(docRef, {
+          coursesInProgress: updatedCoursesInProgress,
+          completedCourses: completedCourses + 1,
+        });
+      });
+
+      console.log("Transaction successfully committed!");
+    } catch (error) {
+      console.error("Transaction failed: ", error);
+    }
+  };
+
   useEffect(() => {
     if (completedLessons?.length === currCourse?.content?.length) {
       handleCeleb();
+      updateUserCourses();
     }
   }, [completedLessons]);
   return (
@@ -199,8 +231,9 @@ const Root = (props) => {
                       Lesson {curr + 1}
                     </h1>
                     <button
+                      disabled={completedLessons?.length === currCourse?.content?.length}
                       onClick={handleUpdate}
-                      className="bg-green-600 rounded-md p-1 px-2 text-white flex items-center gap-1 max-600:text-[13px]"
+                      className="bg-green-600 rounded-md p-1 px-2 text-white flex items-center gap-1 max-600:text-[13px] disabled:cursor-not-allowed disabled:opacity-[0.7]"
                     >
                       Mark as complete <BsCheck2Circle />
                     </button>

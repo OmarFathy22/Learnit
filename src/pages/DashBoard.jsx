@@ -56,7 +56,9 @@ const Root = (props) => {
           {/* <MainContent
             theme={theme}
           /> */}
-          <Dashboard />
+      <div className="w-full ">
+            <Dashboard />
+      </div>
       
             
         
