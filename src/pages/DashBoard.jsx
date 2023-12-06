@@ -12,6 +12,7 @@ import { Outlet } from "react-router";
 import getDesignTokens from "../styles/MyTheme";
 import MainContent from "../components/MainContentForBookmarks";
 import DRAWER from "../components/DRAWER";
+import Dashboard from '../Comp/Courses/LoadingInProgress'
 const Root = (props) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
@@ -52,9 +53,10 @@ const Root = (props) => {
             mode={mode}
             setmyMode={setmyMode}
           />
-          <MainContent
+          {/* <MainContent
             theme={theme}
-          />
+          /> */}
+          <Dashboard />
       
             
         

@@ -4,7 +4,7 @@ class MessageParser {
     this.state = state;
   }
 
-  parse(message) {
+parse(message) {
     const lowerCaseMessage = message
       .toLowerCase()
       .replace(/[^\w\s]/gi, "")
@@ -92,6 +92,15 @@ In summary, UI-UX design combines the visual and interactive elements (UI) with 
           7. *Rendering and Exporting:* Once the editing process is complete, the video is rendered into its final format suitable for distribution or presentation. Video editors select appropriate settings for resolution, format, and compression to ensure optimal quality and compatibility for different platforms.
           
           Video editing requires creativity, attention to detail, and a good understanding of storytelling and visual communication. Professionals in this track work in various industries such as film, television, advertising, online content creation, and corporate video production, contributing to the creation of compelling visual narratives that resonate with audiences.
+        `
+        )
+      );
+    }  else if (lowerCaseMessage.includes("flex")) {
+      // Provide the response about business development
+      this.actionProvider.addMessageToBotState(
+        this.actionProvider.createChatBotMessage(
+          `
+         flex is a good man
         `
         )
       );

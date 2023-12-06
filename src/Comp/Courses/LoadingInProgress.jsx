@@ -8,27 +8,40 @@ import { Link } from "react-router-dom";
 import { data } from "../../../Data";
 import { BsBook } from "react-icons/bs";
 import UserProgress from "../Login/UserProgress";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 import { CoursesContext } from "../../store/Context/courses";
-
+import {BsCheck2Circle} from 'react-icons/bs'
+import {BiTimeFive} from 'react-icons/bi'
 function Media({ value, curr }) {
   const currCourse = React.useContext(CoursesContext);
   const handleCurrCourse = (item) => {
     currCourse.setCurrCourse(item);
     localStorage.setItem("currCourse", JSON.stringify(item));
-  }
+  };
   const [loading, setLoading] = React.useState(true);
   const [loadingImage, setLoadingImage] = React.useState(true);
   const [courses, setCourses] = React.useState([]);
+  const [active, setActive] = React.useState(0);
   const user = JSON.parse(localStorage.getItem("user"));
   React.useEffect(() => {
-    const coursesInProgress = user?.coursesInProgress;
-    setCourses(coursesInProgress);
-    setLoading(false);
-    setLoadingImage(false);
-  }, [user]);
-
+    const getCoursesInProgress = (params) => {
+      const docRef = doc(db, "Users", user?.uid);
+      const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
+        setCourses(docSnapshot.data().coursesInProgress);
+      });
+      setLoading(false);
+      setLoadingImage(false);
+      return () => {
+        unsubscribe();
+      };
+    };
+    getCoursesInProgress();
+    console.log("courses", courses);
+  }, []);
+  const toggleCourses = (params) => {
+     setActive(!active)
+  }
   return (
     <div className="">
       <Grid
@@ -36,6 +49,26 @@ function Media({ value, curr }) {
         wrap="wrap"
         className="justify-center flex-wrap  mx-auto  self-center  grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4"
       >
+            <div className='w-full mt-[100px] max-w-[90%] max-600:mt-[120px] gap-5  flex justify-between '>
+          <div onClick={toggleCourses} className={`p-2 w-1/2 flex items-center border-[1px] border-gray-300 rounded-md gap-3 cursor-pointer ${ !active && "bg-blue-400"} `} >
+            <h1 className='text-[40px] max-600:text-[25px]  text-[white] bg-[#1a5b65a5] rounded-full p-1'><BiTimeFive/></h1>
+            <div>
+              <h6 className='font-bold max-600:text-[13px]'>In Progress</h6>
+              <h6 className="max-600:text-[13px]">{courses?.length} Courses</h6>
+            </div>
+          </div>
+          <div onClick={toggleCourses} className={`p-2 w-1/2 flex items-center border-[1px] border-gray-300 rounded-md gap-3 cursor-pointer ${ active && "bg-green-400"}`}> 
+            <h1 className='text-[40px] max-600:text-[25px] text-[white] bg-[#2ea72e4d] rounded-full p-1'><BsCheck2Circle/></h1>
+            <div>
+              <h6 className='font-bold max-600:text-[13px]'>Completed </h6>
+              <h6 className="max-600:text-[13px]">0 Courses</h6>
+            </div>
+          </div>
+    
+    
+    
+          
+      </div>
         {(loading ? Array.from(new Array(10)) : courses)?.map((item, index) => (
           <div
             key={index}
@@ -47,9 +80,12 @@ function Media({ value, curr }) {
               padding: "10px",
             }}
           >
-            <Link onClick={() => {
-              handleCurrCourse(item)
-            }} to={`/courses/${item?.title}`}>
+            <Link
+              onClick={() => {
+                handleCurrCourse(item);
+              }}
+              to={`/courses/${item?.title}`}
+            >
               {item ? (
                 <img
                   alt={item.title}
@@ -77,15 +113,15 @@ function Media({ value, curr }) {
                   <Typography variant="caption" color="text.secondary">
                     <div className="flex items-baseline gap-2">
                       <BsBook />
-                      <h6 >{item.chapters} chapters</h6>
+                      <h6>{item.chapters} chapters</h6>
                     </div>
                   </Typography>
                   {user ? (
                     <Typography variant="caption" color="text.secondary">
                       <div className="mt-1">
-                        <UserProgress value={0} />
+                        <UserProgress value={(item?.completedLessons?.length / item?.chapters)*100} />
                         <h1 className="text-[13px] mt-1 text-blue-900">
-                          {0}% Complete
+                          {Math.floor((item?.completedLessons?.length / item?.chapters)*100)}% Complete
                         </h1>
                       </div>
                     </Typography>

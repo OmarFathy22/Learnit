@@ -15,7 +15,7 @@ import UserProgress from "../Comp/Login/UserProgress";
 import { BsBook } from "react-icons/bs";
 import LoginModal from "../Comp/Login/LoginModal";
 import { useNavigate } from "react-router-dom";
-import { doc, updateDoc, getDoc } from "firebase/firestore";
+import { doc, updateDoc, getDoc , runTransaction } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { BsCheck2Circle } from "react-icons/bs";
 import { content1 } from "../../Data";
@@ -53,7 +53,7 @@ const Root = (props) => {
   //   (course) => course.id === currCourse.id
   // );
   const handleEnrolled = async () => {
-    setLoading(true)
+    setLoading(true);
     const docRef = doc(db, "Users", user?.uid);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
@@ -72,21 +72,30 @@ const Root = (props) => {
   // I should fix this using transactions
   const updateUserCourses = async (user, currCourse) => {
     const docRef = doc(db, "Users", user?.uid);
-    await updateDoc(docRef, {
-      coursesInProgress: [
-        ...user.coursesInProgress,
-        { ...currCourse, completedLessons: [] },
-      ],
-    });
-    // update the user object in local storage
-    const updatedUser = {
-      ...user,
-      coursesInProgress: [
-        ...user.coursesInProgress,
-        { ...currCourse, completedLessons: [] },
-      ],
-    };
-    localStorage.setItem("user", JSON.stringify(updatedUser));
+    try {
+      await runTransaction(db,async (transaction) => {
+        const doc = await transaction.get(docRef);
+
+        if (!doc.exists) {
+          throw new Error("Document does not exist!");
+        }
+
+        const user = doc.data();
+        const updatedCoursesInProgress = [
+          ...user.coursesInProgress,
+          { ...currCourse, completedLessons: [] },
+        ];
+
+        // Update the document with the new coursesInProgress array
+        transaction.update(docRef, {
+          coursesInProgress: updatedCoursesInProgress,
+        });
+      });
+
+      console.log("Transaction successfully committed!");
+    } catch (error) {
+      console.error("Transaction failed: ", error);
+    }
   };
 
   const handleEnroll = async () => {
@@ -117,7 +126,7 @@ const Root = (props) => {
     }
   };
   React.useEffect(() => {
-    if(user){
+    if (user) {
       handleEnrolled();
     }
   }, []);
