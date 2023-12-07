@@ -243,7 +243,6 @@ export const content1 = [
     url:
       "https://firebasestorage.googleapis.com/v0/b/e-learning-981e1.appspot.com/o/react%20course%2Freact%20course%2F%2302%20React%20full%20course%20with%20projects%202023%20%F0%9F%94%A5%F0%9F%94%A5.mp4?alt=media&token=a136251a-2bac-4b8b-bd9b-c7e0488b7cf9",
     duration: "7",
-    completed:false,
   },
   {
     id: 2,
@@ -251,7 +250,6 @@ export const content1 = [
     url:
       "https://firebasestorage.googleapis.com/v0/b/e-learning-981e1.appspot.com/o/react%20course%2Freact%20course%2FReact%20Full%20course%20with%20projects%20%2310.2%20%20%20%20Firebase%20Hosting%20_%20Custom%20domain.mp4?alt=media&token=2cd0ae68-5057-4aee-a8de-8f063731724a",
     duration: "8",
-    completed:false,
   },
   {
     id: 3,
@@ -259,7 +257,6 @@ export const content1 = [
     url:
       "https://firebasestorage.googleapis.com/v0/b/e-learning-981e1.appspot.com/o/react%20course%2Freact%20course%2FReact%20Full%20course%20with%20projects%20%2315%20%20%20%20pug-gulp%20VS%20React.mp4?alt=media&token=75a769e2-a84d-4d32-b408-40f530ba8217",
     duration: "6",
-    completed:false,
   },
   {
     id: 4,
@@ -268,7 +265,6 @@ export const content1 = [
       "https://firebasestorage.googleapis.com/v0/b/e-learning-981e1.appspot.com/o/react%20course%2Freact%20course%2FReact%20Level2.mp4?alt=media&token=a5183188-5d05-41d9-bf2f-64a65142bf2f",
 
     duration: "4",
-    completed:false,
   },
   {
     id: 5,
@@ -284,7 +280,6 @@ export const content1 = [
     url:
       "https://firebasestorage.googleapis.com/v0/b/e-learning-981e1.appspot.com/o/react%20course%2Freact%20course%2FReact%20Level5.mp4?alt=media&token=490dbc12-1f94-47c4-9b81-007e45242735",
     duration: "3",
-    completed:false,
   },
 ];
 
@@ -299,7 +294,8 @@ export const courses = [
     content: content1,
     instructor: "Omar Fathy",
     numberOfStudents: 0,
-    completed:false,
+    // price:100,
+    // category:"Web Development"
   },
   {
     id: 2,
