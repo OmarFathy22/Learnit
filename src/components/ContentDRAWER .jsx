@@ -148,7 +148,7 @@ function ResponsiveDrawer({
                         ? "rgb(99 95 95 / 40%)"
                         : darkMode
                         ? "#121212"
-                        : "rgb(247, 247, 247)",
+                        : null,
                     // margin: "20px 0",
                     width: "100%",
                   }}

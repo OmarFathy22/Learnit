@@ -45,7 +45,7 @@ export default function PrimarySearchAppBar({
     <Box>
       <AppBar
         position="fixed"
-        className="bg-[#4dbbe0] ! max-600:pb-2"
+        className="bg-[#4dbbe0] !max-600:pb-2"
         sx={{
           width: { md: `calc(100% - 300px)` },
           // ml: { sm: `240px` },

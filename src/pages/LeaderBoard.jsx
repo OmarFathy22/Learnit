@@ -98,13 +98,13 @@ const Root = (props) => {
                     <div className="flex text-white gap-2 ml-[10px]">
                       user
                     </div>
-                    <div className="mr-[110px]  text-white">
+                    <div className="min-600:mr-[110px] max-600:mr-[30px]  text-white">
                       points
                     </div>
                   </div>
               {loading ? <Loading/>:Users.map((user , index) => {
                 return(
-                  <div key={index} className={`mx-2 px-2 py-1 rounded-md flex justify-between items-center ${index %2 == 0 && "bg-[#294793]"}`} >
+                  <div key={index} className={`mx-2 px-2 py-1 rounded-md flex justify-between items-center mb-2 bg-[#294793] `} >
                     <div className="flex gap-2">
                       <div><img className="w-10 h-10 rounded-full" src={user?.photoUrl} alt="" /></div>
                       <div>
@@ -112,7 +112,7 @@ const Root = (props) => {
                         <div className="text-white">level {Math.floor((user?.points) / 100) + 1}</div>
                       </div>
                     </div>
-                    <h6 className="bg-[#7ee97eac] w-[100px] text-center py-[1px] rounded-full sm:mr-[30px] mr-[80px] text-white">
+                    <h6 className="bg-[#7ee97eac] w-[100px] text-center py-[1px] rounded-full sm:mr-[30px] min-600:mr-[80px] text-white">
                       {user?.points}
                     </h6>
                   </div>
