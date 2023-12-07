@@ -24,11 +24,13 @@ const ChatbotButton = () => {
       </div>
 
       {chatbotVisible && (
-        <div className="fixed bottom-[50px] right-[100px] bg-white  border-gray-300 p-4 rounded-md shadow-lg border-[1px]">
+        <div className="fixed bottom-[50px] right-[110px] bg-white  border-gray-300 p-4 rounded-md shadow-lg border-[1px]">
           <Chatbot
+        
             config={config}
             messageParser={MessageParser}
             actionProvider={ActionProvider}
+            headerText='LEARNIT Chatbot'
           />
         </div>
       )}

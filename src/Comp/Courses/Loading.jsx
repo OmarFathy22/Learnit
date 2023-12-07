@@ -9,7 +9,7 @@ import { data } from "../../../Data";
 import { BsBook } from "react-icons/bs";
 import UserProgress from "../Login/UserProgress";
 import { FaUserCheck } from "react-icons/fa6";
-
+import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 import { CoursesContext } from "../../store/Context/courses";
@@ -21,6 +21,7 @@ function Media({ value, curr }) {
     currCourse?.setCurrCourse(item);
     localStorage.setItem("currCourse", JSON.stringify(item));
   };
+  const Navigate = useNavigate();
   const [loading, setLoading] = React.useState(true);
   const [loadingImage, setLoadingImage] = React.useState(true);
   const [Enrolled, setEnrolled] = React.useState([]);
@@ -121,11 +122,14 @@ function Media({ value, curr }) {
               padding: "10px",
             }}
           >
-            <Link
+            <div
               onClick={() => {
-                handleCurrCourse(item);
+                if(item){
+                  handleCurrCourse(item);
+                  Navigate(`/courses/${item?.title}`)
+                }
               }}
-              to={`/courses/${item?.title}`}
+              
             >
               {item ? (
                 <img
@@ -171,7 +175,7 @@ function Media({ value, curr }) {
                   <Skeleton width="30%" />
                 </Box>
               )}
-            </Link>
+            </div>
           </div>
         ))}
       </Grid>
