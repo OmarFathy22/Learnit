@@ -15,12 +15,11 @@ import UserProgress from "../Comp/Login/UserProgress";
 import { BsBook } from "react-icons/bs";
 import LoginModal from "../Comp/Login/LoginModal";
 import { useNavigate } from "react-router-dom";
-import { doc, updateDoc, getDoc , runTransaction } from "firebase/firestore";
+import { doc, updateDoc, getDoc, runTransaction } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { BsCheck2Circle } from "react-icons/bs";
 import { content1 } from "../../Data";
 import ReactPlayer from "react-player";
-import LoadingSpinner from "../components/Loading";
 import "video-react/dist/video-react.css"; // import css
 import { Player } from "video-react";
 import { Typography } from "@mui/material";
@@ -48,47 +47,40 @@ const Root = (props) => {
   const currCourse = JSON.parse(localStorage.getItem("currCourse"));
   const [isEnrolled, setisEnrolled] = useState(false);
   const [loading, setLoading] = useState(false);
-  console.log(loading);
-  // const isEnrolled = user?.coursesInProgress?.find(
-  //   (course) => course.id === currCourse.id
-  // );
   const handleEnrolled = async () => {
     setLoading(true);
-    const docRef = doc(db, "Users", user?.uid);
+    const docRef = doc(db, "CoursesInProgress", user?.uid);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      setisEnrolled(
-        docSnap
-          .data()
-          .coursesInProgress.find((course) => course.id === currCourse.id)
-      );
       setLoading(false);
+      setisEnrolled(
+        docSnap?.data()?.data?.find((course) => course.id === currCourse.id)
+      );
     } else {
       console.log("No such document!");
     }
-    console.log(isEnrolled);
+    setLoading(false);
   };
 
   // I should fix this using transactions
   const updateUserCourses = async (user, currCourse) => {
-    const docRef = doc(db, "Users", user?.uid);
+    const docRef = doc(db, "CoursesInProgress", user?.uid);
     try {
-      await runTransaction(db,async (transaction) => {
+      await runTransaction(db, async (transaction) => {
         const doc = await transaction.get(docRef);
-
         if (!doc.exists) {
           throw new Error("Document does not exist!");
         }
 
         const user = doc.data();
+        console.log("user", user)
         const updatedCoursesInProgress = [
-          ...user.coursesInProgress,
-          { ...currCourse, completedLessons: [] },
+          ...user.data,
+          { ...currCourse , completedLessons: [] },
         ];
 
-        // Update the document with the new coursesInProgress array
         transaction.update(docRef, {
-          coursesInProgress: updatedCoursesInProgress,
+          data: updatedCoursesInProgress,
         });
       });
 
@@ -109,14 +101,10 @@ const Root = (props) => {
         });
 
         await updateUserCourses(user, currCourse);
-
         toast.dismiss(loadingToastId);
-
         toast.success("Enrolled successfully 🎉");
-
         setTimeout(() => {
           navigate(`/courses/${currCourse.id}/chapters`);
-          location.reload();
         }, 1000);
       } catch (error) {
         console.error("Error during enrolling:", error);
@@ -169,27 +157,7 @@ const Root = (props) => {
                         "https://firebasestorage.googleapis.com/v0/b/e-learning-981e1.appspot.com/o/react%20course%2Freact%20course%2F%2302%20React%20full%20course%20with%20projects%202023%20%F0%9F%94%A5%F0%9F%94%A5.mp4?alt=media&token=a136251a-2bac-4b8b-bd9b-c7e0488b7cf9"
                       }
                       style={{ borderRadius: "10px", overflow: "hidden" }}
-                      // onReady={() => {
-                      //   setLoading(false);
-                      // }}
                     />
-
-                    {/* <div className=" pb-10">
-                      <div className="flex items-center  justify-between border-[1px] border-gray-300 mt-3 p-5 rounded-[10px]">
-                        <Typography className="font-bold text-[20px] max-600:text-[13px]">
-                          Lesson {curr + 1}
-                        </Typography>
-                        <button
-                          onClick={handleUpdate}
-                          className="bg-green-600 rounded-md p-1 px-2 text-white flex items-center gap-1 max-600:text-[13px]"
-                        >
-                          Mark as complete <BsCheck2Circle />
-                        </button>
-                      </div>
-                    </div>
-                    <Typography className="text-center font-bold  border-b-1 border-b-black underline">
-                      Quick Quiz
-                    </Typography> */}
                   </div>
                   <div className="  border-2 border-gray-500 rounded-md p-8 flex flex-col gap-1">
                     <div className="flex items-center gap-2">
@@ -202,24 +170,9 @@ const Root = (props) => {
                       </Typography>
                       <p className="text-[#5f6368]">{currCourse.desc}</p>
                     </div>
-                    {/* <div className="flex items-center gap-2">
-                <div className="border-[1px]  border-gray-300 py-1 px-2 rounded-md">
-                  Tailwind
-                </div>
-                <div className="border-[1px]  border-gray-300 py-1 px-2 rounded-md">
-                  React js
-                </div>
-                <div className="border-[1px]  border-gray-300 py-1 px-2 rounded-md">
-                  Next js
-                </div>
-              </div> */}
+
                     {user ? (
-                      <div>
-                        {/* <UserProgress value={0} />
-                        <Typography className="text-[13px] mt-1 text-blue-900">
-                          0% Complete
-                        </Typography> */}
-                      </div>
+                      <div></div>
                     ) : (
                       <Typography className="mt-3 text-[#4dbbe0]">
                         Free

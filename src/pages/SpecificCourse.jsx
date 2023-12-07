@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 import LoadingSpinner from "../components/Loading";
 import ReactPlayer from "react-player";
 import { BsCheck2Circle } from "react-icons/bs";
-import { doc, getDoc, runTransaction } from "firebase/firestore";
+import { doc, getDoc, runTransaction, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { Check } from "@mui/icons-material";
 import Celebration from "../Comp/loader/Celebrations";
@@ -31,6 +31,7 @@ const Root = (props) => {
   const [loading, setLoading] = useState(true);
   const [curr, setCurr] = useState(0);
   const [showList, setshowList] = useState("none");
+  const [isCompleted, setIsCompleted] = useState(false);
   const [mode, setmyMode] = useState(
     localStorage.getItem("currentMode") === null
       ? "dark"
@@ -46,49 +47,63 @@ const Root = (props) => {
   const [celeb, setCeleb] = useState(false);
 
   const GetCompletedLessons = async (params) => {
-    const docRef = doc(db, "Users", user?.uid);
+    const docRef = doc(db, "CoursesInProgress", user?.uid);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      setCompletedLessons(
-        docSnap
-          .data()
-          .coursesInProgress.find((course) => course.id === currCourse?.id)
-          ?.completedLessons
-      );
+      const userData = docSnap?.data()?.data?.find((course) => {
+        return course.id === currCourse?.id;
+      });
+      const CompletedLessons = userData?.completedLessons;
+      setCompletedLessons(CompletedLessons);
     } else {
       console.log("No such document!");
     }
   };
   const CheckCompletedLesson = (id) => {
-    const check = completedLessons?.includes(id);
-    return check;
+    return completedLessons.includes(id);
   };
+
   useEffect(() => {
     GetCompletedLessons();
-    console.log("completedLessons", completedLessons?.length);
-    console.log("currCourse", currCourse?.content?.length);
     setTimeout(() => {
       setLoadingLessons(false);
     }, 1000);
   }, []);
 
   const updateProgress = (params) => {
-    const UpdateCompletedinDB = async (params) => {
-      const docRef = doc(db, "Users", user?.uid);
-      runTransaction(db, async (transaction) => {
-        const doc = await transaction.get(docRef);
-        const currentProgress = doc.data().coursesInProgress;
-        const index = currentProgress.findIndex(
-          (course) => course.id === currCourse?.id
-        );
-        if (!currentProgress[index].completedLessons.includes(curr + 1)) {
-          currentProgress[index].completedLessons.push(curr + 1);
+    const UpdateCompletedinDB = async () => {
+      const docRef = doc(db, "CoursesInProgress", user?.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const userData = docSnap
+          ?.data()
+          ?.data?.find((course) => course.id === currCourse?.id);
+        const CompletedLessons = userData?.completedLessons;
+
+        if (!completedLessons.includes(currCourse?.content[curr]?.id)) {
+          await updateDoc(docRef, {
+            data: [
+              ...docSnap
+                .data()
+                .data.filter((course) => course.id !== currCourse?.id),
+              {
+                ...userData,
+                completedLessons: [
+                  ...CompletedLessons,
+                  currCourse?.content[curr]?.id,
+                ],
+              },
+            ],
+          });
+          setCompletedLessons([
+            ...CompletedLessons,
+            currCourse?.content[curr]?.id,
+          ]);
         }
-        transaction.update(docRef, { coursesInProgress: currentProgress });
-      });
+      }
     };
+
     UpdateCompletedinDB();
-    setCompletedLessons((prev) => [...prev, curr + 1]);
   };
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
@@ -129,48 +144,44 @@ const Root = (props) => {
   React.useEffect(() => {
     setLoading(false);
   }, [loading]);
-  const handleCeleb = () => {
-    setCeleb(true);
-    setTimeout(() => {
-      setCeleb(false);
-    }, 3000);
-  };
-  const updateUserCourses = async () => {
-    const docRef = doc(db, "Users", user?.uid);
-
-    try {
-      await runTransaction(db, async (transaction) => {
-        const doc = await transaction.get(docRef);
-
-        if (!doc.exists) {
-          // You might want to handle this case more specifically
-          throw new Error("Document does not exist!");
-        }
-
-        const userData = doc.data();
-        const { coursesInProgress, completedCourses } = userData;
-
-        const updatedCoursesInProgress = coursesInProgress
-          .filter((course) => course.id !== currCourse.id)
-          .concat({ ...currCourse });
-
-        // Update the document in the transaction
-        transaction.update(docRef, {
-          coursesInProgress: updatedCoursesInProgress,
-          completedCourses: completedCourses + 1,
-        });
+  const handleCeleb = async () => {
+    const docRef = doc(db, "CoursesInProgress", user?.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists) {
+      console.log("NumOfCompleted", docSnap.data().NumOfCompleted);
+      const completed = docSnap
+        .data()
+        .data.find((item) => (item.id === currCourse.id)).completed;
+      if (completed) {
+        return;
+      }
+      setCeleb(true);
+      const userData = docSnap
+        .data()
+        .data.find((item) => (item.id === currCourse.id));
+      await updateDoc(docRef, {
+        NumOfCompleted: docSnap.data().NumOfCompleted + 1,
+        data: [
+          ...docSnap
+            .data()
+            .data.filter((course) => course.id !== currCourse?.id),
+          {
+            ...userData,
+            completed: true,
+          },
+        ],
       });
-
-      console.log("Transaction successfully committed!");
-    } catch (error) {
-      console.error("Transaction failed: ", error);
+      setTimeout(() => {
+        setCeleb(false);
+      }, 3000);
     }
   };
 
+
   useEffect(() => {
-    if (completedLessons?.length === currCourse?.content?.length) {
+    console.log("completedLessons", completedLessons?.length);
+    if (completedLessons?.length === currCourse?.chapters) {
       handleCeleb();
-      updateUserCourses();
     }
   }, [completedLessons]);
   return (
@@ -231,7 +242,9 @@ const Root = (props) => {
                       Lesson {curr + 1}
                     </h1>
                     <button
-                      disabled={completedLessons?.length === currCourse?.content?.length}
+                      disabled={
+                        completedLessons?.length === currCourse?.content?.length
+                      }
                       onClick={handleUpdate}
                       className="bg-green-600 rounded-md p-1 px-2 text-white flex items-center gap-1 max-600:text-[13px] disabled:cursor-not-allowed disabled:opacity-[0.7]"
                     >

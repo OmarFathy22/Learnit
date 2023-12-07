@@ -100,6 +100,7 @@ function ResponsiveDrawer({
   const handleCurr = (index) => {
     setCurr(index);
   };
+  console.log("compeletedLessons" , compeletedLessons)
   const { Window } = props;
   const darkMode =
     localStorage.getItem("currentMode") === "dark" ? true : false;
@@ -119,7 +120,7 @@ function ResponsiveDrawer({
             padding: 3,
           }}
         >
-          <h6 className="font-bold">Fullstack Notion Clone</h6>
+          <h6 className="font-bold">{currCourse?.title}</h6>
           <div className="flex flex-col gap-[2px]">
             <UserProgress value={(compeletedLessons / currCourse?.content?.length)*100 } />
             <h6 className="text-green-700">{Math.floor((compeletedLessons / currCourse?.content?.length)*100)}% Complete</h6>
@@ -154,10 +155,10 @@ function ResponsiveDrawer({
                 >
                   <ListItem>
                     <ListItemIcon sx={{ minWidth: "30px" }}>
-                      {CheckCompletedLesson(item.id) ? (
+                      {CheckCompletedLesson(item?.id)  ? (
                         <IoMdCheckmarkCircleOutline
                           className={`${
-                            CheckCompletedLesson(item.id) && "text-green-500"
+                            (CheckCompletedLesson(item?.id) ) && "text-green-500"
                           }`}
                         />
                       ) : (

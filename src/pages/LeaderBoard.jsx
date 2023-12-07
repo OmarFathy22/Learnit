@@ -14,6 +14,7 @@ import DRAWER from "../components/DRAWER";
 import { data3 } from "../../Data";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/config";
+import Loading from "../Comp/loader/LoadUsers";
 
 
 const Root = (props) => {
@@ -23,6 +24,7 @@ const Root = (props) => {
   };
   const [showList, setshowList] = useState("none");
   const [Users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [mode, setmyMode] = useState(
     localStorage.getItem("currentMode") === null
       ? "dark"
@@ -32,6 +34,7 @@ const Root = (props) => {
   );
   useEffect(() => {
     const getAllDocuments = async (collectionName) => {
+      setLoading(true);
       try {
         const collectionRef = collection(db, collectionName);
         const querySnapshot = await getDocs(collectionRef);
@@ -43,11 +46,12 @@ const Root = (props) => {
             ...doc.data(),
           });
         });
-    
         return documents;
       } catch (error) {
         console.error("Error getting documents: ", error);
         throw error;
+      } finally {
+        setLoading(false);
       }
     };
     
@@ -98,7 +102,7 @@ const Root = (props) => {
                       points
                     </div>
                   </div>
-              {Users.map((user , index) => {
+              {loading ? <Loading/>:Users.map((user , index) => {
                 return(
                   <div key={index} className={`mx-2 px-2 py-1 rounded-md flex justify-between items-center ${index %2 == 0 && "bg-[#dcd9d9]"}`} >
                     <div className="flex gap-2">

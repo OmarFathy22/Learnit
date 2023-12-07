@@ -8,9 +8,12 @@ import { Link } from "react-router-dom";
 import { data } from "../../../Data";
 import { BsBook } from "react-icons/bs";
 import UserProgress from "../Login/UserProgress";
+import { FaUserCheck } from "react-icons/fa6";
+
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 import { CoursesContext } from "../../store/Context/courses";
+import Loading from "../loader/LoadIsEnrolled";
 
 function Media({ value, curr }) {
   const currCourse = React.useContext(CoursesContext);
@@ -20,33 +23,59 @@ function Media({ value, curr }) {
   };
   const [loading, setLoading] = React.useState(true);
   const [loadingImage, setLoadingImage] = React.useState(true);
-  const [completedLessons, setCompletedLessons] = React.useState(0);
+  const [Enrolled, setEnrolled] = React.useState([]);
+  const [loadingEnroll, setLoadingEnroll] = React.useState(true);
   const [courses, setCourses] = React.useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
+  const AssignEnrolled = async () => {
+    const docRef = doc(db, "CoursesInProgress", user?.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      docSnap.data().data.forEach((course) => {
+        setEnrolled((enrolledCourses) => [...enrolledCourses, course.id]);
+      });
+      console.log("Enrolled", Enrolled);
+    } else {
+      console.log("No such document!");
+    }
+  };
+  const checkEnrolled = (id) => {
+    return Enrolled.includes(id);
+  };
   React.useEffect(() => {
     let isMounted = true;
-  
+
     const getCourses = async () => {
       try {
         const docRef = doc(db, "Courses", "data");
         const docSnap = await getDoc(docRef);
-  
+
         if (docSnap?.exists() && user) {
           const coursesData = docSnap.data().data;
-  
+
           const docUser = doc(db, "Users", user?.uid);
           const docSnapUser = await getDoc(docUser);
-  
+
           if (docSnapUser.exists() && isMounted) {
-            const updatedCourses = coursesData.map(course => {
-              const courseProgress = docSnapUser?.data()?.coursesInProgress?.find(userCourse => userCourse?.id === course?.id);
-              
+            const updatedCourses = coursesData.map((course) => {
+              const courseProgress = docSnapUser
+                ?.data()
+                ?.coursesInProgress?.find(
+                  (userCourse) => userCourse?.id === course?.id
+                );
+
               return {
                 ...course,
-                courseProgress: courseProgress ? Math.floor((courseProgress?.completedLessons?.length / course?.content?.length) * 100) : 0
+                courseProgress: courseProgress
+                  ? Math.floor(
+                      (courseProgress?.completedLessons?.length /
+                        course?.content?.length) *
+                        100
+                    )
+                  : 0,
               };
             });
-  
+
             setCourses(updatedCourses);
           } else {
             console.log("No such document!");
@@ -55,7 +84,11 @@ function Media({ value, curr }) {
           setCourses(docSnap?.data()?.data);
           console.log("No such document!");
         }
-  
+        AssignEnrolled();
+        setTimeout(() => {
+          setLoadingEnroll(false);
+        }, 1000);
+
         setLoading(false);
         setTimeout(() => {
           setLoadingImage(false);
@@ -64,13 +97,11 @@ function Media({ value, curr }) {
         console.error("Error fetching courses:", error);
       }
     };
-  
+
     getCourses();
-  
+
     // Cleanup function to set isMounted to false when the component unmounts
-    
   }, []);
-  
 
   return (
     <div className="">
@@ -81,9 +112,9 @@ function Media({ value, curr }) {
       >
         {(loading ? Array.from(new Array(10)) : courses).map((item, index) => (
           <div
+           className="max-600:!w-[90%] min-600:!w-[350px] max-600:mx-auto"
             key={index}
             style={{
-              width: 350,
               borderRadius: "16px",
               cursor: "pointer",
               border: !loading && "1px solid silver",
@@ -124,17 +155,12 @@ function Media({ value, curr }) {
                       <h6>{item?.chapters} chapters</h6>
                     </div>
                   </Typography>
-                  {user ? (
-                    <Typography variant="caption" color="text.secondary">
-                      <div className="mt-1">
-                        <UserProgress value={item?.courseProgress} />
-                        <h1 className="text-[13px] mt-1 text-blue-900">
-                          {item?.courseProgress}% Complete
-                        </h1>
-                      </div>
-                    </Typography>
+                  {user && loadingEnroll ? (
+                    <Loading />
                   ) : (
-                    <h6 className="mt-3 text-[#4dbbe0]">Free</h6>
+                    <h6 className="flex text-green-500  items-center gap-[5px]">
+                      {checkEnrolled(item?.id) ? <h6 className="flex text-green-500 mt-1 items-center gap-[5px]"><FaUserCheck/>Enrolled</h6> : <h6 className="mt-1 text-blue-500">Free</h6>}
+                    </h6>
                   )}
                 </Box>
               ) : (

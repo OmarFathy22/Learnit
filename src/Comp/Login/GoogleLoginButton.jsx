@@ -24,14 +24,19 @@ const GoogleLogin = () => {
           username: user?.displayName,
           photoUrl: user?.photoURL,
           email: user?.email,
-          coursesInProgress: [],
           completedCourses: 0,
           level: 0,
           points: 0,
           rank: 0,
         };
-        const SaveUserToDB = async () => {
+        const SaveUserToDB1 = async () => {
           await setDoc(doc(db, "Users", user?.uid), userData);
+        };
+        const SaveUserToDB2 = async () => {
+          await setDoc(doc(db, "CoursesInProgress", user?.uid),{
+            data: [],
+            NumOfCompleted:0
+          });
         };
         const checkuser = async (params) => {
           const docRef = doc(db, "Users", user?.uid);
@@ -39,7 +44,8 @@ const GoogleLogin = () => {
           if (docSnap.exists()) {
             console.log("welcome again🖐️");
           } else {
-            SaveUserToDB();
+            SaveUserToDB1();
+            SaveUserToDB2();
           }
         };
         checkuser();

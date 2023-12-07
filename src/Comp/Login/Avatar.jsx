@@ -105,7 +105,10 @@ export default function AccountMenu({ user }) {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem sx={{alignItems:"center"}} onClick={handleClose}>
+          <Box>
+            <img src={photoUrl} className="w-[40px] h-[40px] mr-2 rounded-full" />
+          </Box>
           <Box>
             <h6 className="font-bold">{username}</h6>
             <h6 className="font-bold">{email}</h6>
