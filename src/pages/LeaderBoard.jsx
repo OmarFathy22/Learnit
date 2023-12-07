@@ -94,25 +94,25 @@ const Root = (props) => {
           />
           <div className="border-[1px] max-600:mt-[120px] border-gray-200 my-[100px] pb-2 w-full mx-7 rounded-md h-[80vh] overflow-auto ">
             <div>
-            <div  className={`m-2 px-2 py-1 rounded-md flex justify-between items-center sm:pr-[50px] pr-[100px] bg-[#dcd9d9]`} >
-                    <div className="flex gap-2 ml-[10px]">
+            <div  className={`m-2 px-2 py-1 rounded-md flex justify-between items-center sm:pr-[50px] pr-[100px] bg-[#294793]`} >
+                    <div className="flex text-white gap-2 ml-[10px]">
                       user
                     </div>
-                    <div className="mr-[110px]  border text-green-700">
+                    <div className="mr-[110px]  text-white">
                       points
                     </div>
                   </div>
               {loading ? <Loading/>:Users.map((user , index) => {
                 return(
-                  <div key={index} className={`mx-2 px-2 py-1 rounded-md flex justify-between items-center ${index %2 == 0 && "bg-[#dcd9d9]"}`} >
+                  <div key={index} className={`mx-2 px-2 py-1 rounded-md flex justify-between items-center ${index %2 == 0 && "bg-[#294793]"}`} >
                     <div className="flex gap-2">
                       <div><img className="w-10 h-10 rounded-full" src={user?.photoUrl} alt="" /></div>
                       <div>
-                        <div>{user?.username}</div>
-                        <div>level {Math.floor((user?.points) / 100) + 1}</div>
+                        <div className="text-white">{user?.username}</div>
+                        <div className="text-white">level {Math.floor((user?.points) / 100) + 1}</div>
                       </div>
                     </div>
-                    <h6 className="bg-[#7ee97eac] w-[100px] text-center text-[#266e26]  py-[1px] rounded-full sm:mr-[30px] mr-[80px]">
+                    <h6 className="bg-[#7ee97eac] w-[100px] text-center py-[1px] rounded-full sm:mr-[30px] mr-[80px] text-white">
                       {user?.points}
                     </h6>
                   </div>

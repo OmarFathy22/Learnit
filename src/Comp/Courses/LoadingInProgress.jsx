@@ -146,7 +146,7 @@ function Media({ value, curr }) {
                                 100
                               }
                             />
-                            <h1 className="text-[13px] mt-1 text-blue-900">
+                            <h1 className="text-[13px] mt-1 text-green-600">
                               {Math.floor(
                                 (item?.completedLessons?.length /
                                   item?.chapters) *

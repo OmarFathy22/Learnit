@@ -2,7 +2,7 @@
 import { createChatBotMessage } from 'react-chatbot-kit';
 
 const botName = 'LEARNIT Chatbot'
-const user = JSON.parse(localStorage.getItem('user')).username || 'User'
+const user = JSON.parse(localStorage.getItem('user'))?.username || 'User'
 
 const config = {
   initialMessages: [createChatBotMessage(`Hi ${user}, I'm LEARNIT Chatbot. How can I help you?`)],
