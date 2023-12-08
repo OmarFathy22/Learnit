@@ -45,13 +45,9 @@ export default function PrimarySearchAppBar({
     <Box>
       <AppBar
         position="fixed"
-        className="bg-[#4dbbe0] !max-600:pb-2"
+        className="bg-[#4dbbe0] max-600:!pb-2"
         sx={{
           width: { md: `calc(100% - 300px)` },
-          // ml: { sm: `240px` },
-          // backgroundImage:
-          //   "linear-gradient(to right, #0f2027, #203a43, #2c5364)",
-          // backgroundColor: "#4dbbe0",
           zIndex: "1300px",
         }}
       >

@@ -96,14 +96,14 @@ function ResponsiveDrawer({
   ];
   const drawer = (
     <div>
-      <Toolbar>
+      <Toolbar className="border-b-[1px]">
         <Box
           sx={{
             display: "flex",
             justifyContent: "center",
             height: "64px",
             alignItems: "center",
-            cursor: "pointer"
+            cursor: "pointer",
           }}
           onClick={() => {
             navigate("/");
@@ -120,14 +120,13 @@ function ResponsiveDrawer({
             style={{ borderRadius: "50%" }}
           />
           <h1
-            className="text-sky-700 font-bold ml-2 text-[25px]"
+            className="text-sky-700 font-bold ml-2 text-[25px] mt-3"
             // style={{ wordSpacing: -7 }}
           >
             SKILLS HUB
           </h1>
         </Box>
       </Toolbar>
-      <Divider />
       <List > 
         <Modal open={open} handleClose={handleClose} />
         <LoginModal open={openModal} handleClose={handleCloseLoginModal} />

@@ -10,6 +10,7 @@ import React, { useMemo, useState, useEffect } from "react";
 import getDesignTokens from "../styles/MyTheme";
 import MainContent from "../components/MainContent";
 import DRAWER from "../components/DRAWER";
+import Footer from "../components/Footer";
 
 
 const Root = (props) => {
@@ -58,6 +59,7 @@ const Root = (props) => {
           <MainContent theme={theme} />
 
         </Stack>
+        {/* <Footer/> */}
         {/* <Outlet /> */}
     
       </Box>

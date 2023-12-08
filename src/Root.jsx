@@ -7,6 +7,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer } from "react-toastify";
 import CoursesProvider from "./store/Context/courses";
 import ChatbotButton from "./Chatbot/ChatbotButton"
+import Footer from "./components/Footer";
 
 
 const Root = () => {
@@ -36,6 +37,7 @@ const Root = () => {
           newestOnTop={true}
           closeOnClick={true}
          />
+         <Footer/>
           </Box>
       </ThemeProvider>
     </CoursesProvider>
