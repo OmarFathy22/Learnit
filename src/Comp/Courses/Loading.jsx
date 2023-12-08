@@ -163,7 +163,7 @@ function Media({ value, curr }) {
                     <Loading />
                   ) : (
                     <h6 className="flex text-green-500  items-center gap-[5px]">
-                      {checkEnrolled(item?.id) ? <h6 className="flex text-green-500 mt-1 items-center gap-[5px]"><FaUserCheck/>Enrolled</h6> : <h6 className="mt-1 text-blue-500">Free</h6>}
+                      {checkEnrolled(item?.id) ? <h6 className="flex text-green-500 mt-1 items-center gap-[5px]"><FaUserCheck/>Enrolled</h6> : <h6 className="mt-1 text-blue-500">230$</h6>}
                     </h6>
                   )}
                 </Box>

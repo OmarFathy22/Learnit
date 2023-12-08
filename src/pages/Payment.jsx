@@ -11,9 +11,6 @@ import { Outlet } from "react-router";
 import getDesignTokens from "../styles/MyTheme";
 import DRAWER from "../components/DRAWER";
 import Payment from "../Comp/Payment/Payment";
-// import 'mdb-react-ui-kit/dist/css/mdb.min.css'
-// import "@fortawesome/fontawesome-free/css/all.min.css"
-import Loading from '../Comp/loader/Loading'
 
 const Root = (props) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -30,6 +27,7 @@ const Root = (props) => {
       ? "light"
       : "dark"
   );
+  
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   return (
     <ThemeProvider theme={theme}>

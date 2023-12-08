@@ -62,62 +62,20 @@ const Root = (props) => {
     setLoading(false);
   };
 
-  // I should fix this using transactions
-  const updateUserCourses = async (user, currCourse) => {
-    const docRef = doc(db, "CoursesInProgress", user?.uid);
-    try {
-      await runTransaction(db, async (transaction) => {
-        const doc = await transaction.get(docRef);
-        if (!doc.exists) {
-          throw new Error("Document does not exist!");
-        }
-
-        const user = doc.data();
-        console.log("user", user)
-        const updatedCoursesInProgress = [
-          ...user.data,
-          { ...currCourse , completedLessons: [] },
-        ];
-
-        transaction.update(docRef, {
-          data: updatedCoursesInProgress,
-        });
-      });
-
-      console.log("Transaction successfully committed!");
-    } catch (error) {
-      console.error("Transaction failed: ", error);
-    }
-  };
-
-  const handleEnroll = async () => {
-    if (!user) {
-      console.log("open");
-      handleOpen();
-    } else {
-      try {
-        const loadingToastId = toast.loading("Enrolling...", {
-          autoClose: false,
-        });
-
-        await updateUserCourses(user, currCourse);
-        toast.dismiss(loadingToastId);
-        toast.success("Enrolled successfully 🎉");
-        setTimeout(() => {
-          navigate(`/courses/${currCourse.id}/chapters`);
-        }, 1000);
-      } catch (error) {
-        console.error("Error during enrolling:", error);
-        toast.dismiss(loadingToastId);
-        toast.error("Could not enroll. Try again later 😞");
-      }
-    }
-  };
+  
   React.useEffect(() => {
     if (user) {
       handleEnrolled();
     }
   }, []);
+  const handlePurchase = () => {
+    if (!user) {
+      console.log("open");
+      handleOpen();
+    } else {
+      navigate('/payment')
+    }
+  }
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -206,14 +164,15 @@ const Root = (props) => {
                     <button
                       onClick={() => {
                         if (!isEnrolled) {
-                          handleEnroll();
+                          handlePurchase()
                         } else {
                           navigate(`/courses/${currCourse.id}/chapters`);
                         }
                       }}
                       className="bg-gray-100 p-1 mt-3 hover:bg-gray-300 transition-all duration-300 text-black rounded-md"
                     >
-                      {!isEnrolled ? "Enroll for Free" : "Continue Learning"}
+                      {!isEnrolled ? "Continue to Purchase" : "Continue Learning"} 
+                      {/* Enroll for free */}
                     </button>
                   </>
                 )}

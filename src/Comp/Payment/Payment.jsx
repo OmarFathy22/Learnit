@@ -11,15 +11,72 @@ import {
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import { FaCheckCircle } from "react-icons/fa";
 import Loading from "../loader/Loading";
+import { doc, runTransaction } from "firebase/firestore";
+import { db } from "../../../firebase/config";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 
 export default function App() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [success , setSuccess] = useState(false)
+  const user = JSON.parse(localStorage.getItem("user"));
+  const currCourse = JSON.parse(localStorage.getItem("currCourse"));
+  const updateUserCourses = async (user, currCourse) => {
+    const docRef = doc(db, "CoursesInProgress", user?.uid);
+    try {
+      await runTransaction(db, async (transaction) => {
+        const doc = await transaction.get(docRef);
+        if (!doc.exists) {
+          throw new Error("Document does not exist!");
+        }
+
+        const user = doc.data();
+        console.log("user", user)
+        const updatedCoursesInProgress = [
+          ...user.data,
+          { ...currCourse , completedLessons: [] },
+        ];
+
+        transaction.update(docRef, {
+          data: updatedCoursesInProgress,
+        });
+      });
+
+      console.log("Transaction successfully committed!");
+    } catch (error) {
+      console.error("Transaction failed: ", error);
+    }
+  };
+
+  const handleEnroll = async () => {
+      try {
+        const loadingToastId = toast.loading("Enrolling...", {
+          autoClose: false,
+        });
+
+        await updateUserCourses(user, currCourse);
+        toast.dismiss(loadingToastId);
+        toast.success("Enrolled successfully 🎉");
+        setTimeout(() => {
+          navigate(`/courses/${currCourse.id}/chapters`);
+        }, 1000);
+      } catch (error) {
+        console.error("Error during enrolling:", error);
+        toast.dismiss(loadingToastId);
+        toast.error("Could not enroll. Try again later 😞");
+      }
+    
+  };
    const handleLoading = (params) => {
      setLoading(true)
      setTimeout(() => {
         setLoading(false)
         setSuccess(true)
+        setTimeout(() => {
+          handleEnroll()
+        }, 1000);
      }, 3000);
    }
   return (

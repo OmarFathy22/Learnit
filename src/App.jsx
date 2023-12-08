@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import DashBoard from "./pages/DashBoard";
 import LeaderBoard from "./pages/LeaderBoard";
 import SpecificCourse from "./pages/SpecificCourse";
-import Payment from "./pages/Instructor";
+import Payment from "./pages/Payment";
 // import Home from "./pages/Home";
 // import Create from "./pages/Create";oa
 import {
