@@ -10,7 +10,6 @@ import Appbar from "../components/Appbar";
 import React, { useMemo, useState } from "react";
 import { Outlet } from "react-router";
 import getDesignTokens from "../styles/MyTheme";
-import MainContent from "../components/MainContentForBookmarks";
 import DRAWER from "../components/DRAWER";
 import Dashboard from '../Comp/Courses/LoadingInProgress'
 const Root = (props) => {

@@ -30,7 +30,7 @@ const ChatbotButton = () => {
             config={config}
             messageParser={MessageParser}
             actionProvider={ActionProvider}
-            headerText='LEARNIT Chatbot'
+            headerText='SKILLS HUB Chatbot'
           />
         </div>
       )}

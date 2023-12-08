@@ -55,6 +55,8 @@ const Root = (props) => {
       });
       const CompletedLessons = userData?.completedLessons;
       setCompletedLessons(CompletedLessons);
+      setCurr(CompletedLessons?.length)
+      console.log("curr" , curr)
     } else {
       console.log("No such document!");
     }
@@ -79,8 +81,8 @@ const Root = (props) => {
           ?.data()
           ?.data?.find((course) => course.id === currCourse?.id);
         const CompletedLessons = userData?.completedLessons;
-
         if (!completedLessons.includes(currCourse?.content[curr]?.id)) {
+          handleUpdate();
           await updateDoc(docRef, {
             data: [
               ...docSnap
@@ -100,6 +102,7 @@ const Root = (props) => {
             currCourse?.content[curr]?.id,
           ]);
         }
+        setCurr((prev) => (prev + 1) % currCourse?.content?.length);
       }
     };
 
@@ -126,9 +129,6 @@ const Root = (props) => {
       });
 
       // Update other state or perform additional operations
-      setCurr((prev) => (prev + 1) % currCourse?.content?.length);
-      updateProgress();
-
       // Simulate a promise-based operation
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -245,7 +245,7 @@ const Root = (props) => {
                       disabled={
                         completedLessons?.length === currCourse?.content?.length
                       }
-                      onClick={handleUpdate}
+                      onClick={updateProgress}
                       className="bg-green-600 rounded-md p-1 px-2 text-white flex items-center gap-1 max-600:text-[13px] disabled:cursor-not-allowed disabled:opacity-[0.7]"
                     >
                       Mark as complete <BsCheck2Circle />

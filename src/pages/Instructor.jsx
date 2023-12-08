@@ -57,6 +57,7 @@ const Root = (props) => {
             setmyMode={setmyMode}
           />
              <Payment />
+             {/* <PaymentPage /> */}
         </Stack>
         {/* Main content is landing here */}
         <Outlet />

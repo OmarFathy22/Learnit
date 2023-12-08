@@ -64,7 +64,7 @@ export default function AccountMenu({ user }) {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }} src={photoUrl}>
+            <Avatar sx={{ width: 32, height: 32 }} src={photoUrl || '/no_avatar'}>
               {photoUrl}
             </Avatar>
           </IconButton>

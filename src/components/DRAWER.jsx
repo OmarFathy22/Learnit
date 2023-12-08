@@ -121,9 +121,9 @@ function ResponsiveDrawer({
           />
           <h1
             className="text-sky-700 font-bold ml-2 text-[25px]"
-            style={{ wordSpacing: -7 }}
+            // style={{ wordSpacing: -7 }}
           >
-            LEARNIT
+            SKILLS HUB
           </h1>
         </Box>
       </Toolbar>

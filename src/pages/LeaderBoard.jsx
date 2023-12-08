@@ -1,4 +1,3 @@
-
 import {
   Box,
   createTheme,
@@ -12,10 +11,10 @@ import { Outlet } from "react-router";
 import getDesignTokens from "../styles/MyTheme";
 import DRAWER from "../components/DRAWER";
 import { data3 } from "../../Data";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs ,query, orderBy } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import Loading from "../Comp/loader/LoadUsers";
-
+import no_avatar from "../assets/no_avatar.png";
 
 const Root = (props) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -37,8 +36,7 @@ const Root = (props) => {
       setLoading(true);
       try {
         const collectionRef = collection(db, collectionName);
-        const querySnapshot = await getDocs(collectionRef);
-    
+        const querySnapshot = await getDocs(query(collectionRef, orderBy('points', 'desc')));
         const documents = [];
         querySnapshot.forEach((doc) => {
           documents.push({
@@ -54,12 +52,11 @@ const Root = (props) => {
         setLoading(false);
       }
     };
-    
+
     // Example usage
     const collectionName = "Users";
     getAllDocuments(collectionName)
       .then((documents) => {
-        console.log("Documents: ", documents);
         setUsers(documents);
       })
       .catch((error) => {
@@ -94,32 +91,51 @@ const Root = (props) => {
           />
           <div className="border-[1px] max-600:mt-[120px] border-gray-200 my-[100px] pb-2 w-full mx-7 rounded-md h-[80vh] overflow-auto ">
             <div>
-            <div  className={`m-2 px-2 py-1 rounded-md flex justify-between items-center sm:pr-[50px] pr-[100px] bg-[#294793]`} >
-                    <div className="flex text-white gap-2 ml-[10px]">
-                      user
-                    </div>
-                    <div className="min-600:mr-[110px] max-600:mr-[30px]  text-white">
-                      points
-                    </div>
-                  </div>
-              {loading ? <Loading/>:Users.map((user , index) => {
-                return(
-                  <div key={index} className={`mx-2 px-2 py-1 rounded-md flex justify-between items-center mb-2 bg-[#294793] `} >
-                    <div className="flex gap-2">
-                      <div><img className="w-10 h-10 rounded-full" src={user?.photoUrl} alt="" /></div>
-                      <div>
-                        <div className="text-white">{user?.username}</div>
-                        <div className="text-white">level {Math.floor((user?.points) / 100) + 1}</div>
-                      </div>
-                    </div>
-                    <h6 className="bg-[#7ee97eac] w-[100px] text-center py-[1px] rounded-full sm:mr-[30px] min-600:mr-[80px] text-white">
-                      {user?.points}
-                    </h6>
-                  </div>
-                )
-              })}
-            </div>
+              <div
+                className={`m-2 px-2 py-1 rounded-md flex  justify-between items-center sm:pr-[50px] pr-[100px] bg-[#294793]`}
+              >
+                <div className="flex text-white gap-2 font-bold">#rank</div>
+                <div className="flex text-white gap-2 mr-[50px] font-bold">user</div>
+                <div className=" text-white mr-[30px] font-bold">
+                  points
+                </div>
+              </div>
+              {loading ? (
+                <Loading />
+              ) : (
+                Users?.map((user, index) => {
+                  const hasPhoto = user?.photoUrl;
+                  const imageUrl = hasPhoto ? user?.photoUrl : no_avatar;
 
+                  return (
+                    <div
+                      key={index}
+                      className={`mx-2 px-2 py-1 rounded-md flex justify-between items-center mb-2 bg-[#294793] `}
+                    >
+                        <h5 className="max-600:text-[15px]  bg-[#3f6ee6a9] rounded-md p-2">#{index + 1}</h5>
+                      <div className="flex gap-2 items-center min-w-[200px] max-600:min-w-[140px]">
+                        <div>
+                          <img
+                            className="w-10 h-10 max-600:w-7 max-600:h-7 rounded-full"
+                            src={imageUrl}
+                            alt=""
+                          />
+                        </div>
+                        <div>
+                          <div className="text-white max-600:text-[12px] ">{user?.username}</div>
+                          <div className="text-white max-600:text-[12px] ">
+                            level {Math.floor(user?.points / 100) + 1}
+                          </div>
+                        </div>
+                      </div>
+                      <h6 className="bg-[#7ee97eac] w-[100px] text-center py-[1px] rounded-full  text-white">
+                        {user?.points}
+                      </h6>
+                    </div>
+                  );
+                })
+              )}
+            </div>
           </div>
         </Stack>
         {/* Main content is landing here */}

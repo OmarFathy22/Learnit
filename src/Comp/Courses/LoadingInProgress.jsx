@@ -68,7 +68,7 @@ function Media({ value, curr }) {
               <div>
                 <h6 className="font-bold max-600:text-[13px]">In Progress</h6>
                 <h6 className="max-600:text-[13px]">
-                  {courses?.length} Courses
+                  {courses?.length - completedCourses} Courses
                 </h6>
               </div>
             </div>
