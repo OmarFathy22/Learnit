@@ -112,7 +112,7 @@ const Root = (props) => {
                       width="100%"
                       height="100%"
                       url={
-                        "https://firebasestorage.googleapis.com/v0/b/e-learning-981e1.appspot.com/o/react%20course%2Freact%20course%2F%2302%20React%20full%20course%20with%20projects%202023%20%F0%9F%94%A5%F0%9F%94%A5.mp4?alt=media&token=a136251a-2bac-4b8b-bd9b-c7e0488b7cf9"
+                        currCourse?.intro
                       }
                       style={{ borderRadius: "10px", overflow: "hidden" }}
                     />

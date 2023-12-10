@@ -252,9 +252,9 @@ const Root = (props) => {
                     </button>
                   </div>
                 </div>
-                <h1 className="text-center font-bold  border-b-1 border-b-black underline">
+                {/* <a  className="text-center font-bold  border-b-1 border-b-black underline">
                   Quick Quiz
-                </h1>
+                </a> */}
               </div>
             )}
           </div>

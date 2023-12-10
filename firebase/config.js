@@ -4,12 +4,12 @@ import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCbbtGjnszRIUR8SEdgEOxZa8kAR9o_eug",
-  authDomain: "e-learning-981e1.firebaseapp.com",
-  projectId: "e-learning-981e1",
-  storageBucket: "e-learning-981e1.appspot.com",
-  messagingSenderId: "741278426313",
-  appId: "1:741278426313:web:aed66d39b8f53355935918"
+  apiKey: "AIzaSyDRFd8GhhQvWSNE68J9nJ6LqYfou_MNZdM",
+  authDomain: "skills-hub-anwar.firebaseapp.com",
+  projectId: "skills-hub-anwar",
+  storageBucket: "skills-hub-anwar.appspot.com",
+  messagingSenderId: "299113781443",
+  appId: "1:299113781443:web:a77b7f8792d2ad2cc72a76"
 };
 
 export const app = initializeApp(firebaseConfig);

@@ -11,9 +11,21 @@ import getDesignTokens from "../styles/MyTheme";
 import MainContent from "../components/MainContent";
 import DRAWER from "../components/DRAWER";
 import Footer from "../components/Footer";
+import { courses } from "../../Data";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../firebase/config";
+
 
 
 const Root = (props) => {
+  React.useEffect(() => {
+    const SaveData = async () => {
+      await setDoc(doc(db, "Courses", "data"), {
+        data: courses,
+      });
+    };
+    SaveData();
+  }, []);
   useEffect(() => {}, []);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {

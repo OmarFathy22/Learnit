@@ -96,7 +96,7 @@ function ResponsiveDrawer({
   ];
   const drawer = (
     <div>
-      <Toolbar className="border-b-[1px]">
+      <Toolbar className="">
         <Box
           sx={{
             display: "flex",

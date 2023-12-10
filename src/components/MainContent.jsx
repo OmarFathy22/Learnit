@@ -3,20 +3,10 @@ import Loading from "../Comp/Courses/Loading";
 import { data } from "../../Data";
 import CategoriesMobile from "../Comp/Courses/Categoriesmobile";
 import CategoriesWeb from "../Comp/Courses/Categories";
-import { courses } from "../../Data";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase/config";
 
 const MainContent = () => {
   const [curr, setCurr] = React.useState(0);
-  React.useEffect(() => {
-    const SaveData = async () => {
-      await setDoc(doc(db, "Courses", "data"), {
-        data: courses,
-      });
-    };
-    // SaveData();
-  }, []);
+
   return (
     <div className="mt-[50px] sm:mt-[95px] flex  mx-auto  overflow-hidden ">
       <div className="flex flex-col overflow-hidden px-2">

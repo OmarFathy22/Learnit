@@ -1,10 +1,10 @@
 import React from "react";
 import { Divider } from "@mui/material";
 import { Link } from "react-router-dom";
-
+// const Mode = JSON.parse(localStorage.getItem("currentMode"));
 const Footer = () => {
   return (
-    <div className="min-900:ml-[300px] border-t-[1px] flex max-600:flex-col-reverse items-center justify-between px-3 py-4">
+    <div className={`min-900:ml-[300px] border-t-[1px]  flex max-600:flex-col-reverse items-center justify-between px-3 py-4`}>
       <div className="flex items-center text-[13px]">
         ©  2023 SKILLS HUB. All rights reserved.
     </div>
