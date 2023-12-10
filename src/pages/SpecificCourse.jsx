@@ -230,7 +230,7 @@ const Root = (props) => {
                   muted={true}
                   width="100%"
                   height="100%"
-                  url={currCourse?.content[curr].url}
+                  url={currCourse?.content[curr]?.url}
                   style={{ borderRadius: "10px", overflow: "hidden" }}
                   onReady={() => {
                     setLoading(false);
