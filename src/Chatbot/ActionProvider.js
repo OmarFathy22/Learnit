@@ -15,7 +15,7 @@ class ActionProvider {
   }
 
   greet() {
-    const message = this.createChatBotMessage('Hello! Welcome to our e-learning platform. How can I assist you today?');
+    const message = this.createChatBotMessage('Hello! Welcome to our skills hub platform. How can I assist you today?');
     this.addMessageToBotState(message);
   }
 
