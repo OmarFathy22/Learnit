@@ -21,6 +21,7 @@ import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import YouSure from "./YouSure";
 import Modal from "../Comp/Instructor/Modal"
 import LoginModal from "../Comp/Login/LoginModal";
+import InstructorForm from "../Comp/Instructor/Form";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -154,7 +155,9 @@ function ResponsiveDrawer({
                   } else if (item.text === "LeaderBoard") {
                     navigate("/leaderboard");
                   } else if (item.text === "Become an instructor") {
-                    handleOpen();
+                    // handleOpen();
+                    navigate("/instructor");
+
                   }
                 }}
                 key={index}

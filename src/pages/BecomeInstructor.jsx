@@ -6,32 +6,20 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import Appbar from "../components/Appbar";
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState } from "react";
+import { Outlet } from "react-router";
 import getDesignTokens from "../styles/MyTheme";
-import MainContent from "../components/MainContent";
 import DRAWER from "../components/DRAWER";
-import Footer from "../components/Footer";
-import { courses } from "../../Data";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase/config";
-
-
+import Form from "../Comp/Instructor/Form";
 
 const Root = (props) => {
-  React.useEffect(() => {
-    const SaveData = async () => {
-      await setDoc(doc(db, "Courses", "data"), {
-        data: courses,
-      });
-    };
-    // SaveData();
-  }, []);
-  useEffect(() => {}, []);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
   const [showList, setshowList] = useState("none");
+  const [open, setOpen] = useState("none");
+
   const [mode, setmyMode] = useState(
     localStorage.getItem("currentMode") === null
       ? "dark"
@@ -39,8 +27,8 @@ const Root = (props) => {
       ? "light"
       : "dark"
   );
+  
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -56,8 +44,6 @@ const Root = (props) => {
           showList={showList}
           setshowList={setshowList}
           handleDrawerToggle={handleDrawerToggle}
-          theme={theme}
-          
         />
         <Stack direction="row">
           <DRAWER
@@ -68,14 +54,12 @@ const Root = (props) => {
             mode={mode}
             setmyMode={setmyMode}
           />
-          <MainContent theme={theme} />
-
+             <Form />
+             {/* <PaymentPage /> */}
         </Stack>
-        {/* <Footer/> */}
-        {/* <Outlet /> */}
-    
+        {/* Main content is landing here */}
+        <Outlet />
       </Box>
-
     </ThemeProvider>
   );
 };

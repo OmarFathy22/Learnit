@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Skeleton from "@mui/material/Skeleton";
 import { Link } from "react-router-dom";
-import { data } from "../../../Data";
 import { BsBook } from "react-icons/bs";
 import UserProgress from "../Login/UserProgress";
 import { FaUserCheck } from "react-icons/fa6";
@@ -132,10 +131,10 @@ function Media({ value, curr }) {
               
             >
               {item ? (
-                <img
+                      <img
                   alt={item.title}
                   src={item.banner}
-                  className={` image ${
+                  className={` object-cover w-full h-[200px]  ${
                     loadingImage ? "loading" : ""
                   } rounded-[16px] `}
                 />
@@ -145,7 +144,7 @@ function Media({ value, curr }) {
 
               {item ? (
                 <Box sx={{ pr: 2, mt: 2 }}>
-                  <h5>{item.title}</h5>
+                  <h5 className="text-blue-600">{item.title}</h5>
                   <Typography
                     display="block"
                     variant="caption"

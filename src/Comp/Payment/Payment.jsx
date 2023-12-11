@@ -21,8 +21,15 @@ export default function App() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [success , setSuccess] = useState(false)
+  const [value , setValue] = useState("**** **** **** ****")
   const user = JSON.parse(localStorage.getItem("user"));
   const currCourse = JSON.parse(localStorage.getItem("currCourse"));
+  const handleChange = (e) => {
+    const regex = /^[0-9]*$/;
+    if (regex.test(e.target.value)) {
+      setValue(e.target.value);
+    }
+  }
   const updateUserCourses = async (user, currCourse) => {
     const docRef = doc(db, "CoursesInProgress", user?.uid);
     try {
@@ -131,7 +138,11 @@ export default function App() {
                           id="form1"
                           type="text"
                           size="lg"
-                          value="**** **** **** ****"
+                          onChange={handleChange}
+                          maxLength={16}
+                          //accept only numbers 
+                        
+                          value={value}
                         />
                       </div>
                     </div>
