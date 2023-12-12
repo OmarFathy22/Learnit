@@ -102,7 +102,7 @@ function ResponsiveDrawer({
           sx={{
             display: "flex",
             justifyContent: "center",
-            height: "64px",
+            // height: "64px",
             alignItems: "center",
             cursor: "pointer",
           }}
@@ -113,7 +113,7 @@ function ResponsiveDrawer({
           <img
           
             src={
-              "./logo.jpg"
+              "/logo.jpg"
             }
             alt="O"
             width={"50px"}
