@@ -118,7 +118,7 @@ function ResponsiveDrawer({
             alt="O"
             width={"50px"}
             height={"100px"}
-            style={{ borderRadius: "50%",border:"2px solid white" }}
+            style={{ borderRadius: "50%" }}
           />
           <h1
             className=" font-bold ml-2 text-[25px] mt-3"
