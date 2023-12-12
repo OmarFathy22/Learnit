@@ -81,7 +81,7 @@ function Media({MainCourses , setMainCourses}) {
             console.log("No such document!");
           }
         } else {
-          setCourses(docSnap?.data()?.data);
+          setMainCourses(docSnap?.data()?.data);
           console.log("No such document!");
         }
         AssignEnrolled();
