@@ -12,11 +12,6 @@ import SearchBar from "./SearchBar";
 import LoginButton from "../Comp/Login/LoginButton";
 import LoginModal from "../Comp/Login/LoginModal";
 import AvatarPage from "../Comp/Login/Avatar";
-// import {ToggleModeComponent} from './ContentDRAWER ';
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useMemo, useState } from "react";
-import getDesignTokens from "../styles/MyTheme";
-import ToggleButton from './ContentDRAWER '
 
 export default function PrimarySearchAppBar({
   showList,
@@ -28,10 +23,13 @@ export default function PrimarySearchAppBar({
 }) {
 
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handeExit = () => navigate('/')
   const user = JSON.parse(localStorage.getItem("user"));
+
 
   return (
     <Box>
@@ -73,7 +71,10 @@ export default function PrimarySearchAppBar({
             {/* <Notifications /> */}
             <div style={{ width: "100% !important" }}>
               {user? (
-                <AvatarPage user={user} />
+                <div className="flex items-center">
+                {pathname.includes('chapters') &&  <LoginButton text={"Exit"} handleOpen={handeExit} />}
+                  <AvatarPage user={user} />
+                </div>
               ) : (
                 <div>
                   <LoginButton handleOpen={handleOpen} />
