@@ -18,7 +18,8 @@ function Media({MainCourses , setMainCourses}) {
   const currCourse = React.useContext(CoursesContext);
   const handleCurrCourse = (item) => {
     currCourse?.setCurrCourse(item);
-    localStorage.setItem("currCourse", JSON.stringify(item));
+    const newItem = { ...item, Enrolled: checkEnrolled(item?.id) };
+    localStorage.setItem("currCourse", JSON.stringify(newItem));
   };
   const Navigate = useNavigate();
   const [loading, setLoading] = React.useState(true);
