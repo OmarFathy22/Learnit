@@ -92,7 +92,7 @@ function Media({MainCourses , setMainCourses}) {
         setLoading(false);
         setTimeout(() => {
           setLoadingImage(false);
-        }, 100);
+        }, 200);
       } catch (error) {
         console.error("Error fetching courses:", error);
       }
@@ -134,12 +134,12 @@ function Media({MainCourses , setMainCourses}) {
                       <img
                   alt={item.title}
                   src={item.banner}
-                  className={` object-cover w-full h-[200px]  ${
+                  className={` object-cover w-full h-[200px] image ${
                     loadingImage ? "loading" : ""
                   } rounded-[16px] `}
                 />
               ) : (
-                <Skeleton variant="rectangular" width={180} height={118} />
+                <Skeleton variant="rectangular" sx={{borderRadius:"16px"}} width={"100%"} height={200} />
               )}
 
               {item ? (

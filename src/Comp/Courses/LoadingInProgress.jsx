@@ -37,7 +37,7 @@ function Media({ value, curr }) {
         setLoading(false);
         setTimeout(() => {
           setLoadingImage(false);
-        }, 150);
+        }, 300);
         console.log("coursesData", coursesData);
       } else {
         console.log("No such document!");
@@ -96,7 +96,7 @@ function Media({ value, curr }) {
                   width: 350,
                   borderRadius: "16px",
                   cursor: "pointer",
-                  border: !loading && "1px solid silver",
+                  border: "1px solid silver",
                   padding: "10px",
                 }}
               >
@@ -110,12 +110,12 @@ function Media({ value, curr }) {
                     <img
                       alt={item.title}
                       src={item.banner}
-                      className={` image ${
+                      className={`w-full h-[200px] image ${
                         loadingImage ? "loading" : ""
                       } rounded-[16px] `}
                     />
                   ) : (
-                    <Skeleton variant="rectangular" width={180} height={118} />
+                    <Skeleton variant="rectangular" sx={{borderRadius:"16px"}} width={"100%"} height={200} />
                   )}
 
                   {item ? (
