@@ -117,7 +117,7 @@ function Media({MainCourses , setMainCourses}) {
             style={{
               borderRadius: "16px",
               cursor: "pointer",
-              border: !loading && "1px solid silver",
+              border: "1px solid silver",
               padding: "10px",
             }}
           >

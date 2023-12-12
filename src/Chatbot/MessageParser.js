@@ -9,11 +9,11 @@ parse(message) {
       .toLowerCase()
       .replace(/[^\w\s]/gi, "")
       .trim();
-    if (lowerCaseMessage.includes("hello")) {
+    if (lowerCaseMessage.includes("hello") || lowerCaseMessage.includes("hi") || lowerCaseMessage.includes("what's up") || lowerCaseMessage.includes("hey") || lowerCaseMessage.includes("hola") || lowerCaseMessage.includes("howdy") || lowerCaseMessage.includes("greetings") || lowerCaseMessage.includes("good morning") || lowerCaseMessage.includes("good afternoon") || lowerCaseMessage.includes("good evening") || lowerCaseMessage.includes("good day") || lowerCaseMessage.includes("good night") ) {
       this.actionProvider.greet();
-    } else if (lowerCaseMessage.includes("how are you")) {
+    } else if (lowerCaseMessage.includes("how are you" || "how are you doing" || "how are you today" || "how are you feeling")) {
       this.actionProvider.askHowAreYou();
-    } else if (lowerCaseMessage.includes("course")) {
+    } else if (lowerCaseMessage.includes("course" || "courses" || "learning path" || "learning paths" || "learning" || "paths")) {
       this.actionProvider.suggestCourse();
     } else if (lowerCaseMessage.includes("learning path")) {
       this.actionProvider.showLearningPaths();
@@ -24,21 +24,54 @@ parse(message) {
       lowerCaseMessage.includes("authenticate")
     ) {
       this.actionProvider.authenticateUser();
-    } else if (lowerCaseMessage.includes("business development")) {
+    } else if (lowerCaseMessage.includes("business")) {
       // Provide the response about business development
       this.actionProvider.addMessageToBotState(
         this.actionProvider.createChatBotMessage(
           "The Business Development track refers to a career path or a set of activities within an organization that focuses on creating growth opportunities, building strategic partnerships, and expanding the business. It involves identifying and pursuing new business opportunities, developing strategies to drive growth, and fostering relationships with clients, customers, and partners.\n\nIndividuals on the Business Development track typically engage in various tasks, including:\n\n1. Market Research: Analyzing market trends, customer needs, and competitors to identify potential opportunities for growth.\n2. Lead Generation: Finding and qualifying potential leads or opportunities for partnerships, collaborations, or sales.\n3. Strategic Planning: Developing plans and strategies to enter new markets, launch new products, or expand existing services.\n4. Partnerships and Alliances: Forming strategic alliances, partnerships, or collaborations with other companies or organizations to drive mutual growth.\n5. Negotiation and Deal Making: Negotiating contracts, agreements, and deals with clients, vendors, or partners to facilitate business growth.\n6. Relationship Management: Building and maintaining relationships with clients, customers, stakeholders, and other key players in the industry.\n7. Sales Support: Collaborating with the sales team to facilitate the sales process and achieve business objectives.\n8. Metrics and Analysis: Monitoring key performance indicators (KPIs) and analyzing data to assess the effectiveness of business development strategies and initiatives.\n\nA career in Business Development often requires strong communication, negotiation, analytical, and strategic thinking skills. Professionals in this track may work across various industries and sectors, from technology and finance to healthcare and beyond. The primary goal is to drive sustainable growth and create value for the organization through strategic initiatives and partnerships."
         )
       );
-    } else if (lowerCaseMessage.includes("digital marketing")) {
+    } 
+    
+    
+    else if (lowerCaseMessage.includes("marketing")) {
       // Provide the response about business development
       this.actionProvider.addMessageToBotState(
         this.actionProvider.createChatBotMessage(
           "The digital marketing track involves leveraging online channels, strategies, and tools to promote products, services, or brands. It encompasses a wide range of activities aimed at reaching and engaging target audiences through digital mediums such as the internet, social media, search engines, email, mobile apps, and other digital platforms. The primary objective of digital marketing is to drive brand awareness, lead generation, customer acquisition, and ultimately, sales or conversions."
         )
       );
-    } else if (lowerCaseMessage.includes("design")) {
+    }
+    else if (lowerCaseMessage.includes("macro")) {
+      // Provide the response about business development
+      this.actionProvider.addMessageToBotState(
+        this.actionProvider.createChatBotMessage(
+          "Studying macroeconomics offers valuable insights into the fundamental building blocks of economic systems, focusing on individual decision-making by consumers, firms, and workers. Beyond theoretical concepts, the course provides practical applications for everyday life, aiding individuals in making informed financial decisions. For those interested in business, microeconomics is indispensable, shedding light on how firms navigate production choices and pricing strategies. Additionally, a grasp of microeconomic principles is essential for policy analysis, enabling individuals to evaluate the impact of economic policies on specific industries and markets. The subject explores the critical notion of resource allocation, addressing the challenge of efficiently distributing scarce resources. By delving into market behavior, microeconomics illuminates the dynamics of supply and demand, equilibrium, and the consequences of interventions like taxes or subsidies. Moreover, the discipline nurtures critical thinking skills through the analysis of economic problems and consideration of unintended outcomes. As a foundational course, microeconomics serves as a gateway for those planning advanced studies in economics or business. Its applicability spans various scales, from individual households to global markets, providing a comprehensive understanding of economic dynamics. Ultimately, a microeconomics course equips individuals with the knowledge and skills necessary for informed citizenship, enabling them to critically assess economic policies and actively participate in societal discussions."
+        )
+      );
+    }
+    else if (lowerCaseMessage.includes("management")) {
+      // Provide the response about business development
+      this.actionProvider.addMessageToBotState(
+        this.actionProvider.createChatBotMessage(
+          `
+          Management is a multifaceted discipline encompassing the planning, organizing, directing, and controlling of resources to achieve organizational goals effectively and efficiently. It involves coordinating human, financial, and technological resources within an organization to optimize performance. Key components of management include strategic planning, where long-term goals are established, organizational structure design to facilitate efficient workflow, leadership to inspire and guide teams, and decision-making to address challenges and opportunities. Effective managers must possess strong communication skills, adaptability, and a strategic mindset. The field of management also incorporates areas such as human resource management, operations management, and project management, each focusing on specific aspects of organizational functioning. In essence, management plays a pivotal role in ensuring the coordinated efforts of individuals and departments to drive an organization toward success in a dynamic and competitive environment.`
+        )
+      );
+    }
+    else if (lowerCaseMessage.includes("micro")) {
+      // Provide the response about business development
+      this.actionProvider.addMessageToBotState(
+        this.actionProvider.createChatBotMessage(
+          `
+          
+Studying microeconomics offers valuable insights into the fundamental building blocks of economic systems, focusing on individual decision-making by consumers, firms, and workers. Beyond theoretical concepts, the course provides practical applications for everyday life, aiding individuals in making informed financial decisions. For those interested in business, microeconomics is indispensable, shedding light on how firms navigate production choices and pricing strategies. Additionally, a grasp of microeconomic principles is essential for policy analysis, enabling individuals to evaluate the impact of economic policies on specific industries and markets. The subject explores the critical notion of resource allocation, addressing the challenge of efficiently distributing scarce resources. By delving into market behavior, microeconomics illuminates the dynamics of supply and demand, equilibrium, and the consequences of interventions like taxes or subsidies. Moreover, the discipline nurtures critical thinking skills through the analysis of economic problems and consideration of unintended outcomes. As a foundational course, microeconomics serves as a gateway for those planning advanced studies in economics or business. Its applicability spans various scales, from individual households to global markets, providing a comprehensive understanding of economic dynamics. Ultimately, a microeconomics course equips individuals with the knowledge and skills necessary for informed citizenship, enabling them to critically assess economic policies and actively participate in societal discussions.
+          `
+        )
+      );
+    }
+    
+    else if (lowerCaseMessage.includes("design")) {
       // Provide the response about business development
       this.actionProvider.addMessageToBotState(
         this.actionProvider.createChatBotMessage(
