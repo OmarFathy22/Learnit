@@ -14,7 +14,7 @@ import { db } from "../../../firebase/config";
 import { CoursesContext } from "../../store/Context/courses";
 import Loading from "../loader/LoadIsEnrolled";
 
-function Media({ value, curr }) {
+function Media({MainCourses , setMainCourses}) {
   const currCourse = React.useContext(CoursesContext);
   const handleCurrCourse = (item) => {
     currCourse?.setCurrCourse(item);
@@ -25,7 +25,7 @@ function Media({ value, curr }) {
   const [loadingImage, setLoadingImage] = React.useState(true);
   const [Enrolled, setEnrolled] = React.useState([]);
   const [loadingEnroll, setLoadingEnroll] = React.useState(true);
-  const [courses, setCourses] = React.useState([]);
+  // const [courses, setCourses] = React.useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
   const AssignEnrolled = async () => {
     const docRef = doc(db, "CoursesInProgress", user?.uid);
@@ -76,7 +76,7 @@ function Media({ value, curr }) {
               };
             });
 
-            setCourses(updatedCourses);
+            setMainCourses(updatedCourses);
           } else {
             console.log("No such document!");
           }
@@ -110,7 +110,7 @@ function Media({ value, curr }) {
         wrap="wrap"
         className="justify-center flex-wrap  mx-auto  self-center  grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4"
       >
-        {(loading ? Array.from(new Array(10)) : courses).map((item, index) => (
+        {(loading ? Array.from(new Array(10)) : MainCourses).map((item, index) => (
           <div
            className="max-600:!w-[90%] min-600:!w-[350px] max-600:mx-auto"
             key={index}
@@ -186,11 +186,14 @@ Media.propTypes = {
   loading: PropTypes.bool,
 };
 
-export default function YouTube({ data, curr }) {
+export default function YouTube({MainCourses , setMainCourses}) {
   return (
     <div className="flex flex-wrap">
       {/* <Media loading /> */}
-      <Media value={data} curr={curr} />
+      <Media 
+      MainCourses={MainCourses}
+      setMainCourses={setMainCourses}
+      />
     </div>
   );
 }

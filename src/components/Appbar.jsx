@@ -23,17 +23,9 @@ export default function PrimarySearchAppBar({
   setshowList,
   handleDrawerToggle,
   theme,
+  setMainCourses,
+  MainCourses
 }) {
-  // const [mode, setmyMode] = useState(
-  //   localStorage.getItem("currentMode") === null
-  //     ? "dark"
-  //     : localStorage.getItem("currentMode") === "light"
-  //     ? "light"
-  //     : "dark"
-  // );
-  // const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
-  // const navigate = useNavigate();
-  //   console.log("setmyMode", setmyMode);
 
   const { pathname } = useLocation();
   const [open, setOpen] = React.useState(false);
@@ -64,7 +56,7 @@ export default function PrimarySearchAppBar({
           <div
             className={`max-600:hidden  ${pathname.includes("courses") && "hidden"} !`}
           >
-            <SearchBar theme={theme} />
+            <SearchBar MainCourses={MainCourses} setMainCourses={setMainCourses} theme={theme} />
           </div>
           <div>
             {/* <ToggleModeComponent theme={theme} setmyMode={setmyMode}/> */}
@@ -93,7 +85,7 @@ export default function PrimarySearchAppBar({
         </Toolbar>
         <Divider className="max-600:hidden" />
         <div className="min-600:hidden mx-3 rounded-md overflow-hidden">
-          <SearchBar theme={theme} />
+          <SearchBar MainCourses={MainCourses} setMainCourses={setMainCourses} theme={theme} />
         </div>
       </AppBar>
     </Box>

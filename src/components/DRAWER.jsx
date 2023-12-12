@@ -113,15 +113,15 @@ function ResponsiveDrawer({
           <img
           
             src={
-              "https://www.codewithantonio.com/_next/image?url=%2Flogo2.png&w=64&q=75"
+              "./logo.jpg"
             }
             alt="O"
             width={"50px"}
             height={"100px"}
-            style={{ borderRadius: "50%" }}
+            style={{ borderRadius: "50%",border:"2px solid white" }}
           />
           <h1
-            className="text-sky-700 font-bold ml-2 text-[25px] mt-3"
+            className=" font-bold ml-2 text-[25px] mt-3"
             // style={{ wordSpacing: -7 }}
           >
             SKILLS HUB

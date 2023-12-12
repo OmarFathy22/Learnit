@@ -15,8 +15,6 @@ import { courses } from "../../Data";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
-
-
 const Root = (props) => {
   React.useEffect(() => {
     const SaveData = async () => {
@@ -28,6 +26,7 @@ const Root = (props) => {
   }, []);
   useEffect(() => {}, []);
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [MainCourses, setMainCourses] = useState([]);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -57,7 +56,8 @@ const Root = (props) => {
           setshowList={setshowList}
           handleDrawerToggle={handleDrawerToggle}
           theme={theme}
-          
+          setMainCourses={setMainCourses}
+          MainCourses={MainCourses}
         />
         <Stack direction="row">
           <DRAWER
@@ -68,14 +68,15 @@ const Root = (props) => {
             mode={mode}
             setmyMode={setmyMode}
           />
-          <MainContent theme={theme} />
-
+          <MainContent
+            MainCourses={MainCourses}
+            setMainCourses={setMainCourses}
+            theme={theme}
+          />
         </Stack>
         {/* <Footer/> */}
         {/* <Outlet /> */}
-    
       </Box>
-
     </ThemeProvider>
   );
 };

@@ -46,21 +46,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-const SearchBar = ({theme}) => {
-  const [OpenSearchMenu, setOpenSearchMenu] = React.useState(false);
-  const [filterAccounts , setfilterAccounts] = React.useState('')
-
+const courses = [];
+const SearchBar = ({MainCourses ,setMainCourses}) => {
   const handleSearch = (e) => {
-    setfilterAccounts(e.target.value)
+    if(courses.length === 0){
+      courses.push(...MainCourses)
+    }
+    setMainCourses(courses);
+    setMainCourses(courses.filter((course) => course.title.toLowerCase().includes(e.target.value.toLowerCase())));
+    console.log("courses" , courses)
   }
-  const handleFocus = () =>{
-      setOpenSearchMenu(true)
-  }
-  const handleBlur = () => {
-    setTimeout(() => {
-      setOpenSearchMenu(false)
-    }, 200);
-  };
+
   return (
     <Box sx={{display:"flex" , justifyContent:"center" , flexDirection:"column" , position:"relative" , width:{sm:"100%" , lg:"500px"} }}>
     <Search className=''>
@@ -68,13 +64,13 @@ const SearchBar = ({theme}) => {
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
-        placeholder="Search…"
+        placeholder="Search for courses..."
         inputProps={{ "aria-label": "search" }}
-        // onChange={handleSearch}
+        onChange={handleSearch}
         // onFocus={handleFocus}
         // onBlur={handleBlur}
       />
-    {OpenSearchMenu && <SearchResults Search={filterAccounts.trim().toLocaleLowerCase()} theme={theme}/>}
+    {/* {OpenSearchMenu && <SearchResults Search={filterAccounts.trim().toLocaleLowerCase()} theme={theme}/>} */}
     </Search>
 </Box>
   );
