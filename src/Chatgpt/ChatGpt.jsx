@@ -61,7 +61,7 @@ const ChatComponent = () => {
       </h5>
       <div className="p-3 flex flex-col  h-[300px] mb-[40px] overflow-auto">
         <div
-          className={`!bg-blue-400 !ml-[8px] mb-2 slef-start px-2 py-1 w-fit max-w-[85%] rounded-md chat left`}
+          className={` !ml-[8px] mb-2 slef-start px-2 py-1 w-fit max-w-[85%] rounded-md chat left`}
         >
           {"hi there"}
         </div>
@@ -71,7 +71,7 @@ const ChatComponent = () => {
             className={`${
               message?.role === "user"
                 ? "!mr-[8px] self-end mb-2 chat right w-fit max-w-[85%] px-2 py-1 rounded-md"
-                : "!bg-blue-400 !ml-[8px] mb-2 slef-start px-2 py-1 w-fit max-w-[85%] rounded-md chat left"
+                : " !ml-[8px] mb-2 slef-start px-2 py-1 w-fit max-w-[85%] rounded-md chat left"
             }`}
           >
             {message?.role === "assistant" &&
