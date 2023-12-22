@@ -7,6 +7,7 @@ import ActionProvider from "../Chatbot/ActionProvider";
 import "react-chatbot-kit/build/main.css";
 import { IoMdCloseCircle } from "react-icons/io";
 import { FaRobot } from "react-icons/fa";
+import ChatGpt from '../Chatgpt/ChatGpt'
 
 const ChatbotButton = () => {
   const [chatbotVisible, setChatbotVisible] = useState(false);
@@ -29,13 +30,7 @@ const ChatbotButton = () => {
           <button onClick={() => {
             setChatbotVisible(false)
           }} className="absolute left-1 top-1 cursor-pointer"><IoMdCloseCircle className="text-blue-500 text-[20px]"/></button>
-          <Chatbot
-        
-            config={config}
-            messageParser={MessageParser}
-            actionProvider={ActionProvider}
-            headerText='SKILLS HUB Chatbot'
-          />
+          <ChatGpt/>
         </div>
       )}
     </>
