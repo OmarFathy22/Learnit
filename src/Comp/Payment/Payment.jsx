@@ -119,7 +119,7 @@ export default function App() {
               <MDBCard className="rounded-3">
                 <MDBCardBody className="p-4">
                   <div className="text-center mb-4">
-                    <h3 className="text-black">Learn it</h3>
+                    <h3 className="text-black">Skills Hub</h3>
                     <h6>Payment</h6>
                   </div>
                   <div className="d-flex flex-row align-items-center mb-4 pb-1">
