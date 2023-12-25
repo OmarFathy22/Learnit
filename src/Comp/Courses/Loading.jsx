@@ -104,6 +104,7 @@ function Media({MainCourses , setMainCourses}) {
     // Cleanup function to set isMounted to false when the component unmounts
   }, []);
 
+  
   return (
     <div className="">
       <Grid
@@ -113,7 +114,7 @@ function Media({MainCourses , setMainCourses}) {
       >
         {(loading ? Array.from(new Array(10)) : MainCourses).map((item, index) => (
           <div
-           className="max-600:!w-[90%] min-600:!w-[350px] max-600:mx-auto"
+           className="max-600:!w-[90%] min-600:!w-[350px] max-600:mx-auto p-"
             key={index}
             style={{
               borderRadius: "16px",

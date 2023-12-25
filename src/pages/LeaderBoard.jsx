@@ -110,10 +110,10 @@ const Root = (props) => {
                   return (
                     <div
                       key={index}
-                      className={`mx-2 px-2 py-1 rounded-md flex justify-between items-center mb-2 bg-[#294793] `}
+                      className={`mx-2  px-2 py-1 rounded-md flex justify-between items-center mb-2 bg-[#294793] `}
                     >
-                        <h5 className="max-600:text-[15px]  bg-[#3f6ee6a9] rounded-md p-2">#{index + 1}</h5>
-                      <div className="flex gap-2 items-center min-w-[200px] max-600:min-w-[140px]">
+                        <h5 className="max-600:text-[15px] w-[50px] text-center bg-[#3f6ee6a9] rounded-md p-2 text-white">#{index + 1}</h5>
+                      <div className="flex  min-600:w-[300px] max-600:w-full max-600:px-3 gap-2 items-center min-w-[200px] max-600:min-w-[140px]">
                         <div>
                           <img
                             className="w-10 h-10 max-600:w-7 max-600:h-7 rounded-full"

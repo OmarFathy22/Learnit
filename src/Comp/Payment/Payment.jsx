@@ -21,7 +21,8 @@ export default function App() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [success , setSuccess] = useState(false)
-  const [value , setValue] = useState("**** **** **** ****")
+  const [value , setValue] = useState("")
+  const [username , setUsername] = useState("")
   const user = JSON.parse(localStorage.getItem("user"));
   const currCourse = JSON.parse(localStorage.getItem("currCourse"));
   const handleChange = (e) => {
@@ -29,6 +30,9 @@ export default function App() {
     if (regex.test(e.target.value)) {
       setValue(e.target.value);
     }
+  }
+  const handleChangeUser = (e) => {
+    setUsername(e.target.value)
   }
   const updateUserCourses = async (user, currCourse) => {
     const docRef = doc(db, "CoursesInProgress", user?.uid);
@@ -140,8 +144,8 @@ export default function App() {
                           size="lg"
                           onChange={handleChange}
                           maxLength={16}
+                          required
                           //accept only numbers 
-                        
                           value={value}
                         />
                       </div>
@@ -155,7 +159,9 @@ export default function App() {
                         id="form3"
                         type="text"
                         size="lg"
-                        value="Name"
+                        value={username}
+                        required
+                        onChange={handleChangeUser}
                       />
                     </MDBCol>
                     <MDBCol size="3">
@@ -165,6 +171,7 @@ export default function App() {
                         type="password"
                         size="lg"
                         placeholder="MM/YYYY"
+                        required
                       />
                     </MDBCol>
                     <MDBCol size="3">
@@ -174,6 +181,7 @@ export default function App() {
                         type="password"
                         size="lg"
                         placeholder="CVV"
+                        required
                       />
                     </MDBCol>
                   </MDBRow>

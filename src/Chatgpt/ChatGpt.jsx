@@ -1,14 +1,8 @@
-import React, { useEffect, useState } from "react";
-import OpenAI from "openai";
+import React, { useState } from "react";
 import "./style.css";
 import { IoIosSend } from "react-icons/io";
 import Loader from "../Comp/loader/LoadMessage";
-
-// Replace 'your-api-key' with your actual OpenAI API key
-const openai = new OpenAI({
-  apiKey: import.meta.env.VITE_API_KEY,
-  dangerouslyAllowBrowser: true,
-});
+import OpenAI from "openai";
 
 const ChatComponent = () => {
   const [userInput, setUserInput] = useState("");
@@ -35,17 +29,18 @@ const ChatComponent = () => {
       { role: "assistant", content: userInput },
     ]);
 
-    // Get ChatGPT response using the latest chat history
-    const completion = await openai.chat.completions.create({
-      messages: [
-        { role: "system", content: "You are a helpful assistant." },
-        ...chatHistory, // Use the latest chat history
-        { role: "user", content: userInput }, // Include the current user message
-      ],
-      model: "gpt-3.5-turbo",
+    // ********************** chat bot api call ********************** //
+    const openai = new OpenAI({
+      apiKey: import.meta.env.VITE_API_KEY,
+      dangerouslyAllowBrowser: true,
     });
 
-    // Update chat history with ChatGPT response
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: "user", content: userInput }],
+      model: "gpt-3.5-turbo",
+    });
+    // ********************** *********************** ********************** //
+
     setChatHistory((prevChatHistory) => prevChatHistory.slice(0, -1));
     setChatHistory((prevChatHistory) => [
       ...prevChatHistory,

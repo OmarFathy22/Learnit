@@ -26,7 +26,6 @@ const router = createBrowserRouter(
       <Route path="dashboard" element={<DashBoard />} />
       <Route path="payment" element={<Payment />} />
       <Route path="instructor" element={<InstructorForm />} />
-
       {/* <Route  path="dashboard" element={<DashBoard />} /> */}
     </Route>
   )
