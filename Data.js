@@ -1264,7 +1264,7 @@ export const courses = [
     id: 9,
     banner:
       "https://tse4.mm.bing.net/th?id=OIP.XZEUiIrDsNt8EXBteZucSQHaEv&pid=Api&P=0&h=220",
-    title: "UI/UX Design",
+    title: "UI-UX Design",
     desc: "UI/UX design refers to the process of creating user interfaces and experiences for digital products, such as websites, mobile apps, and software. It involves a combination of visual design, interaction design, and user research to ensure that the product is both visually appealing and easy to use.",
     chapters: UIUXdesign.length,
     content: UIUXdesign,

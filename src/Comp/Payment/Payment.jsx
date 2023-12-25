@@ -21,7 +21,7 @@ export default function App() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [success , setSuccess] = useState(false)
-  const [value , setValue] = useState("")
+  const [value , setValue] = useState("") 
   const [username , setUsername] = useState("")
   const user = JSON.parse(localStorage.getItem("user"));
   const currCourse = JSON.parse(localStorage.getItem("currCourse"));
